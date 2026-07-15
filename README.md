@@ -79,6 +79,7 @@ Edit the vault path:
 
 | Command | Description |
 |----------|-------------|
+| `obs init` | Create or update the configuration file |
 | `obs new "Note"` | Create a new note |
 | `obs new "Note" -t js` | Create a note from template |
 | `obs today` | Open or create today's daily note |
