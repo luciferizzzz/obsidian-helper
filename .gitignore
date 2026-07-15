@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Package manager
+package-lock.json
+npm-debug.log*
+
+# Packed package
+*.tgz
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Coverage
+coverage/
+
+# Logs
+logs/
+*.log
+
+# Temporary
+tmp/
+temp/
+
+# Build
+dist/
+build/
+
+config.json

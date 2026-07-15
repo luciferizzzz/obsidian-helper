@@ -1,0 +1,20 @@
+bin/
+  obs.js
+commands/
+  new.js
+  today.js
+  find.js
+  rename.js
+  stats.js
+  template.js
+templates/
+  js.md
+  css.md
+  html.md
+  book.md
+  daily.md
+utils/
+  config.js
+  file.js
+  markdown.js
+  vault.js
