@@ -15,6 +15,7 @@ A simple and fast CLI tool for managing your Obsidian Vault from the terminal.
 - 📂 Move notes
 - 📖 Open notes
 - 📊 Vault statistics
+- 📚 List all notes
 - 🧩 Template support
 - 🔗 Detect broken wiki links
 - 🩺 Vault health check
@@ -88,6 +89,7 @@ Edit the vault path:
 | `obs move "Note" Folder` | Move a note |
 | `obs open "Note"` | Open a note |
 | `obs stats` | Display vault statistics |
+| `obs list` | List all notes in vault |
 | `obs deadlinks` | Find broken wiki links |
 | `obs doctor` | Analyze vault health |
 
@@ -126,9 +128,11 @@ See **PROJECT_STRUCTURE.md** for more details.
 - [x] Dead Links
 - [x] Doctor
 
-### 🚧 Planned Features
+### ✅ Version 1.1
 
-- [ ] List notes
+- [x] List notes
+
+### 🚧 Planned Features
 - [ ] Tree view
 - [ ] Recent notes
 - [ ] Random note

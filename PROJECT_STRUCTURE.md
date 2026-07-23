@@ -13,6 +13,7 @@ obsidian-helper/
 │   ├── doctor.js              # Vault diagnostics
 │   ├── find.js                # Search notes
 │   ├── init.js                # Initialize configuration
+│   ├── list.js                # List all notes
 │   ├── move.js                # Move notes
 │   ├── new.js                 # Create new note
 │   ├── open.js                # Open note
@@ -64,6 +65,7 @@ Example:
 obs new
 obs today
 obs find
+obs list
 obs deadlinks
 ```
 
