@@ -26,6 +26,8 @@ const init = require("../commands/init");
 
 const newNote = require("../commands/new");
 
+const list = require("../commands/list");
+
 
 program
   .name("obs")
@@ -78,6 +80,11 @@ program
   .command("stats")
   .description("Menampilkan statistik vault")
   .action(stats);
+
+program
+  .command("list")
+  .description("Menampilkan semua note dalam vault")
+  .action(list);
 
 program
   .command("move <sourceFolder> <title> <targetFolder>")
