@@ -32,7 +32,7 @@ const list = require("../commands/list");
 program
   .name("obs")
   .description("Obsidian Helper CLI")
-  .version("1.0.0");
+  .version("1.1.0");
 
 program
   .command("hello")
