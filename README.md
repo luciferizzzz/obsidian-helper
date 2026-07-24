@@ -161,9 +161,9 @@ See **PROJECT_STRUCTURE.md** for more details.
 - [x] Backlinks
 - [x] Orphan notes
 - [x] graph
+- [x] Tag management
 
 ### 🚧 Planned Features
-- [ ] Tag management
 - [ ] Interactive mode
 
 ---
