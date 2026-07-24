@@ -19,6 +19,7 @@ A simple and fast CLI tool for managing your Obsidian Vault from the terminal.
 - 🧩 Template support
 - 🔗 Detect broken wiki links
 - 🩺 Vault health check
+- 🌳 Tree view
 
 ---
 
@@ -92,6 +93,7 @@ Edit the vault path:
 | `obs list` | List all notes in vault |
 | `obs deadlinks` | Find broken wiki links |
 | `obs doctor` | Analyze vault health |
+| `obs tree` | Display vault folder tree |
 
 ---
 
@@ -131,9 +133,9 @@ See **PROJECT_STRUCTURE.md** for more details.
 ### ✅ Version 1.1
 
 - [x] List notes
+- [x] Tree view
 
 ### 🚧 Planned Features
-- [ ] Tree view
 - [ ] Recent notes
 - [ ] Random note
 - [ ] Backlinks

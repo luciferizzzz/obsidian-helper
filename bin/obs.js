@@ -28,6 +28,7 @@ const newNote = require("../commands/new");
 
 const list = require("../commands/list");
 
+const tree = require("../commands/tree");
 
 program
   .name("obs")
@@ -100,5 +101,10 @@ program
   .command("doctor")
   .description("Analyze vault health")
   .action(doctor);
+
+program
+  .command("tree")
+  .description("Menampilkan struktur folder vault")
+  .action(tree);
 
 program.parse();

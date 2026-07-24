@@ -20,6 +20,7 @@ obsidian-helper/
 │   ├── rename.js              # Rename note
 │   ├── stats.js               # Vault statistics
 │   ├── template.js            # Manage templates
+│   ├── tree.js                # Vault folder tree
 │   └── today.js               # Open/create daily note
 │
 ├── templates/
