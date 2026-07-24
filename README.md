@@ -1,8 +1,18 @@
 # 📚 Obsidian Helper
 
-> A fast, lightweight, and open-source CLI tool for managing your Obsidian Vault directly from the terminal.
+<p align="center">
 
-Create notes, manage templates, inspect your knowledge graph, and organize your vault without leaving the command line.
+A fast, lightweight, and open-source CLI tool for managing your Obsidian Vault directly from the terminal.
+
+</p>
+
+<p align="center">
+
+![Version](https://img.shields.io/badge/version-v1.2-blue)
+![Node](https://img.shields.io/badge/node-%3E%3D18-green)
+![License](https://img.shields.io/badge/license-MIT-yellow)
+
+</p>
 
 ---
 
@@ -15,24 +25,24 @@ Create notes, manage templates, inspect your knowledge graph, and organize your 
 - Rename notes
 - Move notes
 - Open notes
-- Random note
 - Recent notes
+- Random note
 
 ### 📂 Vault Management
 
 - List all notes
 - Tree view
 - Vault statistics
-- Config management
+- Configuration management
 
 ### 🔍 Knowledge Management
 
 - Find notes
 - Backlinks
 - Orphan notes
-- Dead links detection
 - Graph analysis
 - Tag extraction
+- Broken wiki link detection
 
 ### 🧰 Utilities
 
@@ -41,7 +51,26 @@ Create notes, manage templates, inspect your knowledge graph, and organize your 
 
 ---
 
-## 🚀 Installation
+# 🎯 Why Obsidian Helper?
+
+Obsidian Helper is built for people who spend most of their time in the terminal.
+
+Instead of opening Obsidian just to create, rename, move, search, or inspect notes, you can perform common tasks directly from your command line.
+
+### Key Benefits
+
+- ⚡ Fast terminal workflow
+- 📂 Organize large vaults
+- 🔗 Analyze wiki-link relationships
+- 📊 Inspect vault health
+- 🧩 Template-based note creation
+- 🛠 Lightweight
+- 🔌 Easy to extend
+- 💻 Cross-platform friendly
+
+---
+
+# 🚀 Installation
 
 Clone the repository
 
@@ -61,7 +90,9 @@ Install dependencies
 npm install
 ```
 
-Link globally (optional)
+(Optional)
+
+Link globally
 
 ```bash
 npm link
@@ -75,9 +106,25 @@ obs --help
 
 ---
 
-## ⚙️ Configuration
+# 📋 Requirements
 
-Create your configuration
+- Node.js 18+
+- Obsidian
+- Windows
+- Linux
+- macOS
+
+---
+
+# ⚙️ Configuration
+
+Initialize configuration
+
+```bash
+obs init
+```
+
+Or manually copy
 
 ```bash
 copy config.example.json config.json
@@ -87,57 +134,69 @@ Edit
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace"
+    "vault": "D:\\Obsidian\\Workspace"
 }
-```
-
-Or simply use
-
-```bash
-obs init
 ```
 
 ---
 
-## 📚 Commands
+# 📚 Commands
 
 | Command | Description |
 |----------|-------------|
-| `obs init` | Initialize configuration |
-| `obs new "Note"` | Create a note |
-| `obs new "Note" -t js` | Create from template |
-| `obs today` | Open today's daily note |
+| `obs init` | Create or update configuration |
+| `obs new "Note"` | Create a new note |
+| `obs new "Note" -t js` | Create note from template |
+| `obs today` | Open or create today's note |
 | `obs find keyword` | Search notes |
 | `obs rename "Old" "New"` | Rename note |
 | `obs move "Note" Folder` | Move note |
 | `obs open "Note"` | Open note |
-| `obs stats` | Vault statistics |
-| `obs list` | List notes |
-| `obs tree` | Display folder tree |
+| `obs stats` | Display vault statistics |
+| `obs list` | List every note |
+| `obs tree` | Display vault tree |
 | `obs recent` | Show recent notes |
-| `obs random` | Pick a random note |
-| `obs deadlinks` | Find broken wiki links |
+| `obs random` | Open random note |
+| `obs deadlinks` | Detect broken wiki links |
 | `obs backlinks <note>` | Find backlinks |
 | `obs orphan` | Find orphan notes |
-| `obs doctor` | Vault health check |
-| `obs graph` | Graph analysis |
+| `obs doctor` | Analyze vault health |
+| `obs graph` | Analyze note relationships |
 | `obs tags` | Extract tags |
 | `obs config` | Configuration manager |
 
 ---
 
-# 📸 Example
+# 💡 Usage Examples
 
-Create a note
+Create a JavaScript note
 
 ```bash
 obs new "JavaScript" -t js
 ```
 
-Find a note
+Create today's daily note
+
+```bash
+obs today
+```
+
+Find notes
 
 ```bash
 obs find javascript
+```
+
+Rename a note
+
+```bash
+obs rename "Old Note" "New Note"
+```
+
+Move a note
+
+```bash
+obs move "JavaScript" Code
 ```
 
 Display vault statistics
@@ -146,60 +205,130 @@ Display vault statistics
 obs stats
 ```
 
-Open today's note
+Display folder tree
 
 ```bash
-obs today
+obs tree
+```
+
+Find backlinks
+
+```bash
+obs backlinks JavaScript
+```
+
+Analyze graph
+
+```bash
+obs graph
+```
+
+Show tags
+
+```bash
+obs tags
 ```
 
 ---
 
-## 📁 Project Structure
+# 🏗 Architecture
+
+The project is organized into reusable modules.
+
+```text
+             CLI Commands
+                  │
+                  ▼
+          Command Handlers
+                  │
+                  ▼
+          Utility Functions
+                  │
+                  ▼
+          Vault Scanner
+                  │
+                  ▼
+        Markdown Parser
+                  │
+                  ▼
+             Console Output
+```
+
+This layered architecture keeps commands small while allowing multiple features to reuse the same core logic.
+
+---
+
+# 📁 Project Structure
 
 ```text
 obsidian-helper/
+│
 ├── bin/
-├── checks/
+│   └── obs.js
+│
 ├── commands/
+│   ├── backlinks.js
+│   ├── config.js
+│   ├── deadlinks.js
+│   ├── doctor.js
+│   ├── find.js
+│   ├── graph.js
+│   ├── init.js
+│   ├── list.js
+│   ├── move.js
+│   ├── new.js
+│   ├── open.js
+│   ├── orphan.js
+│   ├── random.js
+│   ├── recent.js
+│   ├── rename.js
+│   ├── stats.js
+│   ├── tags.js
+│   ├── template.js
+│   ├── today.js
+│   └── tree.js
+│
 ├── templates/
+│
 ├── utils/
+│
 ├── config.example.json
 ├── package.json
 └── README.md
 ```
 
-More details:
-
-📄 **PROJECT_STRUCTURE.md**
+For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.md**.
 
 ---
 
-# 🛣 Roadmap
+# 🛣️ Roadmap
 
-## ✅ v1.0
+## ✅ Version 1.0
 
-- Core CLI
-- Notes
-- Templates
+- New Note
 - Daily Notes
-- Search
+- Find Notes
+- Rename Notes
+- Move Notes
+- Open Notes
 - Vault Statistics
-- Dead Links
-- Doctor
+- Template System
+- Dead Link Detection
+- Vault Doctor
 
 ---
 
-## ✅ v1.1
+## ✅ Version 1.1
 
 - List Notes
 - Tree View
 - Recent Notes
 - Random Note
-- Config Management
+- Configuration Management
 
 ---
 
-## ✅ v1.2
+## ✅ Version 1.2
 
 - Backlinks
 - Orphan Notes
@@ -208,14 +337,14 @@ More details:
 
 ---
 
-## 🚧 v1.3 (Planned)
+## 🚧 Version 1.3 (Planned)
 
 ### Productivity
 
 - Dashboard
 - Vault Report
-- Attachments Inspector
 - Todo Scanner
+- Attachment Inspector
 - Backup Vault
 - Archive Notes
 - Cleanup Command
@@ -228,21 +357,36 @@ More details:
 
 ---
 
-## 🚧 v2.0 (Planned)
+## 🚧 Version 2.0 (Planned)
 
 ### Interactive Mode
 
-```text
+Launch a full interactive terminal interface.
+
+```bash
 obs
 ```
 
-Launch an interactive terminal interface for navigating and managing your vault.
+Example
+
+```text
+📚 Obsidian Helper
+
+> New Note
+  Find Note
+  Open Note
+  Random Note
+  Stats
+  Graph
+  Doctor
+  Config
+```
 
 ### Plugin System
 
-Support installing custom commands as plugins.
+Install third-party commands as plugins.
 
-### Multi Vault
+### Multi Vault Support
 
 Switch between multiple Obsidian vaults.
 
@@ -256,22 +400,29 @@ Autocomplete commands and note names.
 
 ### Fuzzy Search
 
-Quickly locate notes using approximate matching.
+Search notes with typo tolerance.
 
 ---
 
-## 🤝 Contributing
+# 🤝 Contributing
 
 Contributions, bug reports, and feature requests are welcome.
 
-Please open an Issue or submit a Pull Request.
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Open a Pull Request.
 
 ---
 
-## 📄 License
+# ❤️ Support
 
-Licensed under the MIT License.
+If you find this project useful, consider giving it a ⭐ on GitHub.
+
+Every star helps the project reach more users and motivates future development.
 
 ---
 
-⭐ If you find this project useful, consider giving it a star on GitHub.
+# 📄 License
+
+This project is licensed under the MIT License.
