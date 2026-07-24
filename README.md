@@ -26,6 +26,7 @@ A simple and fast CLI tool for managing your Obsidian Vault from the terminal.
 - 🎲 Random note
 - ⚙️ Config management
 - 📊 Graph analysis
+- 🏷️ Tag extraction
 
 ---
 
@@ -110,6 +111,7 @@ Edit the vault path:
 | `obs config set vault` | Update vault path |
 | `obs config reset` | Reset config to default |
 | `obs graph` | Display vault graph analysis with link relationships |
+| `obs tags` | Extract and display tags from all notes |
 
 ---
 

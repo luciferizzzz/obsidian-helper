@@ -40,6 +40,8 @@ const orphan = require("../commands/orphan");
 
 const graph = require("../commands/graph");
 
+const tags = require("../commands/tags");
+
 const configCmd = require("../commands/config");
 
 program
@@ -123,6 +125,11 @@ program
   .command("graph")
   .description("Display vault graph analysis with link relationships")
   .action(graph);
+
+program
+  .command("tags")
+  .description("Extract and display tags from all notes")
+  .action(tags);
 
 program
   .command("doctor")

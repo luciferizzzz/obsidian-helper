@@ -25,6 +25,7 @@ obsidian-helper/
 │   ├── random.js              # Random note picker
 │   ├── rename.js              # Rename note
 │   ├── stats.js               # Vault statistics
+│   ├── tags.js                 # Extract and display tags from all notes
 │   ├── template.js            # Manage templates
 │   ├── tree.js                # Vault folder tree
 │   └── today.js               # Open/create daily note
