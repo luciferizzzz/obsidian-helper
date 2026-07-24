@@ -18,6 +18,7 @@ obsidian-helper/
 │   ├── list.js                # List all notes
 │   ├── move.js                # Move notes
 │   ├── new.js                 # Create new note
+│   ├── orphan.js              # Find notes with no incoming wiki links
 │   ├── open.js                # Open note
 │   ├── recent.js              # Recently modified notes
 │   ├── random.js              # Random note picker

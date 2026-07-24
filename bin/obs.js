@@ -36,6 +36,8 @@ const random = require("../commands/random");
 
 const backlinks = require("../commands/backlinks");
 
+const orphan = require("../commands/orphan");
+
 const configCmd = require("../commands/config");
 
 program
@@ -109,6 +111,11 @@ program
   .command("backlinks <note>")
   .description("Find notes that reference a given note via wiki links")
   .action(backlinks);
+
+program
+  .command("orphan")
+  .description("Find notes with no incoming wiki links")
+  .action(orphan);
 
 program
   .command("doctor")
