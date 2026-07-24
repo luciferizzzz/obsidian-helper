@@ -1,0 +1,111 @@
+const fs = require("fs");
+const path = require("path");
+
+const { getVaultPath } = require("../utils/vault");
+const { scanMarkdownFiles } = require("../utils/scanner");
+const { extractWikiLinks } = require("../utils/wikilinks");
+const { buildNoteIndex } = require("../utils/noteIndex");
+
+function graph() {
+    const vault = getVaultPath();
+
+    // 1. Scan every markdown file in the vault
+    const files = scanMarkdownFiles(vault);
+
+    // 2. Build an index of all note names (basename without .md)
+    const allNotes = buildNoteIndex(files);
+
+    // 3. Track incoming and outgoing links per note
+    const incoming = {};
+    const outgoing = {};
+    let totalLinks = 0;
+    let brokenCount = 0;
+
+    for (const file of files) {
+        const noteName = path.basename(file, ".md");
+        const content = fs.readFileSync(file, "utf-8");
+        const links = extractWikiLinks(content);
+
+        outgoing[noteName] = links.length;
+        totalLinks += links.length;
+
+        for (const link of links) {
+            const clean = link.split("#")[0].trim().toLowerCase();
+
+            // Check if the link is broken
+            let found = false;
+            for (const note of allNotes) {
+                if (note.toLowerCase() === clean) {
+                    if (!incoming[note]) {
+                        incoming[note] = 0;
+                    }
+                    incoming[note]++;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                brokenCount++;
+            }
+        }
+    }
+
+    // 4. Calculate orphan notes (notes with no incoming links)
+    const orphanNotes = [];
+    for (const note of allNotes) {
+        if (!incoming[note]) {
+            const file = files.find(
+                (f) => path.basename(f, ".md") === note
+            );
+            if (file) {
+                orphanNotes.push(
+                    path.relative(vault, file).split(path.sep).join("/")
+                );
+            }
+        }
+    }
+
+    // 5. Calculate average outgoing links
+    const noteCount = allNotes.size;
+    const avgLinks = noteCount > 0 ? (totalLinks / noteCount).toFixed(2) : "0.00";
+
+    // 6. Sort notes by outgoing link count (descending)
+    const sortedNotes = Object.entries(outgoing)
+        .sort((a, b) => b[1] - a[1]);
+
+    // 7. Display summary
+    console.log("\n📊 Vault Graph\n");
+
+    console.log(`Notes          : ${noteCount}`);
+    console.log(`Wiki Links     : ${totalLinks}`);
+    console.log(`Broken Links   : ${brokenCount}`);
+    console.log(`Orphan Notes   : ${orphanNotes.length}`);
+    console.log(`Average Links  : ${avgLinks}`);
+
+    // 8. Display most linked notes (top 5)
+    const mostLinked = sortedNotes.slice(0, 5);
+    if (mostLinked.length > 0) {
+        console.log("\nMost Linked Notes\n");
+        mostLinked.forEach(([note, count], i) => {
+            console.log(`${i + 1}. ${note} (${count})`);
+        });
+    }
+
+    // 9. Display least linked notes (bottom 5)
+    const leastLinked = sortedNotes.slice(-5).reverse();
+    if (leastLinked.length > 0) {
+        console.log("\nLeast Linked Notes\n");
+        leastLinked.forEach(([note, count], i) => {
+            console.log(`${i + 1}. ${note} (${count})`);
+        });
+    }
+
+    // 10. Display broken links if any
+    if (brokenCount > 0) {
+        console.log("\n------------------------");
+        console.log(`Total Broken Links: ${brokenCount}`);
+    }
+}
+
+module.exports = graph;

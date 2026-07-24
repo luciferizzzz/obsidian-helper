@@ -14,6 +14,7 @@ obsidian-helper/
 │   ├── deadlinks.js           # Find broken wiki links
 │   ├── doctor.js              # Vault diagnostics
 │   ├── find.js                # Search notes
+│   ├── graph.js               # Display vault graph analysis with link relationships
 │   ├── init.js                # Initialize configuration
 │   ├── list.js                # List all notes
 │   ├── move.js                # Move notes

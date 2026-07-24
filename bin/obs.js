@@ -38,6 +38,8 @@ const backlinks = require("../commands/backlinks");
 
 const orphan = require("../commands/orphan");
 
+const graph = require("../commands/graph");
+
 const configCmd = require("../commands/config");
 
 program
@@ -116,6 +118,11 @@ program
   .command("orphan")
   .description("Find notes with no incoming wiki links")
   .action(orphan);
+
+program
+  .command("graph")
+  .description("Display vault graph analysis with link relationships")
+  .action(graph);
 
 program
   .command("doctor")
