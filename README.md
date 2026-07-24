@@ -134,7 +134,7 @@ Edit
 
 ```json
 {
-    "vault": "D:\\Obsidian\\Workspace"
+    "vault": "Drivers:\\Obsidian\\Your_Vault"
 }
 ```
 
