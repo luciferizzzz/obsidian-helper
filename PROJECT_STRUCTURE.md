@@ -17,6 +17,7 @@ obsidian-helper/
 │   ├── move.js                # Move notes
 │   ├── new.js                 # Create new note
 │   ├── open.js                # Open note
+│   ├── recent.js              # Recently modified notes
 │   ├── rename.js              # Rename note
 │   ├── stats.js               # Vault statistics
 │   ├── template.js            # Manage templates

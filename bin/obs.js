@@ -30,6 +30,8 @@ const list = require("../commands/list");
 
 const tree = require("../commands/tree");
 
+const recent = require("../commands/recent");
+
 program
   .name("obs")
   .description("Obsidian Helper CLI")
@@ -106,5 +108,10 @@ program
   .command("tree")
   .description("Menampilkan struktur folder vault")
   .action(tree);
+
+program
+  .command("recent [limit]")
+  .description("Menampilkan note yang baru dimodifikasi")
+  .action(recent);
 
 program.parse();
