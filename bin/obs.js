@@ -34,6 +34,8 @@ const recent = require("../commands/recent");
 
 const random = require("../commands/random");
 
+const configCmd = require("../commands/config");
+
 program
   .name("obs")
   .description("Obsidian Helper CLI")
@@ -121,5 +123,10 @@ program
   .description("Pilih note secara acak")
   .option("--open", "Buka note yang dipilih")
   .action(random);
+
+program
+  .command("config [subcommand]")
+  .description("Manage configuration (show, set vault, reset)")
+  .action(configCmd);
 
 program.parse();

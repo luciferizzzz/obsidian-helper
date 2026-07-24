@@ -22,6 +22,7 @@ A simple and fast CLI tool for managing your Obsidian Vault from the terminal.
 - 🌳 Tree view
 - 🕒 Recent notes
 - 🎲 Random note
+- ⚙️ Config management
 
 ---
 
@@ -99,6 +100,10 @@ Edit the vault path:
 | `obs recent [limit]` | Show recently modified notes |
 | `obs random` | Pick a random note |
 | `obs random --open` | Pick and open a random note |
+| `obs config` | Show current configuration |
+| `obs config show` | Display raw config.json |
+| `obs config set vault` | Update vault path |
+| `obs config reset` | Reset config to default |
 
 ---
 
@@ -141,6 +146,7 @@ See **PROJECT_STRUCTURE.md** for more details.
 - [x] Tree view
 - [x] Recent notes
 - [x] Random note
+- [x] Config management
 
 ### 🚧 Planned Features
 - [ ] Backlinks
