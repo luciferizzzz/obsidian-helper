@@ -160,6 +160,7 @@ See **PROJECT_STRUCTURE.md** for more details.
 
 - [x] Backlinks
 - [x] Orphan notes
+- [x] graph
 
 ### 🚧 Planned Features
 - [ ] Tag management
