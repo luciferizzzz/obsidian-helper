@@ -21,6 +21,7 @@ A simple and fast CLI tool for managing your Obsidian Vault from the terminal.
 - 🩺 Vault health check
 - 🌳 Tree view
 - 🕒 Recent notes
+- 🎲 Random note
 
 ---
 
@@ -96,6 +97,8 @@ Edit the vault path:
 | `obs doctor` | Analyze vault health |
 | `obs tree` | Display vault folder tree |
 | `obs recent [limit]` | Show recently modified notes |
+| `obs random` | Pick a random note |
+| `obs random --open` | Pick and open a random note |
 
 ---
 
@@ -137,9 +140,9 @@ See **PROJECT_STRUCTURE.md** for more details.
 - [x] List notes
 - [x] Tree view
 - [x] Recent notes
+- [x] Random note
 
 ### 🚧 Planned Features
-- [ ] Random note
 - [ ] Backlinks
 - [ ] Orphan notes
 - [ ] Tag management

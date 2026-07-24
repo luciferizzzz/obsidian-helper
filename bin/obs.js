@@ -32,6 +32,8 @@ const tree = require("../commands/tree");
 
 const recent = require("../commands/recent");
 
+const random = require("../commands/random");
+
 program
   .name("obs")
   .description("Obsidian Helper CLI")
@@ -113,5 +115,11 @@ program
   .command("recent [limit]")
   .description("Menampilkan note yang baru dimodifikasi")
   .action(recent);
+
+program
+  .command("random")
+  .description("Pilih note secara acak")
+  .option("--open", "Buka note yang dipilih")
+  .action(random);
 
 program.parse();

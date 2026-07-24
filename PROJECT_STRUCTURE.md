@@ -18,6 +18,7 @@ obsidian-helper/
 │   ├── new.js                 # Create new note
 │   ├── open.js                # Open note
 │   ├── recent.js              # Recently modified notes
+│   ├── random.js              # Random note picker
 │   ├── rename.js              # Rename note
 │   ├── stats.js               # Vault statistics
 │   ├── template.js            # Manage templates
