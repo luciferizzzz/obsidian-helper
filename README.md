@@ -18,6 +18,7 @@ A simple and fast CLI tool for managing your Obsidian Vault from the terminal.
 - 📚 List all notes
 - 🧩 Template support
 - 🔗 Detect broken wiki links
+- 🔙 Backlinks finder
 - 🩺 Vault health check
 - 🌳 Tree view
 - 🕒 Recent notes
@@ -95,6 +96,7 @@ Edit the vault path:
 | `obs stats` | Display vault statistics |
 | `obs list` | List all notes in vault |
 | `obs deadlinks` | Find broken wiki links |
+| `obs backlinks <note>` | Find notes referencing a given note |
 | `obs doctor` | Analyze vault health |
 | `obs tree` | Display vault folder tree |
 | `obs recent [limit]` | Show recently modified notes |
@@ -148,8 +150,11 @@ See **PROJECT_STRUCTURE.md** for more details.
 - [x] Random note
 - [x] Config management
 
+### ✅ Version 1.2
+
+- [x] Backlinks
+
 ### 🚧 Planned Features
-- [ ] Backlinks
 - [ ] Orphan notes
 - [ ] Tag management
 - [ ] Interactive mode

@@ -34,6 +34,8 @@ const recent = require("../commands/recent");
 
 const random = require("../commands/random");
 
+const backlinks = require("../commands/backlinks");
+
 const configCmd = require("../commands/config");
 
 program
@@ -102,6 +104,11 @@ program
   .command("deadlinks")
   .description("Check broken wiki links")
   .action(deadlinks);
+
+program
+  .command("backlinks <note>")
+  .description("Find notes that reference a given note via wiki links")
+  .action(backlinks);
 
 program
   .command("doctor")

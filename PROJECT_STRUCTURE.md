@@ -9,6 +9,7 @@ obsidian-helper/
 │   └── deadlinks.js           # Vault health checks
 │
 ├── commands/
+│   ├── backlinks.js            # Find notes referencing a given note
 │   ├── config.js              # Configuration manager
 │   ├── deadlinks.js           # Find broken wiki links
 │   ├── doctor.js              # Vault diagnostics
