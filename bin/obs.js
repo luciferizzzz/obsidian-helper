@@ -44,6 +44,8 @@ const tags = require("../commands/tags");
 
 const configCmd = require("../commands/config");
 
+const aiWrite = require("../commands/ai");
+
 program
   .name("obs")
   .description("Obsidian Helper CLI")
@@ -156,5 +158,15 @@ program
   .command("config [subcommand]")
   .description("Manage configuration (show, set vault, reset)")
   .action(configCmd);
+
+program
+  .command("ai [prompt]")
+  .description("Bikin catatan pake AI (Qwen 2.5 via Ollama)")
+  .option("-t, --title <title>", "Judul catatan", "AI Note")
+  .option("-f, --folder <folder>", "Folder di vault", "AI")
+  .option("--file <path>", "Path file langsung (relative dari vault atau absolute)")
+  .option("--daily", "Catat ke daily note hari ini")
+  .option("--ask", "Interactive mode - AI tanya kamu dulu")
+  .action(aiWrite);
 
 program.parse();

@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian Vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.2-blue)
+![Version](https://img.shields.io/badge/version-v1.3-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -49,6 +49,13 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian Vault d
 - Template system
 - Vault health check (Doctor)
 
+### 🤖 AI (Qwen 2.5 via Ollama)
+
+- AI note writing
+- Interactive daily journaling
+- Direct file writing
+- Daily note integration
+
 ---
 
 # 🎯 Why Obsidian Helper?
@@ -75,7 +82,7 @@ Instead of opening Obsidian just to create, rename, move, search, or inspect not
 Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/obsidian-helper.git
+git clone https://github.com/luciferizzzz/obsidian-helper.git
 ```
 
 Enter the project
@@ -110,9 +117,8 @@ obs --help
 
 - Node.js 18+
 - Obsidian
-- Windows
-- Linux
-- macOS
+- Windows / Linux / macOS
+- [Ollama](https://ollama.com) (for AI features)
 
 ---
 
@@ -164,6 +170,8 @@ Edit
 | `obs graph` | Analyze note relationships |
 | `obs tags` | Extract tags |
 | `obs config` | Configuration manager |
+| `obs ai <prompt>` | Create note with AI |
+| `obs ai --ask --daily` | Interactive daily journal |
 
 ---
 
@@ -229,6 +237,62 @@ Show tags
 obs tags
 ```
 
+Create a note with AI
+
+```bash
+obs ai "jelaskan closures dalam JavaScript"
+```
+
+Create note with AI in specific folder
+
+```bash
+obs ai "tips productive remote work" -t "Remote Work" -f "Notes/Productivity"
+```
+
+Write AI content directly to a file
+
+```bash
+obs ai "rangkuman bab 3 Clean Code" --file "Reading/Clean Code/Bab 3.md"
+```
+
+Interactive daily journal with AI
+
+```bash
+obs ai --ask --daily
+```
+
+---
+
+# 🤖 AI Setup
+
+Obsidian Helper integrates with **Ollama** for local AI-powered note writing.
+
+### Prerequisites
+
+1. Install [Ollama](https://ollama.com)
+2. Pull the model:
+
+```bash
+ollama pull qwen2.5-coder:7b
+```
+
+3. Make sure Ollama is running:
+
+```bash
+ollama serve
+```
+
+### AI Commands
+
+| Command | Description |
+|---------|-------------|
+| `obs ai <prompt>` | Create AI note in `AI/` folder |
+| `obs ai <prompt> -t "Title"` | Custom title |
+| `obs ai <prompt> -f "Folder"` | Custom folder |
+| `obs ai <prompt> --file <path>` | Write to specific file |
+| `obs ai <prompt> --daily` | Append to today's daily note |
+| `obs ai --ask --daily` | Interactive mode: AI asks, you answer, note is created |
+
 ---
 
 # 🏗 Architecture
@@ -267,6 +331,7 @@ obsidian-helper/
 │   └── obs.js
 │
 ├── commands/
+│   ├── ai.js
 │   ├── backlinks.js
 │   ├── config.js
 │   ├── deadlinks.js
@@ -291,6 +356,8 @@ obsidian-helper/
 ├── templates/
 │
 ├── utils/
+│   ├── ollama.js
+│   └── ...
 │
 ├── config.example.json
 ├── package.json
@@ -337,7 +404,16 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 
 ---
 
-## 🚧 Version 1.3 (Planned)
+## ✅ Version 1.3
+
+- AI Note Writing (Qwen 2.5 via Ollama)
+- Interactive Daily Journal
+- Direct File Writing
+- Daily Note AI Integration
+
+---
+
+## 🚧 Version 1.4 (Planned)
 
 ### Productivity
 

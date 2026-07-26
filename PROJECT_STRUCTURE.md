@@ -9,6 +9,7 @@ obsidian-helper/
 │   └── deadlinks.js           # Vault health checks
 │
 ├── commands/
+│   ├── ai.js                 # AI note writing (Ollama + Qwen 2.5)
 │   ├── backlinks.js            # Find notes referencing a given note
 │   ├── config.js              # Configuration manager
 │   ├── deadlinks.js           # Find broken wiki links
@@ -42,6 +43,7 @@ obsidian-helper/
 │   ├── file.js                # File utilities
 │   ├── markdown.js            # Template parser
 │   ├── noteIndex.js           # Note index builder
+│   ├── ollama.js              # Ollama API client
 │   ├── scanner.js             # Vault scanner
 │   ├── vault.js               # Vault utilities
 │   └── wikilinks.js           # Wiki link parser
@@ -75,6 +77,7 @@ obs today
 obs find
 obs list
 obs deadlinks
+obs ai "belajar closures"
 ```
 
 ---
@@ -107,6 +110,7 @@ Includes:
 - File operations
 - Wiki link parsing
 - Note indexing
+- Ollama API client (AI features)
 
 ---
 
