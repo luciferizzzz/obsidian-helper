@@ -2,7 +2,7 @@
 
 <p align="center">
 
-A fast, lightweight, and open-source CLI tool for managing your Obsidian Vault directly from the terminal.
+A fast, lightweight, and open-source CLI tool for managing your Obsidian vault directly from the terminal.
 
 </p>
 
@@ -21,7 +21,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian Vault d
 ### 📄 Notes
 
 - Create new notes
-- Daily Notes
+- Daily notes
 - Rename notes
 - Move notes
 - Open notes
@@ -58,7 +58,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian Vault d
 
 ---
 
-# 🎯 Why Obsidian Helper?
+## 🎯 Why Obsidian Helper?
 
 Obsidian Helper is built for people who spend most of their time in the terminal.
 
@@ -77,35 +77,33 @@ Instead of opening Obsidian just to create, rename, move, search, or inspect not
 
 ---
 
-# 🚀 Installation
+## 🚀 Installation
 
-Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/luciferizzzz/obsidian-helper.git
 ```
 
-Enter the project
+Enter the project directory:
 
 ```bash
 cd obsidian-helper
 ```
 
-Install dependencies
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-(Optional)
-
-Link globally
+(Optional) Link globally for system-wide access:
 
 ```bash
 npm link
 ```
 
-Verify installation
+Verify the installation:
 
 ```bash
 obs --help
@@ -113,7 +111,7 @@ obs --help
 
 ---
 
-# 📋 Requirements
+## 📋 Requirements
 
 - Node.js 18+
 - Obsidian
@@ -122,140 +120,139 @@ obs --help
 
 ---
 
-# ⚙️ Configuration
+## ⚙️ Configuration
 
-Initialize configuration
+Initialize configuration interactively:
 
 ```bash
 obs init
 ```
 
-Or manually copy
+Or copy the example configuration manually:
 
 ```bash
-copy config.example.json config.json
+copy config-example.json config.json
 ```
 
-Edit
+Edit `config.json` with your vault path:
 
 ```json
 {
-    "vault": "Drivers:\\Obsidian\\Your_Vault"
+    "vault": "D:\\Your\\Obsidian\\Vault"
 }
 ```
 
 ---
 
-# 📚 Commands
+## 📚 Commands
 
 | Command | Description |
-|----------|-------------|
+| --- | --- |
 | `obs init` | Create or update configuration |
-| `obs new "Note"` | Create a new note |
-| `obs new "Note" -t js` | Create note from template |
-| `obs today` | Open or create today's note |
-| `obs find keyword` | Search notes |
-| `obs rename "Old" "New"` | Rename note |
-| `obs move "Note" Folder` | Move note |
-| `obs open "Note"` | Open note |
+| `obs new <folder> <title> -t <template>` | Create a new note (with optional template) |
+| `obs today` | Open or create today's daily note |
+| `obs find <keywords>` | Search notes by keyword |
+| `obs rename <folder> <old> <new>` | Rename a note |
+| `obs move <source> <title> <target>` | Move a note to another folder |
+| `obs open <keyword>` | Open a note |
 | `obs stats` | Display vault statistics |
-| `obs list` | List every note |
-| `obs tree` | Display vault tree |
-| `obs recent` | Show recent notes |
-| `obs random` | Open random note |
+| `obs list` | List every note in the vault |
+| `obs tree` | Display vault folder tree |
+| `obs recent [limit]` | Show recently modified notes |
+| `obs random --open` | Open a random note |
 | `obs deadlinks` | Detect broken wiki links |
-| `obs backlinks <note>` | Find backlinks |
-| `obs orphan` | Find orphan notes |
+| `obs backlinks <note>` | Find notes that reference a given note |
+| `obs orphan` | Find notes with no incoming wiki links |
 | `obs doctor` | Analyze vault health |
 | `obs graph` | Analyze note relationships |
-| `obs tags` | Extract tags |
-| `obs config` | Configuration manager |
-| `obs ai <prompt>` | Create note with AI |
-| `obs ai --ask --daily` | Interactive daily journal |
+| `obs tags` | Extract tags from all notes |
+| `obs config [subcommand]` | Manage configuration (show, set vault, reset) |
+| `obs ai <prompt>` | Create a note with AI |
+| `obs ai --ask --daily` | Interactive daily journal with AI |
 
 ---
 
-# 💡 Usage Examples
+## 💡 Usage Examples
 
-Create a JavaScript note
+Create a JavaScript note:
 
 ```bash
-obs new "JavaScript" -t js
+obs new Code "JavaScript" -t js
 ```
 
-Create today's daily note
+Create today's daily note:
 
 ```bash
 obs today
 ```
 
-Find notes
+Find notes:
 
 ```bash
 obs find javascript
 ```
 
-Rename a note
+Rename a note:
 
 ```bash
-obs rename "Old Note" "New Note"
+obs rename Code "Old Note" "New Note"
 ```
 
-Move a note
+Move a note to another folder:
 
 ```bash
-obs move "JavaScript" Code
+obs move Code "JavaScript" Projects
 ```
 
-Display vault statistics
+Display vault statistics:
 
 ```bash
 obs stats
 ```
 
-Display folder tree
+Display folder tree:
 
 ```bash
 obs tree
 ```
 
-Find backlinks
+Find backlinks:
 
 ```bash
 obs backlinks JavaScript
 ```
 
-Analyze graph
+Analyze graph:
 
 ```bash
 obs graph
 ```
 
-Show tags
+Show tags:
 
 ```bash
 obs tags
 ```
 
-Create a note with AI
+Create a note with AI:
 
 ```bash
-obs ai "jelaskan closures dalam JavaScript"
+obs ai "explain closures in JavaScript"
 ```
 
-Create note with AI in specific folder
+Create an AI note in a specific folder:
 
 ```bash
-obs ai "tips productive remote work" -t "Remote Work" -f "Notes/Productivity"
+obs ai "remote work productivity tips" -t "Remote Work" -f "Notes/Productivity"
 ```
 
-Write AI content directly to a file
+Write AI content directly to a file:
 
 ```bash
-obs ai "rangkuman bab 3 Clean Code" --file "Reading/Clean Code/Bab 3.md"
+obs ai "summary of chapter 3 Clean Code" --file "Reading/Clean Code/Chapter 3.md"
 ```
 
-Interactive daily journal with AI
+Interactive daily journal with AI:
 
 ```bash
 obs ai --ask --daily
@@ -263,14 +260,14 @@ obs ai --ask --daily
 
 ---
 
-# 🤖 AI Setup
+## 🤖 AI Setup
 
 Obsidian Helper integrates with **Ollama** for local AI-powered note writing.
 
 ### Prerequisites
 
-1. Install [Ollama](https://ollama.com)
-2. Pull the model:
+1. Install [Ollama](https://ollama.com).
+2. Pull the required model:
 
 ```bash
 ollama pull qwen2.5-coder:7b
@@ -285,50 +282,55 @@ ollama serve
 ### AI Commands
 
 | Command | Description |
-|---------|-------------|
-| `obs ai <prompt>` | Create AI note in `AI/` folder |
-| `obs ai <prompt> -t "Title"` | Custom title |
-| `obs ai <prompt> -f "Folder"` | Custom folder |
-| `obs ai <prompt> --file <path>` | Write to specific file |
+| --- | --- |
+| `obs ai <prompt>` | Create an AI note in the `AI/` folder |
+| `obs ai <prompt> -t "Title"` | Set a custom title |
+| `obs ai <prompt> -f "Folder"` | Save to a custom folder |
+| `obs ai <prompt> --file <path>` | Write to a specific file |
 | `obs ai <prompt> --daily` | Append to today's daily note |
 | `obs ai --ask --daily` | Interactive mode: AI asks, you answer, note is created |
 
 ---
 
-# 🏗 Architecture
+## 🏗 Architecture
 
-The project is organized into reusable modules.
+The project is organized into reusable modules following a layered architecture:
 
 ```text
-             CLI Commands
-                  │
-                  ▼
-          Command Handlers
-                  │
-                  ▼
-          Utility Functions
-                  │
-                  ▼
-          Vault Scanner
-                  │
-                  ▼
-        Markdown Parser
-                  │
-                  ▼
-             Console Output
+             CLI Input
+                │
+                ▼
+         Command Handlers
+                │
+                ▼
+         Checks / Utilities
+                │
+                ▼
+           Vault Files
 ```
 
-This layered architecture keeps commands small while allowing multiple features to reuse the same core logic.
+Each layer has a single responsibility:
+
+- **CLI** handles user input and argument parsing.
+- **Commands** coordinate actions and delegate to checks or utilities.
+- **Checks** analyze vault data and return structured results.
+- **Utilities** provide reusable helpers for file I/O, markdown parsing, and more.
+- **Vault** stores the actual notes on disk.
+
+This separation keeps commands small while allowing multiple features to reuse the same core logic.
 
 ---
 
-# 📁 Project Structure
+## 📁 Project Structure
 
 ```text
 obsidian-helper/
 │
 ├── bin/
 │   └── obs.js
+│
+├── checks/
+│   └── deadlinks.js
 │
 ├── commands/
 │   ├── ai.js
@@ -354,13 +356,26 @@ obsidian-helper/
 │   └── tree.js
 │
 ├── templates/
+│   ├── book.md
+│   ├── css.md
+│   ├── daily.md
+│   ├── html.md
+│   └── js.md
 │
 ├── utils/
+│   ├── config.js
+│   ├── file.js
+│   ├── markdown.js
+│   ├── noteIndex.js
 │   ├── ollama.js
-│   └── ...
+│   ├── scanner.js
+│   ├── vault.js
+│   └── wikilinks.js
 │
-├── config.example.json
+├── config-example.json
+├── obs.bat
 ├── package.json
+├── PROJECT_STRUCTURE.md
 └── README.md
 ```
 
@@ -368,74 +383,74 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 
 ---
 
-# 🛣️ Roadmap
+## 🛣️ Roadmap
 
-## ✅ Version 1.0
+### ✅ Version 1.0
 
-- New Note
-- Daily Notes
-- Find Notes
-- Rename Notes
-- Move Notes
-- Open Notes
-- Vault Statistics
-- Template System
-- Dead Link Detection
-- Vault Doctor
-
----
-
-## ✅ Version 1.1
-
-- List Notes
-- Tree View
-- Recent Notes
-- Random Note
-- Configuration Management
+- New note
+- Daily notes
+- Find notes
+- Rename notes
+- Move notes
+- Open notes
+- Vault statistics
+- Template system
+- Dead link detection
+- Vault doctor
 
 ---
 
-## ✅ Version 1.2
+### ✅ Version 1.1
+
+- List notes
+- Tree view
+- Recent notes
+- Random note
+- Configuration management
+
+---
+
+### ✅ Version 1.2
 
 - Backlinks
-- Orphan Notes
-- Graph Analysis
-- Tag Management
+- Orphan notes
+- Graph analysis
+- Tag management
 
 ---
 
-## ✅ Version 1.3
+### ✅ Version 1.2.1 (AI Integration)
 
-- AI Note Writing (Qwen 2.5 via Ollama)
-- Interactive Daily Journal
-- Direct File Writing
-- Daily Note AI Integration
+- AI note writing (Qwen 2.5 via Ollama)
+- Interactive daily journal
+- Direct file writing
+- Daily note AI integration
 
 ---
 
-## 🚧 Version 1.4 (Planned)
+### 🚧 Version 1.3 (Planned)
 
-### Productivity
+#### Productivity
 
 - Dashboard
-- Vault Report
-- Todo Scanner
-- Attachment Inspector
-- Backup Vault
-- Archive Notes
-- Cleanup Command
+- Vault report
+- Todo scanner
+- Attachment inspector
+- Backup vault
+- Archive notes
+- Cleanup command
 
-### Export
+#### Export
 
-- Markdown Report
-- HTML Report
-- JSON Export
+- Markdown report
+- HTML report
+- JSON export
 
 ---
 
-## 🚧 Version 2.0 (Planned)
+### 🚧 Version 2.0 (Planned)
 
-### Interactive Mode
+#### Interactive Mode
 
 Launch a full interactive terminal interface.
 
@@ -443,7 +458,7 @@ Launch a full interactive terminal interface.
 obs
 ```
 
-Example
+Example:
 
 ```text
 📚 Obsidian Helper
@@ -458,40 +473,40 @@ Example
   Config
 ```
 
-### Plugin System
+#### Plugin System
 
 Install third-party commands as plugins.
 
-### Multi Vault Support
+#### Multi Vault Support
 
 Switch between multiple Obsidian vaults.
 
-### Watch Mode
+#### Watch Mode
 
 Automatically monitor vault changes.
 
-### Shell Autocomplete
+#### Shell Autocomplete
 
 Autocomplete commands and note names.
 
-### Fuzzy Search
+#### Fuzzy Search
 
 Search notes with typo tolerance.
 
 ---
 
-# 🤝 Contributing
+## 🤝 Contributing
 
 Contributions, bug reports, and feature requests are welcome.
 
 1. Fork the repository.
 2. Create a feature branch.
 3. Commit your changes.
-4. Open a Pull Request.
+4. Open a pull request.
 
 ---
 
-# ❤️ Support
+## ❤️ Support
 
 If you find this project useful, consider giving it a ⭐ on GitHub.
 
@@ -499,6 +514,6 @@ Every star helps the project reach more users and motivates future development.
 
 ---
 
-# 📄 License
+## 📄 License
 
 This project is licensed under the MIT License.
