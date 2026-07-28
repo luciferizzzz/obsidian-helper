@@ -6,12 +6,16 @@ const { createFile } = require("../utils/file");
 const { getVaultPath } = require("../utils/vault");
 const { parseTemplate } = require("../utils/markdown");
 
-const SYSTEM_PROMPT = `Kamu adalah asisten yang bantu nulis catatan buat Obsidian.
-Pakai bahasa Indonesia yang santai dan gaul, JANGAN kaku atau formal.
-Tulis kayak lagi ngobrol sama temen, tapi tetep isi nya bermanfaat dan jelas.
-Gunakan markdown formatting yang cocok buat Obsidian (heading, bullet points, bold, dll).
-Jangan pakai frontmatter atau YAML.
-Langsung mulai nulis isinya aja.`;
+const SYSTEM_PROMPT = `Tulis catatan markdown buat Obsidian.
+
+Aturan wajib:
+- Bahasa Indonesia santai, ngobrol kayak temen
+- JANGAN pakai kata "kamu", "anda", "kalian" - langsung ke intinya aja
+- JANGAN pembukaan kayak "Tentu", "Oke", "Baik" - langsung mulai isinya
+- Heading pakai ## dan ###
+- Gunakan bullet points, bold, code blocks kalau perlu
+- Jangan pakai frontmatter atau YAML
+- Isinya harus bermanfaat dan jelas`;
 
 async function askUser() {
     const answers = {};
@@ -41,6 +45,16 @@ Cerita menarik: ${answers.cerita}
 Mood hari ini: ${answers.mood}
 
 Rangkum jadi catatan yang rapi, tetep pake bahasa santai.`;
+}
+
+function uniquePath(filePath) {
+    if (!fs.existsSync(filePath)) return filePath;
+    const dir = path.dirname(filePath);
+    const ext = path.extname(filePath);
+    const base = path.basename(filePath, ext);
+    let i = 2;
+    while (fs.existsSync(path.join(dir, `${base} ${i}${ext}`))) i++;
+    return path.join(dir, `${base} ${i}${ext}`);
 }
 
 async function aiWrite(prompt, options) {
@@ -100,17 +114,20 @@ async function aiWrite(prompt, options) {
         } else {
             const title = options.title || "AI Note";
             const folder = options.folder || "AI";
-            filePath = path.join(vault, folder, `${title}.md`);
+            filePath = uniquePath(path.join(vault, folder, `${title}.md`));
             createFile(filePath, content);
             console.log("✅ Catatan berhasil dibuat!");
         }
 
         console.log("📁 " + filePath);
     } catch (err) {
-        if (err.message.includes("ECONNREFUSED")) {
+        const msg = err.message || "Unknown error";
+        if (msg.includes("ECONNREFUSED") || msg.includes("connect ke Ollama")) {
             console.log("❌ Ollama belum jalan. Jalankan `ollama serve` dulu.");
+        } else if (msg.includes("timeout")) {
+            console.log("❌ Response timeout. Coba prompt yang lebih pendek.");
         } else {
-            console.log("❌ " + err.message);
+            console.log("❌ " + msg);
         }
     }
 }
