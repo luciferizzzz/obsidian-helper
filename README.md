@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.3-blue)
+![Version](https://img.shields.io/badge/version-v1.2.2-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -52,9 +52,9 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 ### 🤖 AI (Qwen 2.5 via Ollama)
 
 - AI note writing
-- Interactive daily journaling
+- Interactive daily journaling with deep questions
 - Direct file writing
-- Daily note integration
+- Daily note integration (fills ##Target, ##Catatan, ##Selesai)
 
 ---
 
@@ -169,6 +169,15 @@ Edit `config.json` with your vault path:
 | `obs config [subcommand]` | Manage configuration (show, set vault, reset) |
 | `obs ai <prompt>` | Create a note with AI |
 | `obs ai --ask --daily` | Interactive daily journal with AI |
+
+---
+
+## 📌 Version 1.2.2 (Mini Update)
+
+- **Deep questions** — `--ask` mode now asks 7 questions (target, selesai, syukur, refleksi)
+- **All sections filled** — AI fills `## Target Hari Ini`, `## Catatan`, `## Selesai`
+- **Template-aware** — content placed inside template sections, not appended at end
+- **Smart existing note handling** — existing daily notes also get content in correct sections
 
 ---
 
@@ -287,8 +296,8 @@ ollama serve
 | `obs ai <prompt> -t "Title"` | Set a custom title |
 | `obs ai <prompt> -f "Folder"` | Save to a custom folder |
 | `obs ai <prompt> --file <path>` | Write to a specific file |
-| `obs ai <prompt> --daily` | Append to today's daily note |
-| `obs ai --ask --daily` | Interactive mode: AI asks, you answer, note is created |
+| `obs ai <prompt> --daily` | Append AI content under ##Catatan in today's daily note |
+| `obs ai --ask --daily` | Interactive mode with 7 deep questions, fills all template sections |
 
 ---
 

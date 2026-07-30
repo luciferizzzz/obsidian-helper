@@ -9,7 +9,7 @@ obsidian-helper/
 │   └── deadlinks.js           # Vault health checks
 │
 ├── commands/
-│   ├── ai.js                 # AI note writing (Ollama + Qwen 2.5)
+│   ├── ai.js                 # AI note writing (Ollama + Qwen 2.5), template filling, deep journaling
 │   ├── backlinks.js            # Find notes referencing a given note
 │   ├── config.js              # Configuration manager
 │   ├── deadlinks.js           # Find broken wiki links
