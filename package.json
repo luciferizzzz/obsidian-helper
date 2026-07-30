@@ -1,10 +1,6 @@
 {
   "name": "obsidian-helper",
-<<<<<<< HEAD
-  "version": "1.2.1",
-=======
   "version": "1.2.2",
->>>>>>> 22dbd7a (v1.2.2 mini update: deep questions in --ask, AI fills all template sections (Target/Catatan/Selesai))
   "description": "",
   "main": "index.js",
   "bin": {
