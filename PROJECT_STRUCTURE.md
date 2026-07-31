@@ -6,12 +6,14 @@ obsidian-helper/
 │   └── obs.js                 # CLI entry point
 │
 ├── checks/
-│   └── deadlinks.js           # Vault health checks
+│   ├── deadlinks.js           # Vault health checks
+│   └── vaultReport.js         # Vault data collector (dashboard & report)
 │
 ├── commands/
 │   ├── ai.js                 # AI note writing (Ollama + Qwen 2.5), template filling, deep journaling
 │   ├── backlinks.js            # Find notes referencing a given note
 │   ├── config.js              # Configuration manager
+│   ├── dashboard.js           # Daily vault activity overview
 │   ├── deadlinks.js           # Find broken wiki links
 │   ├── doctor.js              # Vault diagnostics
 │   ├── find.js                # Search notes
@@ -23,6 +25,8 @@ obsidian-helper/
 │   ├── orphan.js              # Find notes with no incoming wiki links
 │   ├── open.js                # Open note
 │   ├── recent.js              # Recently modified notes
+│   ├── rename.js              # Rename note
+│   ├── report.js              # Comprehensive vault report
 │   ├── random.js              # Random note picker
 │   ├── rename.js              # Rename note
 │   ├── stats.js               # Vault statistics

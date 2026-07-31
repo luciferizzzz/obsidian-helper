@@ -46,6 +46,10 @@ const configCmd = require("../commands/config");
 
 const aiWrite = require("../commands/ai");
 
+const dashboard = require("../commands/dashboard");
+
+const report = require("../commands/report");
+
 program
   .name("obs")
   .description("Obsidian Helper CLI")
@@ -168,5 +172,15 @@ program
   .option("--daily", "Catat ke daily note hari ini")
   .option("--ask", "Interactive mode - AI tanya kamu dulu")
   .action(aiWrite);
+
+program
+  .command("dashboard")
+  .description("Ringkasan aktivitas vault hari ini")
+  .action(dashboard);
+
+program
+  .command("report")
+  .description("Laporan vault terperinci")
+  .action(report);
 
 program.parse();

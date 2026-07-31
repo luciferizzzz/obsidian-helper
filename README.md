@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.2.2-blue)
+![Version](https://img.shields.io/badge/version-v1.3.0-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -34,6 +34,8 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 - Tree view
 - Vault statistics
 - Configuration management
+- Dashboard (daily activity overview)
+- Vault report (comprehensive analysis)
 
 ### 🔍 Knowledge Management
 
@@ -167,6 +169,8 @@ Edit `config.json` with your vault path:
 | `obs graph` | Analyze note relationships |
 | `obs tags` | Extract tags from all notes |
 | `obs config [subcommand]` | Manage configuration (show, set vault, reset) |
+| `obs dashboard` | Show daily vault activity overview |
+| `obs report` | Show comprehensive vault report |
 | `obs ai <prompt>` | Create a note with AI |
 | `obs ai --ask --daily` | Interactive daily journal with AI |
 
@@ -437,23 +441,23 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 
 ---
 
-### 🚧 Version 1.3 (Planned)
+### ✅ Version 1.3 (Partially Complete)
 
 #### Productivity
 
-- Dashboard
-- Vault report
-- Todo scanner
-- Attachment inspector
-- Backup vault
-- Archive notes
-- Cleanup command
+- ✅ Dashboard
+- ✅ Vault report
+- 🚧 Todo scanner
+- 🚧 Attachment inspector
+- 🚧 Backup vault
+- 🚧 Archive notes
+- 🚧 Cleanup command
 
 #### Export
 
-- Markdown report
-- HTML report
-- JSON export
+- 🚧 Markdown report
+- 🚧 HTML report
+- 🚧 JSON export
 
 ---
 
