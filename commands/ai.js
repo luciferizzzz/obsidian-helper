@@ -120,16 +120,35 @@ function replaceSection(content, heading, newContent) {
 
 function parseSections(aiContent) {
     const sections = {};
-    const patterns = [
-        ["target", "## Target Hari Ini"],
-        ["catatan", "## Catatan"],
-        ["selesai", "## Selesai"],
-    ];
-    for (const [key, heading] of patterns) {
-        const escaped = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        const re = new RegExp(`${escaped}\\n+([\\s\\S]*?)(?=\\n## |$)`, "i");
-        const m = aiContent.match(re);
-        if (m) sections[key] = m[1].trim();
+    const titles = {
+        target: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Target Hari Ini[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
+        catatan: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Catatan[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
+        selesai: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Selesai[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
+    };
+
+    const buffers = { target: [], catatan: [], selesai: [] };
+    let currentKey = null;
+
+    for (const line of aiContent.split("\n")) {
+        let matched = null;
+        for (const [key, re] of Object.entries(titles)) {
+            if (re.test(line)) {
+                matched = key;
+                break;
+            }
+        }
+        if (matched) {
+            currentKey = matched;
+            continue;
+        }
+        if (currentKey) {
+            buffers[currentKey].push(line);
+        }
+    }
+
+    for (const [key, buf] of Object.entries(buffers)) {
+        const body = buf.join("\n").trim();
+        if (body) sections[key] = body;
     }
     return sections;
 }
@@ -193,7 +212,10 @@ async function aiWrite(prompt, options) {
                 }
 
                 const sections = parseSections(content);
-                const filled = fillDailyTemplate(template, sections);
+                let filled = fillDailyTemplate(template, sections);
+                if (filled === template) {
+                    filled = insertUnderCatatan(template, content);
+                }
 
                 if (fs.existsSync(filePath)) {
                     const existing = fs.readFileSync(filePath, "utf8");
