@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.3.0-blue)
+![Version](https://img.shields.io/badge/version-v1.3.1-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -182,6 +182,14 @@ Edit `config.json` with your vault path:
 - **All sections filled** — AI fills `## Target Hari Ini`, `## Catatan`, `## Selesai`
 - **Template-aware** — content placed inside template sections, not appended at end
 - **Smart existing note handling** — existing daily notes also get content in correct sections
+
+---
+
+## 🐛 Version 1.3.1 (Bug Fix)
+
+- **Fix v1.2.2 bug** — daily note sections could be left empty when the AI output didn't use the exact `## Heading` format
+- **Tolerant section parsing** — now recognizes `###`, `**Target Hari Ini:**`, and other heading variants
+- **Fallback insertion** — if no section can be parsed, the AI content is placed under `## Catatan` instead of leaving the note blank
 
 ---
 
@@ -458,6 +466,13 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 - 🚧 Markdown report
 - 🚧 HTML report
 - 🚧 JSON export
+
+---
+
+### ✅ Version 1.3.1 (Bug Fix)
+
+- Fix AI daily note sections not being filled (v1.2.2 bug)
+- Tolerant section parsing and fallback insertion
 
 ---
 

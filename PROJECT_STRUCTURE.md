@@ -22,18 +22,17 @@ obsidian-helper/
 │   ├── list.js                # List all notes
 │   ├── move.js                # Move notes
 │   ├── new.js                 # Create new note
-│   ├── orphan.js              # Find notes with no incoming wiki links
 │   ├── open.js                # Open note
+│   ├── orphan.js              # Find notes with no incoming wiki links
+│   ├── random.js              # Random note picker
 │   ├── recent.js              # Recently modified notes
 │   ├── rename.js              # Rename note
 │   ├── report.js              # Comprehensive vault report
-│   ├── random.js              # Random note picker
-│   ├── rename.js              # Rename note
 │   ├── stats.js               # Vault statistics
-│   ├── tags.js                 # Extract and display tags from all notes
+│   ├── tags.js                # Extract and display tags from all notes
 │   ├── template.js            # Manage templates
-│   ├── tree.js                # Vault folder tree
-│   └── today.js               # Open/create daily note
+│   ├── today.js               # Open/create daily note
+│   └── tree.js                # Vault folder tree
 │
 ├── templates/
 │   ├── book.md                # Book note template
@@ -52,10 +51,13 @@ obsidian-helper/
 │   ├── vault.js               # Vault utilities
 │   └── wikilinks.js           # Wiki link parser
 │
-├── config.example.json        # Example configuration
+├── config-example.json        # Example configuration
+├── config.json                # Local configuration (vault path, etc.)
+├── obs.bat                    # Windows launcher script
 ├── package.json               # Package metadata
+├── package-lock.json          # Locked dependency versions
+├── PROJECT_STRUCTURE.md       # Project structure documentation
 ├── README.md                  # Documentation
-├── LICENSE                    # License
 └── .gitignore                 # Git ignore rules
 ```
 
