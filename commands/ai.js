@@ -1,3 +1,4 @@
+// v1.4.1 - AI daily note command (Ollama / OpenAI)
 const path = require("path");
 const fs = require("fs");
 const { input } = require("@inquirer/prompts");
