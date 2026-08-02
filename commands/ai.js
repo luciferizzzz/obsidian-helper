@@ -85,14 +85,14 @@ function uniquePath(filePath) {
 }
 
 function insertUnderCatatan(content, newContent) {
-    const clean = newContent.replace(/^## Catatan\s*\n*/i, "").trim();
+    const clean = newContent.replace(/^## Catatan\s*(?:\r?\n)*/i, "").trim();
 
-    const placeholderRe = /(## Catatan\n+)-(\s*)(?=\n+## |\n+---|$)/i;
+    const placeholderRe = /(## Catatan(?:\r?\n)+)-((?:\r?\n)*)(?=(?:\r?\n)+---|(?:\r?\n)+## |$)/i;
     if (placeholderRe.test(content)) {
-        return content.replace(placeholderRe, `$1${clean}`);
+        return content.replace(placeholderRe, `$1${clean}$2`);
     }
 
-    const sectionRe = /(## Catatan\n+)([\s\S]*?)(?=\n+## |\n+---|$)/i;
+    const sectionRe = /(## Catatan(?:\r?\n)+)([\s\S]*?)(?=(?:\r?\n)+---|(?:\r?\n)+## |\r?\n?$)/i;
     const m = content.match(sectionRe);
     if (m) {
         const body = m[2].trim();
@@ -109,7 +109,7 @@ function insertUnderCatatan(content, newContent) {
 function replaceSection(content, heading, newContent) {
     const escaped = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const re = new RegExp(
-        `(${escaped}\\n+)(?:-|\\s*)(?=\\n+---|\\n+## |$)`,
+        `(${escaped}(?:\\r?\\n)+)([\\s\\S]*?)(?=(?:\\r?\\n)+---|(?:\\r?\\n)+## |\\r?\\n?$)`,
         "i"
     );
     if (re.test(content)) {
@@ -119,6 +119,7 @@ function replaceSection(content, heading, newContent) {
 }
 
 function parseSections(aiContent) {
+    const content = aiContent.replace(/\r\n/g, "\n");
     const sections = {};
     const titles = {
         target: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Target Hari Ini[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
@@ -129,7 +130,7 @@ function parseSections(aiContent) {
     const buffers = { target: [], catatan: [], selesai: [] };
     let currentKey = null;
 
-    for (const line of aiContent.split("\n")) {
+    for (const line of content.split("\n")) {
         let matched = null;
         for (const [key, re] of Object.entries(titles)) {
             if (re.test(line)) {
