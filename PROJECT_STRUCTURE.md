@@ -10,7 +10,7 @@ obsidian-helper/
 │   └── vaultReport.js         # Vault data collector (dashboard & report)
 │
 ├── commands/
-│   ├── ai.js                 # AI note writing (Ollama + Qwen 2.5), template filling, deep journaling
+│   ├── ai.js                 # AI note writing (Ollama lokal / OpenAI API key), template filling, deep journaling
 │   ├── backlinks.js            # Find notes referencing a given note
 │   ├── config.js              # Configuration manager
 │   ├── dashboard.js           # Daily vault activity overview
@@ -42,12 +42,12 @@ obsidian-helper/
 │   └── js.md                  # JavaScript template
 │
 ├── utils/
-│   ├── config.js              # Config loader
-│   ├── file.js                # File utilities
-│   ├── markdown.js            # Template parser
-│   ├── noteIndex.js           # Note index builder
-│   ├── ollama.js              # Ollama API client
-│   ├── scanner.js             # Vault scanner
+│   ├── ai.js                 # AI client (Ollama lokal & OpenAI-compatible)
+│   ├── config.js             # Config loader
+│   ├── file.js               # File utilities
+│   ├── markdown.js           # Template parser
+│   ├── noteIndex.js          # Note index builder
+│   ├── scanner.js            # Vault scanner
 │   ├── vault.js               # Vault utilities
 │   └── wikilinks.js           # Wiki link parser
 │
@@ -116,7 +116,7 @@ Includes:
 - File operations
 - Wiki link parsing
 - Note indexing
-- Ollama API client (AI features)
+- AI client (Ollama lokal / OpenAI API key)
 
 ---
 

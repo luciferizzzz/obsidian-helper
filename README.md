@@ -51,12 +51,13 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 - Template system
 - Vault health check (Doctor)
 
-### 🤖 AI (Qwen 2.5 via Ollama)
+### 🤖 AI (Ollama lokal atau OpenAI API key)
 
 - AI note writing
 - Interactive daily journaling with deep questions
 - Direct file writing
 - Daily note integration (fills ##Target, ##Catatan, ##Selesai)
+- Two providers: local LLM (Ollama) or cloud API with a token
 
 ---
 
@@ -118,7 +119,7 @@ obs --help
 - Node.js 18+
 - Obsidian
 - Windows / Linux / macOS
-- [Ollama](https://ollama.com) (for AI features)
+- [Ollama](https://ollama.com) (for local AI features) **or** an API key (e.g. OpenAI)
 
 ---
 
@@ -168,10 +169,10 @@ Edit `config.json` with your vault path:
 | `obs doctor` | Analyze vault health |
 | `obs graph` | Analyze note relationships |
 | `obs tags` | Extract tags from all notes |
-| `obs config [subcommand]` | Manage configuration (show, set vault, reset) |
+| `obs config [subcommand]` | Manage configuration (show, set vault, ai, reset) |
 | `obs dashboard` | Show daily vault activity overview |
 | `obs report` | Show comprehensive vault report |
-| `obs ai <prompt>` | Create a note with AI |
+| `obs ai <prompt>` | Create a note with AI (Ollama lokal / OpenAI API key) |
 | `obs ai --ask --daily` | Interactive daily journal with AI |
 
 ---
@@ -283,21 +284,66 @@ obs ai --ask --daily
 
 ## 🤖 AI Setup
 
-Obsidian Helper integrates with **Ollama** for local AI-powered note writing.
+Obsidian Helper mendukung dua cara pakai AI: **LLM lokal** (Ollama) atau **API key / token** (cloud, e.g. OpenAI atau server OpenAI-compatible).
 
-### Prerequisites
+Konfigurasi secara interaktif:
+
+```bash
+obs config ai
+```
+
+Kamu bisa pilih:
+
+1. **Ollama (LLM lokal)** — AI jalan di komputer kamu sendiri, gratis dan tanpa internet.
+2. **OpenAI / API key** — masukin token dari OpenAI (atau layanan OpenAI-compatible seperti OpenRouter, LM Studio, dsb.), lalu pilih model dan base URL.
+
+Cek konfigurasi saat ini:
+
+```bash
+obs config show
+```
+
+### Option A — Ollama (LLM lokal)
 
 1. Install [Ollama](https://ollama.com).
-2. Pull the required model:
+2. Pull model yang diinginkan:
 
 ```bash
 ollama pull qwen2.5-coder:7b
 ```
 
-3. Make sure Ollama is running:
+3. Pastikan Ollama jalan:
 
 ```bash
 ollama serve
+```
+
+4. Setup via `obs config ai`, pilih Ollama, lalu isi URL dan model.
+
+### Option B — OpenAI API key (token)
+
+1. Ambil API key dari platform penyedia (mis. OpenAI).
+2. Setup via `obs config ai`, pilih OpenAI, lalu masukkan token, model, dan base URL (default `https://api.openai.com/v1`).
+3. Bisa juga set environment variable `OPENAI_API_KEY` sebagai pengganti.
+
+Contoh `config.json`:
+
+```json
+{
+  "vault": "D:\\Obsidian\\Workspace",
+  "ai": {
+    "provider": "openai",
+    "ollama": {
+      "url": "http://127.0.0.1:11434",
+      "model": "qwen2.5-coder:7b"
+    },
+    "openai": {
+      "apiKey": "sk-...",
+      "model": "gpt-4o-mini",
+      "baseUrl": "https://api.openai.com/v1"
+    }
+  }
+}
 ```
 
 ### AI Commands
@@ -384,11 +430,11 @@ obsidian-helper/
 │   └── js.md
 │
 ├── utils/
+│   ├── ai.js
 │   ├── config.js
 │   ├── file.js
 │   ├── markdown.js
 │   ├── noteIndex.js
-│   ├── ollama.js
 │   ├── scanner.js
 │   ├── vault.js
 │   └── wikilinks.js

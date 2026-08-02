@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const { input } = require("@inquirer/prompts");
-const { generate } = require("../utils/ollama");
+const { generate } = require("../utils/ai");
 const { createFile } = require("../utils/file");
 const { getVaultPath } = require("../utils/vault");
 const { parseTemplate } = require("../utils/markdown");
@@ -273,8 +273,10 @@ async function aiWrite(prompt, options) {
         console.log("📁 " + filePath);
     } catch (err) {
         const msg = err.message || "Unknown error";
-        if (msg.includes("ECONNREFUSED") || msg.includes("connect ke Ollama")) {
+        if (msg.includes("connect ke Ollama") || msg.includes("ECONNREFUSED")) {
             console.log("❌ Ollama belum jalan. Jalankan `ollama serve` dulu.");
+        } else if (msg.includes("API key")) {
+            console.log("❌ " + msg);
         } else if (msg.includes("timeout")) {
             console.log("❌ Response timeout. Coba prompt yang lebih pendek.");
         } else {

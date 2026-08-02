@@ -1,3 +1,15 @@
 {
-  "vault": "D:\\Your\\Obsidian\\Vault"
+  "vault": "D:\\Your\\Obsidian\\Vault",
+  "ai": {
+    "provider": "ollama",
+    "ollama": {
+      "url": "http://127.0.0.1:11434",
+      "model": "qwen2.5-coder:7b"
+    },
+    "openai": {
+      "apiKey": "sk-...",
+      "model": "gpt-4o-mini",
+      "baseUrl": "https://api.openai.com/v1"
+    }
+  }
 }

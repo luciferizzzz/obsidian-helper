@@ -160,12 +160,12 @@ program
 
 program
   .command("config [subcommand]")
-  .description("Manage configuration (show, set vault, reset)")
+  .description("Manage configuration (show, set vault, ai, reset)")
   .action(configCmd);
 
 program
   .command("ai [prompt]")
-  .description("Bikin catatan pake AI (Qwen 2.5 via Ollama)")
+  .description("Bikin catatan pake AI (Ollama lokal atau OpenAI API key)")
   .option("-t, --title <title>", "Judul catatan", "AI Note")
   .option("-f, --folder <folder>", "Folder di vault", "AI")
   .option("--file <path>", "Path file langsung (relative dari vault atau absolute)")
