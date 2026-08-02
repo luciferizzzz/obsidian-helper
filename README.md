@@ -542,12 +542,6 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 
 ---
 
-### ✅ Version 1.3.2 (add you'r llm)
-
-- Now you can add you'r llm local
-
----
-
 ### ✅ Version 1.4.0 (AI Providers)
 
 - AI now supports Ollama (local LLM) **or** OpenAI / OpenAI-compatible API key
