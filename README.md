@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.3.1-blue)
+![Version](https://img.shields.io/badge/version-v1.4.1-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -191,6 +191,24 @@ Edit `config.json` with your vault path:
 - **Fix v1.2.2 bug** — daily note sections could be left empty when the AI output didn't use the exact `## Heading` format
 - **Tolerant section parsing** — now recognizes `###`, `**Target Hari Ini:**`, and other heading variants
 - **Fallback insertion** — if no section can be parsed, the AI content is placed under `## Catatan` instead of leaving the note blank
+
+---
+
+## 🚀 Version 1.4.0 (AI Providers)
+
+- **Two AI providers** — local LLM via Ollama **or** cloud API (OpenAI / any OpenAI-compatible server) using an API key
+- **`obs config ai`** — interactive provider setup: choose Ollama or OpenAI, then set model and base URL
+- **Masked API key** — `obs config show` hides your token for safety
+- **Unified client** — new `utils/ai.js` replaces the old `utils/ollama.js`, supporting both providers
+- **Environment variable support** — `OPENAI_API_KEY` can be used instead of storing the key in `config.json`
+
+---
+
+## 🐛 Version 1.4.1 (Bug Fix)
+
+- **CRLF support** — AI daily note insertion now handles Windows line endings (`\r\n`) correctly
+- **Robust section matching** — placeholder and section regexes updated to handle both `\n` and `\r\n` variants
+- **Cleaner replacement** — preserved line structure when inserting AI content into existing sections
 
 ---
 
@@ -403,6 +421,7 @@ obsidian-helper/
 │   ├── ai.js
 │   ├── backlinks.js
 │   ├── config.js
+│   ├── dashboard.js
 │   ├── deadlinks.js
 │   ├── doctor.js
 │   ├── find.js
@@ -416,6 +435,7 @@ obsidian-helper/
 │   ├── random.js
 │   ├── recent.js
 │   ├── rename.js
+│   ├── report.js
 │   ├── stats.js
 │   ├── tags.js
 │   ├── template.js
@@ -525,6 +545,14 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 ### ✅ Version 1.3.2 (add you'r llm)
 
 - Now you can add you'r llm local
+
+---
+
+### ✅ Version 1.4.0 (AI Providers)
+
+- AI now supports Ollama (local LLM) **or** OpenAI / OpenAI-compatible API key
+- Interactive provider setup via `obs config ai`
+- Masked API key in `obs config show`
 
 ---
 
