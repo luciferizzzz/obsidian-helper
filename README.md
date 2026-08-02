@@ -522,6 +522,12 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 
 ---
 
+### ✅ Version 1.3.2 (add you'r llm)
+
+- Now you can add you'r llm local
+
+---
+
 ### 🚧 Version 2.0 (Planned)
 
 #### Interactive Mode
