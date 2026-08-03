@@ -35,7 +35,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 - Vault statistics
 - Configuration management
 - Dashboard (daily activity overview)
-- Vault report (comprehensive analysis)
+- Vault report with export (Markdown, HTML, JSON)
 
 ### 🔍 Knowledge Management
 
@@ -172,6 +172,10 @@ Edit `config.json` with your vault path:
 | `obs config [subcommand]` | Manage configuration (show, set vault, ai, reset) |
 | `obs dashboard` | Show daily vault activity overview |
 | `obs report` | Show comprehensive vault report |
+| `obs report --markdown` | Export vault report to markdown file |
+| `obs report --html` | Export vault report to HTML file |
+| `obs report --json` | Export vault report to JSON file |
+| `obs report -o <path>` | Custom output path for export |
 | `obs ai <prompt>` | Create a note with AI (Ollama lokal / OpenAI API key) |
 | `obs ai --ask --daily` | Interactive daily journal with AI |
 
@@ -204,8 +208,12 @@ Edit `config.json` with your vault path:
 
 ---
 
-## 🐛 Version 1.4.1 (Bug Fix)
+## 🚀 Version 1.4.1 (Export + Bug Fix)
 
+- **Markdown export** — `obs report --markdown` exports vault report to `.md` file
+- **HTML export** — `obs report --html` exports vault report to `.html` file
+- **JSON export** — `obs report --json` exports vault report to `.json` file
+- **Custom output path** — `obs report -o <path>` specifies export destination
 - **CRLF support** — AI daily note insertion now handles Windows line endings (`\r\n`) correctly
 - **Robust section matching** — placeholder and section regexes updated to handle both `\n` and `\r\n` variants
 - **Cleaner replacement** — preserved line structure when inserting AI content into existing sections
@@ -419,7 +427,11 @@ obsidian-helper/
 │
 ├── commands/
 │   ├── ai.js
+│   ├── archive.js
+│   ├── attachments.js
 │   ├── backlinks.js
+│   ├── backup.js
+│   ├── cleanup.js
 │   ├── config.js
 │   ├── dashboard.js
 │   ├── deadlinks.js
@@ -440,6 +452,7 @@ obsidian-helper/
 │   ├── tags.js
 │   ├── template.js
 │   ├── today.js
+│   ├── todo.js
 │   └── tree.js
 │
 ├── templates/
@@ -515,23 +528,23 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 
 ---
 
-### ✅ Version 1.3 (Partially Complete)
+### ✅ Version 1.3 (Complete)
 
 #### Productivity
 
 - ✅ Dashboard
 - ✅ Vault report
-- 🚧 Todo scanner
-- 🚧 Attachment inspector
-- 🚧 Backup vault
-- 🚧 Archive notes
-- 🚧 Cleanup command
+- ✅ Todo scanner
+- ✅ Attachment inspector
+- ✅ Backup vault
+- ✅ Archive notes
+- ✅ Cleanup command
 
 #### Export
 
-- 🚧 Markdown report
-- 🚧 HTML report
-- 🚧 JSON export
+- ✅ Markdown report
+- ✅ HTML report
+- ✅ JSON export
 
 ---
 

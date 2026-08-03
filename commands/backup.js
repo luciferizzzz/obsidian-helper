@@ -1,0 +1,124 @@
+const fs = require("fs");
+const path = require("path");
+
+const { getVaultPath } = require("../utils/vault");
+const { input, confirm } = require("@inquirer/prompts");
+
+function formatDate(date) {
+    return (
+        `${date.getFullYear()}` +
+        `${String(date.getMonth() + 1).padStart(2, "0")}` +
+        `${String(date.getDate()).padStart(2, "0")}_` +
+        `${String(date.getHours()).padStart(2, "0")}` +
+        `${String(date.getMinutes()).padStart(2, "0")}`
+    );
+}
+
+function formatSize(bytes) {
+    if (bytes < 1024) {
+        return `${bytes} B`;
+    }
+    if (bytes < 1024 * 1024) {
+        return `${(bytes / 1024).toFixed(1)} KB`;
+    }
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function copyDir(src, dest) {
+    fs.mkdirSync(dest, { recursive: true });
+
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+
+    for (const entry of entries) {
+        const srcPath = path.join(src, entry.name);
+        const destPath = path.join(dest, entry.name);
+
+        if (entry.isDirectory()) {
+            copyDir(srcPath, destPath);
+        } else {
+            fs.copyFileSync(srcPath, destPath);
+        }
+    }
+}
+
+async function backup() {
+    const vault = getVaultPath();
+
+    console.log("\n📦 Vault Backup\n");
+    console.log(`Source: ${vault}`);
+
+    const defaultBackupDir = path.join(path.dirname(vault), "vault-backups");
+
+    if (!fs.existsSync(defaultBackupDir)) {
+        fs.mkdirSync(defaultBackupDir, { recursive: true });
+    }
+
+    const backupDir = await input({
+        message: "Backup destination folder:",
+        default: defaultBackupDir,
+    });
+
+    const timestamp = formatDate(new Date());
+    const vaultName = path.basename(vault);
+    const backupName = `${vaultName}-${timestamp}`;
+    const backupPath = path.join(backupDir, backupName);
+
+    console.log(`\nDestination: ${backupPath}`);
+
+    const proceed = await confirm({
+        message: "Start backup?",
+        default: true,
+    });
+
+    if (!proceed) {
+        console.log("Backup cancelled.");
+        return;
+    }
+
+    console.log("\nCopying files...");
+
+    const startTime = Date.now();
+    copyDir(vault, backupPath);
+    const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+
+    const totalSize = getDirSize(backupPath);
+    const fileCount = getFileCount(backupPath);
+
+    console.log(`\n✅ Backup completed in ${duration}s`);
+    console.log(`Files copied: ${fileCount}`);
+    console.log(`Total size: ${formatSize(totalSize)}`);
+    console.log(`Location: ${backupPath}`);
+}
+
+function getDirSize(dir) {
+    let size = 0;
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            size += getDirSize(fullPath);
+        } else {
+            size += fs.statSync(fullPath).size;
+        }
+    }
+
+    return size;
+}
+
+function getFileCount(dir) {
+    let count = 0;
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+        if (entry.isDirectory()) {
+            count += getFileCount(path.join(dir, entry.name));
+        } else {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+module.exports = backup;

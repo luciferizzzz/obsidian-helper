@@ -11,7 +11,11 @@ obsidian-helper/
 │
 ├── commands/
 │   ├── ai.js                 # AI note writing (Ollama lokal / OpenAI API key), template filling, deep journaling
+│   ├── archive.js            # Archive old notes to Archive folder
+│   ├── attachments.js         # Inspect attachment files in vault
 │   ├── backlinks.js            # Find notes referencing a given note
+│   ├── backup.js              # Backup entire vault to a destination folder
+│   ├── cleanup.js              # Cleanup vault (empty files, orphan notes, broken links)
 │   ├── config.js              # Configuration manager
 │   ├── dashboard.js           # Daily vault activity overview
 │   ├── deadlinks.js           # Find broken wiki links
@@ -32,6 +36,7 @@ obsidian-helper/
 │   ├── tags.js                # Extract and display tags from all notes
 │   ├── template.js            # Manage templates
 │   ├── today.js               # Open/create daily note
+│   ├── todo.js                # Scan all todo lists in vault
 │   └── tree.js                # Vault folder tree
 │
 ├── templates/
@@ -84,6 +89,11 @@ obs find
 obs list
 obs deadlinks
 obs ai "belajar closures"
+obs archive
+obs attachments
+obs backup
+obs cleanup
+obs todo
 ```
 
 ---

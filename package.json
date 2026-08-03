@@ -1,6 +1,6 @@
 {
   "name": "obsidian-helper",
-  "version": "1.3.1",
+  "version": "1.4.1",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -8,7 +8,9 @@
     "obsh": "./bin/obs.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "echo \"No linting configured\"",
+    "typecheck": "echo \"No type checking configured\""
   },
   "keywords": [],
   "author": "LevTikvah",

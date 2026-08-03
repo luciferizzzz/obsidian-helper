@@ -50,10 +50,20 @@ const dashboard = require("../commands/dashboard");
 
 const report = require("../commands/report");
 
+const todo = require("../commands/todo");
+
+const attachments = require("../commands/attachments");
+
+const backup = require("../commands/backup");
+
+const archive = require("../commands/archive");
+
+const cleanup = require("../commands/cleanup");
+
 program
   .name("obs")
   .description("Obsidian Helper CLI")
-  .version("1.1.0");
+  .version("1.4.1");
 
 program
   .command("hello")
@@ -181,6 +191,35 @@ program
 program
   .command("report")
   .description("Laporan vault terperinci")
+  .option("--markdown", "Export laporan ke file markdown")
+  .option("--html", "Export laporan ke file HTML")
+  .option("--json", "Export laporan ke file JSON")
+  .option("-o, --output <path>", "Path file output untuk export")
   .action(report);
+
+program
+  .command("todo")
+  .description("Scan semua todo list di vault")
+  .action(todo);
+
+program
+  .command("attachments")
+  .description("Inspect attachment files di vault")
+  .action(attachments);
+
+program
+  .command("backup")
+  .description("Backup seluruh vault ke folder tujuan")
+  .action(backup);
+
+program
+  .command("archive [days]")
+  .description("Archive note yang lama ke folder Archive")
+  .action(archive);
+
+program
+  .command("cleanup")
+  .description("Cleanup vault (empty files, orphan notes, broken links)")
+  .action(cleanup);
 
 program.parse();
