@@ -18,4 +18,22 @@
 
 ---
 
+## Mood
+
+-
+
+---
+
+## Syukur
+
+-
+
+---
+
+## Refleksi
+
+-
+
+---
+
 Jam dibuat : {{time}}

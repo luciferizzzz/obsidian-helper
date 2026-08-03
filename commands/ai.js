@@ -57,10 +57,13 @@ async function askUser() {
 function buildPromptFromAnswers(answers) {
     return `${SYSTEM_PROMPT}
 
-Buat 3 bagian untuk daily note hari ini dengan heading:
+Buat 6 bagian untuk daily note hari ini dengan heading:
 ## Target Hari Ini
 ## Catatan
 ## Selesai
+## Mood
+## Syukur
+## Refleksi
 
 Target: ${answers.target}
 Kegiatan: ${answers.pelajaran}
@@ -126,9 +129,12 @@ function parseSections(aiContent) {
         target: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Target Hari Ini[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
         catatan: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Catatan[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
         selesai: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Selesai[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
+        mood: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Mood[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
+        syukur: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Syukur[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
+        refleksi: /^[ \t]*(?:#{1,6}[ \t]+)?\*{0,2}[ \t]*Refleksi[ \t]*:?[ \t]*\*{0,2}[ \t]*$/im,
     };
 
-    const buffers = { target: [], catatan: [], selesai: [] };
+    const buffers = { target: [], catatan: [], selesai: [], mood: [], syukur: [], refleksi: [] };
     let currentKey = null;
 
     for (const line of content.split("\n")) {
@@ -161,10 +167,28 @@ function fillDailyTemplate(template, sections) {
         target: "## Target Hari Ini",
         catatan: "## Catatan",
         selesai: "## Selesai",
+        mood: "## Mood",
+        syukur: "## Syukur",
+        refleksi: "## Refleksi",
     };
+    const found = new Set();
     for (const [key, heading] of Object.entries(map)) {
         if (sections[key]) {
-            result = replaceSection(result, heading, sections[key]);
+            const replaced = replaceSection(result, heading, sections[key]);
+            if (replaced !== result) {
+                result = replaced;
+                found.add(key);
+            }
+        }
+    }
+    for (const [key, heading] of Object.entries(map)) {
+        if (sections[key] && !found.has(key)) {
+            const jamRe = /\n*Jam dibuat[^\n]*\n?$/;
+            if (jamRe.test(result)) {
+                result = result.replace(jamRe, `\n\n${heading}\n\n${sections[key]}$&`);
+            } else {
+                result = result.replace(/\s*$/, `\n\n${heading}\n\n${sections[key]}\n`);
+            }
         }
     }
     return result;
