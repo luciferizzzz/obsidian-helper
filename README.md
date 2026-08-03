@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.4.1-blue)
+![Version](https://img.shields.io/badge/version-v1.4.2-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -56,7 +56,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 - AI note writing
 - Interactive daily journaling with deep questions
 - Direct file writing
-- Daily note integration (fills ##Target, ##Catatan, ##Selesai)
+- Daily note integration (fills ##Target, ##Catatan, ##Selesai, ##Mood, ##Syukur, ##Refleksi)
 - Two providers: local LLM (Ollama) or cloud API with a token
 
 ---
@@ -217,6 +217,15 @@ Edit `config.json` with your vault path:
 - **CRLF support** — AI daily note insertion now handles Windows line endings (`\r\n`) correctly
 - **Robust section matching** — placeholder and section regexes updated to handle both `\n` and `\r\n` variants
 - **Cleaner replacement** — preserved line structure when inserting AI content into existing sections
+
+---
+
+## 🐛 Version 1.4.2 (Bug Fix)
+
+- **Daily note sections lengkap** — `obs ai --ask --daily` sekarang mengisi **6 section**: `## Target Hari Ini`, `## Catatan`, `## Selesai`, `## Mood`, `## Syukur`, `## Refleksi`
+- **Mood/Syukur/Refleksi tidak hilang lagi** — sebelumnya jawaban 3 pertanyaan itu dikumpulkan tapi tidak pernah ditulis ke catatan
+- **Template `daily.md` diperbarui** — sekarang punya placeholder untuk section Mood, Syukur, dan Refleksi
+- **Fallback untuk daily note lama** — jika daily note yang sudah ada belum punya section Mood/Syukur/Refleksi, section tersebut otomatis ditambahkan saat di-update
 
 ---
 
@@ -560,6 +569,22 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 - AI now supports Ollama (local LLM) **or** OpenAI / OpenAI-compatible API key
 - Interactive provider setup via `obs config ai`
 - Masked API key in `obs config show`
+
+---
+
+### ✅ Version 1.4.1 (Export + Bug Fix)
+
+- Markdown / HTML / JSON report export
+- CRLF handling for AI daily note insertion
+- Robust section matching for `\n` and `\r\n`
+
+---
+
+### ✅ Version 1.4.2 (Bug Fix)
+
+- Daily note now filled with 6 sections: Target, Catatan, Selesai, Mood, Syukur, Refleksi
+- Mood/Syukur/Refleksi answers no longer dropped
+- Auto-add missing sections to existing daily notes
 
 ---
 
