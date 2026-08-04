@@ -620,7 +620,297 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 
 ---
 
-### 🚧 Version 2.0 (Planned)
+# 🚧 Version 1.4.4 — AI Productivity Commands
+
+> **Release Type:** Minor Feature Update  
+> **Version:** v1.4.4
+
+---
+
+# Overview
+
+Version **1.4.4** expands the AI capabilities of Obsidian Helper beyond note generation.
+
+The new AI productivity commands help users plan tomorrow, update daily journals, and organize weekly goals directly from the terminal.
+
+---
+
+# ✨ New Commands
+
+## `obs ai tomorrow`
+
+Generate a structured plan for tomorrow through an interactive conversation.
+
+### Example
+
+```bash
+obs ai tomorrow
+```
+
+### AI Questions
+
+- What is your biggest priority tomorrow?
+- Do you have any meetings or important events?
+- Is there anything unfinished from today?
+- What personal goals do you have?
+- Anything you don't want to forget?
+
+### Generated Note
+
+```markdown
+# Tomorrow Plan
+
+## Priorities
+
+- Finish project
+- Study JavaScript
+
+## Schedule
+
+09:00 - Coding
+
+13:00 - Meeting
+
+20:00 - Exercise
+
+## Goals
+
+...
+
+## Reminders
+
+...
+```
+
+### Default Location
+
+```
+Planning/
+└── Tomorrow/
+    └── YYYY-MM-DD.md
+```
+
+---
+
+# `obs ai update`
+
+Update today's Daily Note using AI.
+
+Instead of replacing existing content, the AI intelligently updates each section.
+
+### Example
+
+```bash
+obs ai update
+```
+
+### AI Questions
+
+- What have you completed today?
+- What are you working on?
+- Any blockers?
+- How was your mood?
+- What are you grateful for?
+- What did you learn today?
+
+### Updated Sections
+
+```markdown
+## Target Hari Ini
+
+## Catatan
+
+## Selesai
+
+## Mood
+
+## Syukur
+
+## Refleksi
+```
+
+Missing sections are automatically created.
+
+---
+
+# `obs ai weekly`
+
+Generate a structured plan for the upcoming week.
+
+### Example
+
+```bash
+obs ai weekly
+```
+
+### AI Questions
+
+- Main goal this week
+- Top priorities
+- Personal goals
+- Learning goals
+- Important deadlines
+- Habits to maintain
+
+### Generated Note
+
+```markdown
+# Weekly Plan
+
+## Goals
+
+...
+
+## Monday
+
+...
+
+## Tuesday
+
+...
+
+## Wednesday
+
+...
+
+## Thursday
+
+...
+
+## Friday
+
+...
+
+## Saturday
+
+...
+
+## Sunday
+
+...
+
+## Notes
+
+...
+```
+
+### Default Location
+
+```
+Planning/
+└── Weekly/
+    └── Week-32.md
+```
+
+---
+
+# 🤖 AI Workflow
+
+Obsidian Helper now supports a complete planning workflow.
+
+### Plan Tomorrow
+
+```bash
+obs ai tomorrow
+```
+
+↓
+
+Creates tomorrow's planning note.
+
+---
+
+### Daily Update
+
+```bash
+obs ai update
+```
+
+↓
+
+Updates today's Daily Note.
+
+---
+
+### Weekly Planning
+
+```bash
+obs ai weekly
+```
+
+↓
+
+Creates a weekly planning document.
+
+---
+
+# AI Providers
+
+All commands work with every supported AI provider.
+
+- ✅ Ollama
+- ✅ OpenAI
+- ✅ OpenAI-Compatible APIs
+
+Configure your provider:
+
+```bash
+obs config ai
+```
+
+---
+
+# Backward Compatibility
+
+Existing AI commands remain unchanged.
+
+```bash
+obs ai "Explain JavaScript closures"
+
+obs ai --daily
+
+obs ai --ask --daily
+```
+
+The new commands are additional productivity features and do not replace the existing AI workflow.
+
+---
+
+# What's New
+
+## Added
+
+- `obs ai tomorrow`
+- `obs ai update`
+- `obs ai weekly`
+
+## Improved
+
+- AI-assisted productivity workflow
+- Interactive planning sessions
+- Intelligent Daily Note updates
+- Structured weekly planning
+
+---
+
+# Future Expansion
+
+The AI Productivity module is designed to grow with additional commands in future releases.
+
+Planned ideas include:
+
+- `obs ai monthly`
+- `obs ai review`
+- `obs ai summarize`
+- `obs ai improve`
+- `obs ai links`
+- `obs ai tags`
+
+These commands will further transform Obsidian Helper into an AI-powered knowledge management assistant.
+
+---
+
+### 🚧 Version 1.5 (Planned)
 
 #### Interactive Mode
 
