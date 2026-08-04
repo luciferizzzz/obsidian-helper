@@ -227,21 +227,21 @@ Edit `config.json` with your vault path:
 
 ---
 
-## 🚀 Version 1.4.3 (Template System)
-
-- **`obs template` command** — kelola template langsung dari CLI: `--list` lihat semua template, `--preview <nama>` lihat isi template
-- **6 template baru** — `article`, `idea`, `journal`, `meeting`, `people`, `project` (menambah `book`, `css`, `daily`, `html`, `js`)
-- **AI template filling** — template dengan placeholder `{{ai:...}}` otomatis diisi AI lewat `obs ai --template <nama>`
-- **`getTemplateData` helper** — penyederhanaan pembuatan placeholder template (title, folder, date, time) di `utils/markdown.js`
-
----
-
 ## 🐛 Version 1.4.2 (Bug Fix)
 
 - **Daily note sections lengkap** — `obs ai --ask --daily` sekarang mengisi **6 section**: `## Target Hari Ini`, `## Catatan`, `## Selesai`, `## Mood`, `## Syukur`, `## Refleksi`
 - **Mood/Syukur/Refleksi tidak hilang lagi** — sebelumnya jawaban 3 pertanyaan itu dikumpulkan tapi tidak pernah ditulis ke catatan
 - **Template `daily.md` diperbarui** — sekarang punya placeholder untuk section Mood, Syukur, dan Refleksi
 - **Fallback untuk daily note lama** — jika daily note yang sudah ada belum punya section Mood/Syukur/Refleksi, section tersebut otomatis ditambahkan saat di-update
+
+---
+
+## 🚀 Version 1.4.3 (Template System)
+
+- **`obs template` command** — kelola template langsung dari CLI: `--list` lihat semua template, `--preview <nama>` lihat isi template
+- **6 template baru** — `article`, `idea`, `journal`, `meeting`, `people`, `project` (menambah `book`, `css`, `daily`, `html`, `js`)
+- **AI template filling** — template dengan placeholder `{{ai:...}}` otomatis diisi AI lewat `obs ai --template <nama>`
+- **`getTemplateData` helper** — penyederhanaan pembuatan placeholder template (title, folder, date, time) di `utils/markdown.js`
 
 ---
 
@@ -607,6 +607,16 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 - Daily note now filled with 6 sections: Target, Catatan, Selesai, Mood, Syukur, Refleksi
 - Mood/Syukur/Refleksi answers no longer dropped
 - Auto-add missing sections to existing daily notes
+
+---
+
+### ✅ Version 1.4.3 (Template System)
+
+- **`obs template` command** — kelola template langsung dari CLI: `--list` lihat semua template, `--preview <nama>` lihat isi template
+- **6 template baru** — `article`, `idea`, `journal`, `meeting`, `people`, `project` (menambah `book`, `css`, `daily`, `html`, `js`)
+- **AI template filling** — template dengan placeholder `{{ai:...}}` otomatis diisi AI lewat `obs ai --template <nama>`
+- **`getTemplateData` helper** — penyederhanaan pembuatan placeholder template (title, folder, date, time) di `utils/markdown.js`
+
 
 ---
 
