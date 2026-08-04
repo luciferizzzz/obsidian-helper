@@ -58,12 +58,14 @@ const backup = require("../commands/backup");
 
 const archive = require("../commands/archive");
 
+const templateCmd = require("../commands/template");
+
 const cleanup = require("../commands/cleanup");
 
 program
   .name("obs")
   .description("Obsidian Helper CLI")
-  .version("1.4.1");
+  .version("1.4.3");
 
 program
   .command("hello")
@@ -181,6 +183,7 @@ program
   .option("--file <path>", "Path file langsung (relative dari vault atau absolute)")
   .option("--daily", "Catat ke daily note hari ini")
   .option("--ask", "Interactive mode - AI tanya kamu dulu")
+  .option("--template <name>", "Gunakan template untuk catatan AI")
   .action(aiWrite);
 
 program
@@ -218,8 +221,15 @@ program
   .action(archive);
 
 program
-  .command("cleanup")
-  .description("Cleanup vault (empty files, orphan notes, broken links)")
-  .action(cleanup);
+   .command("cleanup")
+   .description("Cleanup vault (empty files, orphan notes, broken links)")
+   .action(cleanup);
+
+program
+  .command("template")
+  .description("Kelola template catatan")
+  .option("--list", "Daftar semua template yang tersedia")
+  .option("--preview <name>", "Preview isi template")
+  .action(templateCmd);
 
 program.parse();

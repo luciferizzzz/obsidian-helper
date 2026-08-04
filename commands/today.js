@@ -3,15 +3,14 @@ const path = require("path");
 
 const { getVaultPath } = require("../utils/vault");
 const { createFile } = require("../utils/file");
-const { parseTemplate } = require("../utils/markdown");
-const { title } = require("process");
+const { parseTemplate, getTemplateData } = require("../utils/markdown");
 
 function today() {
     const vault = getVaultPath();
 
     const now = new Date();
 
-    const date = 
+    const date =
         `${now.getFullYear()}-` +
         `${String(now.getMonth() + 1).padStart(2, "0")}-` +
         `${String(now.getDate()).padStart(2, "0")}`;
@@ -43,12 +42,11 @@ function today() {
     if (fs.existsSync(templatePath)) {
         content = fs.readFileSync(templatePath, "utf8");
 
-        content = parseTemplate(content, {
+        content = parseTemplate(content, getTemplateData({
             title: date,
-            date,
             folder: "Daily Notes",
-            time: new Date().toLocaleTimeString("id-ID"),
-        });
+            date,
+        }));
     }
     createFile(filePath, content);
     console.log("Daily note berhasil dibuat!");

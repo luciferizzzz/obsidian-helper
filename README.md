@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.4.2-blue)
+![Version](https://img.shields.io/badge/version-v1.4.3-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -178,6 +178,13 @@ Edit `config.json` with your vault path:
 | `obs report -o <path>` | Custom output path for export |
 | `obs ai <prompt>` | Create a note with AI (Ollama lokal / OpenAI API key) |
 | `obs ai --ask --daily` | Interactive daily journal with AI |
+| `obs todo` | Scan all todo items in the vault |
+| `obs attachments` | Inspect attachment files in the vault |
+| `obs backup` | Backup the entire vault to a destination folder |
+| `obs archive [days]` | Archive old notes to Archive folder |
+| `obs cleanup` | Cleanup vault (empty files, orphan notes, broken links) |
+| `obs template --list` | List all available templates |
+| `obs template --preview <name>` | Preview the content of a template |
 
 ---
 
@@ -217,6 +224,15 @@ Edit `config.json` with your vault path:
 - **CRLF support** — AI daily note insertion now handles Windows line endings (`\r\n`) correctly
 - **Robust section matching** — placeholder and section regexes updated to handle both `\n` and `\r\n` variants
 - **Cleaner replacement** — preserved line structure when inserting AI content into existing sections
+
+---
+
+## 🚀 Version 1.4.3 (Template System)
+
+- **`obs template` command** — kelola template langsung dari CLI: `--list` lihat semua template, `--preview <nama>` lihat isi template
+- **6 template baru** — `article`, `idea`, `journal`, `meeting`, `people`, `project` (menambah `book`, `css`, `daily`, `html`, `js`)
+- **AI template filling** — template dengan placeholder `{{ai:...}}` otomatis diisi AI lewat `obs ai --template <nama>`
+- **`getTemplateData` helper** — penyederhanaan pembuatan placeholder template (title, folder, date, time) di `utils/markdown.js`
 
 ---
 
@@ -465,11 +481,17 @@ obsidian-helper/
 │   └── tree.js
 │
 ├── templates/
+│   ├── article.md
 │   ├── book.md
 │   ├── css.md
 │   ├── daily.md
 │   ├── html.md
-│   └── js.md
+│   ├── idea.md
+│   ├── journal.md
+│   ├── js.md
+│   ├── meeting.md
+│   ├── people.md
+│   └── project.md
 │
 ├── utils/
 │   ├── ai.js

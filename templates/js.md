@@ -1,12 +1,12 @@
 # {{title}}
 
-Folder : {{folder}}
+**Tanggal:** {{date}} · **Folder:** {{folder}} · **Dibuat:** {{time}}
 
-Dibuat : {{date}}
-
-Jam : {{time}}
+---
 
 ## Pengertian
+
+{{ai:Jelaskan konsep JavaScript {{title}} secara sederhana dan mudah dipahami}}
 
 ## Sintaks
 
@@ -20,4 +20,10 @@ Jam : {{time}}
 
 ```
 
+## Komponen
+
+- 
+
 ## Catatan
+
+-

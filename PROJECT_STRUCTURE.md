@@ -40,11 +40,17 @@ obsidian-helper/
 │   └── tree.js                # Vault folder tree
 │
 ├── templates/
+│   ├── article.md             # Article note template
 │   ├── book.md                # Book note template
 │   ├── css.md                 # CSS template
 │   ├── daily.md               # Daily note template
 │   ├── html.md                # HTML template
-│   └── js.md                  # JavaScript template
+│   ├── idea.md                # Idea note template
+│   ├── journal.md             # Journal entry template
+│   ├── js.md                  # JavaScript template
+│   ├── meeting.md             # Meeting notes template
+│   ├── people.md              # People profile template
+│   └── project.md             # Project tracking template
 │
 ├── utils/
 │   ├── ai.js                 # AI client (Ollama lokal & OpenAI-compatible)

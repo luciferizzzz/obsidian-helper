@@ -1,11 +1,10 @@
-// v1.4.1 - AI daily note command (Ollama / OpenAI)
 const path = require("path");
 const fs = require("fs");
 const { input } = require("@inquirer/prompts");
 const { generate } = require("../utils/ai");
 const { createFile } = require("../utils/file");
 const { getVaultPath } = require("../utils/vault");
-const { parseTemplate } = require("../utils/markdown");
+const { parseTemplate, extractAIBlocks, fillAIBlocks, getTemplateData } = require("../utils/markdown");
 
 const SYSTEM_PROMPT = `Tulis catatan markdown buat Obsidian.
 
@@ -194,6 +193,41 @@ function fillDailyTemplate(template, sections) {
     return result;
 }
 
+async function fillTemplateWithAI(template, prompt, options) {
+    const aiBlocks = extractAIBlocks(template);
+
+    if (aiBlocks.length === 0) {
+        return null;
+    }
+
+    console.log(`\n🤖 Template memiliki ${aiBlocks.length} bagian AI, mengisi...`);
+
+    const fills = [];
+
+    for (let i = 0; i < aiBlocks.length; i++) {
+        const block = aiBlocks[i];
+        console.log(`  [${i + 1}/${aiBlocks.length}] ${block.instruction}`);
+
+        const blockPrompt = `${SYSTEM_PROMPT}
+
+${block.instruction}
+
+Konteks tambahan: ${prompt}
+
+Berikan jawaban langsung, tanpa pembukaan.`;
+
+        try {
+            const content = await generate(blockPrompt);
+            fills.push({ placeholder: block.placeholder, content: content.trim() });
+        } catch (err) {
+            console.log(`  ❌ Gagal mengisi blok: ${err.message}`);
+            fills.push({ placeholder: block.placeholder, content: "" });
+        }
+    }
+
+    return fillAIBlocks(template, fills);
+}
+
 async function aiWrite(prompt, options) {
     let finalPrompt;
 
@@ -207,8 +241,6 @@ async function aiWrite(prompt, options) {
     console.log("\n🧠 Lagi diproses sama AI...\n");
 
     try {
-        const content = await generate(finalPrompt);
-
         const vault = getVaultPath();
         let filePath;
 
@@ -220,6 +252,8 @@ async function aiWrite(prompt, options) {
                 `${String(now.getDate()).padStart(2, "0")}`;
             filePath = path.join(vault, "Daily Notes", `${date}.md`);
 
+            const content = await generate(finalPrompt);
+
             if (options.ask) {
                 const templatePath = path.join(
                     __dirname, "..", "templates", "daily.md"
@@ -228,12 +262,7 @@ async function aiWrite(prompt, options) {
                 if (fs.existsSync(templatePath)) {
                     template = parseTemplate(
                         fs.readFileSync(templatePath, "utf8"),
-                        {
-                            title: date,
-                            date,
-                            folder: "Daily Notes",
-                            time: new Date().toLocaleTimeString("id-ID"),
-                        }
+                        getTemplateData({ title: date, folder: "Daily Notes", date })
                     );
                 }
 
@@ -269,12 +298,7 @@ async function aiWrite(prompt, options) {
                     if (fs.existsSync(templatePath)) {
                         header = parseTemplate(
                             fs.readFileSync(templatePath, "utf8"),
-                            {
-                                title: date,
-                                date,
-                                folder: "Daily Notes",
-                                time: new Date().toLocaleTimeString("id-ID"),
-                            }
+                            getTemplateData({ title: date, folder: "Daily Notes", date })
                         );
                     }
                     const finalContent = insertUnderCatatan(header, content);
@@ -282,13 +306,43 @@ async function aiWrite(prompt, options) {
                     console.log("✅ Daily note baru dibuat!");
                 }
             }
+        } else if (options.template) {
+            const templatePath = path.join(
+                __dirname, "..", "templates", `${options.template}.md`
+            );
+
+            if (!fs.existsSync(templatePath)) {
+                console.log("❌ Template tidak ditemukan: " + options.template);
+                return;
+            }
+
+            const title = options.title || "AI Note";
+            const folder = options.folder || "AI";
+
+            let template = fs.readFileSync(templatePath, "utf8");
+            template = parseTemplate(template, getTemplateData({ title, folder }));
+
+            const filledTemplate = await fillTemplateWithAI(template, prompt, options);
+
+            if (filledTemplate) {
+                filePath = uniquePath(path.join(vault, folder, `${title}.md`));
+                createFile(filePath, filledTemplate);
+                console.log("✅ Catatan dari template berhasil dibuat!");
+            } else {
+                const content = await generate(finalPrompt);
+                filePath = uniquePath(path.join(vault, folder, `${title}.md`));
+                createFile(filePath, content);
+                console.log("✅ Catatan berhasil dibuat!");
+            }
         } else if (options.file) {
+            const content = await generate(finalPrompt);
             filePath = path.isAbsolute(options.file)
                 ? options.file
                 : path.join(vault, options.file);
             createFile(filePath, content);
             console.log("✅ Catatan berhasil dibuat!");
         } else {
+            const content = await generate(finalPrompt);
             const title = options.title || "AI Note";
             const folder = options.folder || "AI";
             filePath = uniquePath(path.join(vault, folder, `${title}.md`));

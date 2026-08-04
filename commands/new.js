@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 
-const { parseTemplate } = require("../utils/markdown");
+const { parseTemplate, getTemplateData } = require("../utils/markdown");
 const { createFile } = require("../utils/file");
 const { getVaultPath } = require("../utils/vault");
 
@@ -25,12 +25,7 @@ function newNote(folder, title, options) {
 
         content = fs.readFileSync(templatePath, "utf8");
 
-        content = parseTemplate(content, {
-            title,
-            folder,
-            date: new Date().toLocaleDateString("id-ID"),
-            time: new Date().toLocaleTimeString("id-ID"),
-        });
+        content = parseTemplate(content, getTemplateData({ title, folder }));
     }
 
     const filePath = path.join(
@@ -48,7 +43,5 @@ function newNote(folder, title, options) {
         console.log("❌ " + err.message);
     }
 }
-
-module.exports = newNote;
 
 module.exports = newNote;
