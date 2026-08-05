@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.4.3-blue)
+![Version](https://img.shields.io/badge/version-v1.4.4-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 

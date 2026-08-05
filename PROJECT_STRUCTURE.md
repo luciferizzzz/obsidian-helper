@@ -10,7 +10,7 @@ obsidian-helper/
 │   └── vaultReport.js         # Vault data collector (dashboard & report)
 │
 ├── commands/
-│   ├── ai.js                 # AI note writing (Ollama lokal / OpenAI API key), template filling, deep journaling
+│   ├── ai.js                 # AI note writing (Ollama lokal / OpenAI API key), template filling, deep journaling, AI productivity (tomorrow/update/weekly)
 │   ├── archive.js            # Archive old notes to Archive folder
 │   ├── attachments.js         # Inspect attachment files in vault
 │   ├── backlinks.js            # Find notes referencing a given note
@@ -95,6 +95,9 @@ obs find
 obs list
 obs deadlinks
 obs ai "belajar closures"
+obs ai tomorrow
+obs ai update
+obs ai weekly
 obs archive
 obs attachments
 obs backup

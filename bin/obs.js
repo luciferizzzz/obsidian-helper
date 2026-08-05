@@ -44,7 +44,7 @@ const tags = require("../commands/tags");
 
 const configCmd = require("../commands/config");
 
-const aiWrite = require("../commands/ai");
+const { aiWrite, aiTomorrow, aiUpdate, aiWeekly } = require("../commands/ai");
 
 const dashboard = require("../commands/dashboard");
 
@@ -65,7 +65,7 @@ const cleanup = require("../commands/cleanup");
 program
   .name("obs")
   .description("Obsidian Helper CLI")
-  .version("1.4.3");
+  .version("1.4.4");
 
 program
   .command("hello")
@@ -184,7 +184,18 @@ program
   .option("--daily", "Catat ke daily note hari ini")
   .option("--ask", "Interactive mode - AI tanya kamu dulu")
   .option("--template <name>", "Gunakan template untuk catatan AI")
-  .action(aiWrite);
+  .action((prompt, options) => {
+    if (prompt === "tomorrow") {
+      return aiTomorrow();
+    }
+    if (prompt === "update") {
+      return aiUpdate();
+    }
+    if (prompt === "weekly") {
+      return aiWeekly();
+    }
+    return aiWrite(prompt, options);
+  });
 
 program
   .command("dashboard")

@@ -77,6 +77,35 @@ JANGAN pakai kata "kamu", "anda", "kalian".
 JANGAN pembukaan kayak "Tentu", "Oke", "Baik".`;
 }
 
+function formatDate(d) {
+    return (
+        `${d.getFullYear()}-` +
+        `${String(d.getMonth() + 1).padStart(2, "0")}-` +
+        `${String(d.getDate()).padStart(2, "0")}`
+    );
+}
+
+function getISOWeek(d) {
+    const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    const dayNum = date.getUTCDay() || 7;
+    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+    return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+}
+
+function handleAiError(err) {
+    const msg = err.message || "Unknown error";
+    if (msg.includes("connect ke Ollama") || msg.includes("ECONNREFUSED")) {
+        console.log("❌ Ollama belum jalan. Jalankan `ollama serve` dulu.");
+    } else if (msg.includes("API key")) {
+        console.log("❌ " + msg);
+    } else if (msg.includes("timeout")) {
+        console.log("❌ Response timeout. Coba prompt yang lebih pendek.");
+    } else {
+        console.log("❌ " + msg);
+    }
+}
+
 function uniquePath(filePath) {
     if (!fs.existsSync(filePath)) return filePath;
     const dir = path.dirname(filePath);
@@ -352,17 +381,283 @@ async function aiWrite(prompt, options) {
 
         console.log("📁 " + filePath);
     } catch (err) {
-        const msg = err.message || "Unknown error";
-        if (msg.includes("connect ke Ollama") || msg.includes("ECONNREFUSED")) {
-            console.log("❌ Ollama belum jalan. Jalankan `ollama serve` dulu.");
-        } else if (msg.includes("API key")) {
-            console.log("❌ " + msg);
-        } else if (msg.includes("timeout")) {
-            console.log("❌ Response timeout. Coba prompt yang lebih pendek.");
-        } else {
-            console.log("❌ " + msg);
-        }
+        handleAiError(err);
     }
 }
 
-module.exports = aiWrite;
+async function askTomorrow() {
+    const answers = {};
+
+    console.log("\n🗓️  Oke, kita rencanain hari besok!\n");
+
+    answers.prioritas = await input({
+        message: "🎯 Prioritas terbesar besok apa?",
+    });
+
+    answers.jadwal = await input({
+        message: "📅 Ada meeting atau acara penting?",
+    });
+
+    answers.belum = await input({
+        message: "🔁 Ada yang belum selesai dari hari ini?",
+    });
+
+    answers.goals = await input({
+        message: "💪 Ada goal pribadi yang mau dicapai?",
+    });
+
+    answers.ingat = await input({
+        message: "🧠 Ada yang gak boleh kamu lupain?",
+    });
+
+    return answers;
+}
+
+function buildTomorrowPrompt(answers) {
+    return `${SYSTEM_PROMPT}
+
+Buat rencana terstruktur untuk besok dengan heading:
+# Tomorrow Plan
+
+## Priorities
+- ...
+
+## Schedule
+09:00 - Coding
+13:00 - Meeting
+
+## Goals
+- ...
+
+## Reminders
+- ...
+
+Prioritas terbesar: ${answers.prioritas}
+Meeting / acara penting: ${answers.jadwal}
+Yang belum selesai: ${answers.belum}
+Goal pribadi: ${answers.goals}
+Jangan lupain: ${answers.ingat}
+
+Tiap bagian langsung isinya aja, bahasa santai, bullet points.`;
+}
+
+async function aiTomorrow() {
+    const answers = await askTomorrow();
+    const prompt = buildTomorrowPrompt(answers);
+
+    console.log("\n🧠 Lagi diproses sama AI...\n");
+
+    try {
+        const vault = getVaultPath();
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const date = formatDate(tomorrow);
+
+        const content = await generate(prompt);
+        const filePath = path.join(vault, "Planning", "Tomorrow", `${date}.md`);
+        createFile(filePath, content);
+        console.log("✅ Rencana besok berhasil dibuat!");
+        console.log("📁 " + filePath);
+    } catch (err) {
+        handleAiError(err);
+    }
+}
+
+async function askUpdate() {
+    const answers = {};
+
+    console.log("\n📝 Oke, kita update daily note hari ini!\n");
+
+    answers.selesai = await input({
+        message: "✅ Apa aja yang udah selesai hari ini?",
+    });
+
+    answers.kerjain = await input({
+        message: "🔧 Lagi ngerjain apa sekarang?",
+    });
+
+    answers.blocker = await input({
+        message: "🚧 Ada yang ngehambat?",
+    });
+
+    answers.mood = await input({
+        message: "😊 Gimana mood hari ini?",
+    });
+
+    answers.syukur = await input({
+        message: "🙏 Apa yang kamu syukuri hari ini?",
+    });
+
+    answers.pelajaran = await input({
+        message: "📚 Ada yang kamu pelajari hari ini?",
+    });
+
+    return answers;
+}
+
+function buildUpdatePrompt(answers) {
+    return `${SYSTEM_PROMPT}
+
+Update daily note hari ini. Isi 6 bagian dengan heading:
+## Target Hari Ini
+## Catatan
+## Selesai
+## Mood
+## Syukur
+## Refleksi
+
+Yang udah selesai: ${answers.selesai}
+Yang lagi dikerjain: ${answers.kerjain}
+Hambatan: ${answers.blocker}
+Mood: ${answers.mood}
+Syukur: ${answers.syukur}
+Pelajaran hari ini: ${answers.pelajaran}
+
+Tiap bagian langsung isinya aja, bahasa santai, 2-3 kalimat.`;
+}
+
+async function aiUpdate() {
+    const answers = await askUpdate();
+    const prompt = buildUpdatePrompt(answers);
+
+    console.log("\n🧠 Lagi diproses sama AI...\n");
+
+    try {
+        const vault = getVaultPath();
+        const now = new Date();
+        const date = formatDate(now);
+        const filePath = path.join(vault, "Daily Notes", `${date}.md`);
+
+        const content = await generate(prompt);
+        const sections = parseSections(content);
+
+        if (fs.existsSync(filePath)) {
+            const existing = fs.readFileSync(filePath, "utf8");
+            let updated = fillDailyTemplate(existing, sections);
+            if (updated === existing) {
+                updated = insertUnderCatatan(existing, content);
+            }
+            fs.writeFileSync(filePath, updated);
+            console.log("✅ Daily note diupdate sama AI!");
+        } else {
+            const templatePath = path.join(
+                __dirname, "..", "templates", "daily.md"
+            );
+            let template = `# ${date}\n\n`;
+            if (fs.existsSync(templatePath)) {
+                template = parseTemplate(
+                    fs.readFileSync(templatePath, "utf8"),
+                    getTemplateData({ title: date, folder: "Daily Notes", date })
+                );
+            }
+            let filled = fillDailyTemplate(template, sections);
+            if (filled === template) {
+                filled = insertUnderCatatan(template, content);
+            }
+            createFile(filePath, filled);
+            console.log("✅ Daily note baru dibuat dan diisi AI!");
+        }
+
+        console.log("📁 " + filePath);
+    } catch (err) {
+        handleAiError(err);
+    }
+}
+
+async function askWeekly() {
+    const answers = {};
+
+    console.log("\n🗓️  Oke, kita rencanain seminggu ke depan!\n");
+
+    answers.goal = await input({
+        message: "🎯 Goal utama minggu ini?",
+    });
+
+    answers.prioritas = await input({
+        message: "⚡ Prioritas teratas apa aja?",
+    });
+
+    answers.goals = await input({
+        message: "💪 Goal pribadi?",
+    });
+
+    answers.belajar = await input({
+        message: "📚 Mau belajar apa?",
+    });
+
+    answers.deadline = await input({
+        message: "⏰ Ada deadline penting?",
+    });
+
+    answers.habit = await input({
+        message: "🔄 Habit yang mau dijaga?",
+    });
+
+    return answers;
+}
+
+function buildWeeklyPrompt(answers) {
+    return `${SYSTEM_PROMPT}
+
+Buat rencana mingguan terstruktur dengan heading:
+# Weekly Plan
+
+## Goals
+- ...
+
+## Monday
+- ...
+
+## Tuesday
+- ...
+
+## Wednesday
+- ...
+
+## Thursday
+- ...
+
+## Friday
+- ...
+
+## Saturday
+- ...
+
+## Sunday
+- ...
+
+## Notes
+- ...
+
+Goal utama: ${answers.goal}
+Prioritas: ${answers.prioritas}
+Goal pribadi: ${answers.goals}
+Mau belajar: ${answers.belajar}
+Deadline: ${answers.deadline}
+Habit: ${answers.habit}
+
+Tiap bagian langsung isinya aja, bahasa santai, bullet points.`;
+}
+
+async function aiWeekly() {
+    const answers = await askWeekly();
+    const prompt = buildWeeklyPrompt(answers);
+
+    console.log("\n🧠 Lagi diproses sama AI...\n");
+
+    try {
+        const vault = getVaultPath();
+        const now = new Date();
+        const week = getISOWeek(now);
+
+        const content = await generate(prompt);
+        const filePath = path.join(vault, "Planning", "Weekly", `Week-${week}.md`);
+        createFile(filePath, content);
+        console.log("✅ Rencana mingguan berhasil dibuat!");
+        console.log("📁 " + filePath);
+    } catch (err) {
+        handleAiError(err);
+    }
+}
+
+module.exports = { aiWrite, aiTomorrow, aiUpdate, aiWeekly };
