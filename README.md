@@ -245,6 +245,15 @@ Edit `config.json` with your vault path:
 
 ---
 
+## ✅ Version 1.4.4 (AI Productivity Commands)
+
+- **`obs ai tomorrow`** — rencana terstruktur untuk besok via percakapan interaktif (Planning/Tomorrow/YYYY-MM-DD.md)
+- **`obs ai update`** — update cerdas daily note hari ini, section yang hilang dibuat otomatis
+- **`obs ai weekly`** — rencana mingguan terstruktur (Planning/Weekly/Week-32.md)
+- **Semua provider didukung** — Ollama, OpenAI, dan OpenAI-compatible API
+
+---
+
 ## 💡 Usage Examples
 
 Create a JavaScript note:
@@ -620,7 +629,7 @@ For a detailed explanation of the project architecture, see **PROJECT_STRUCTURE.
 
 ---
 
-# 🚧 Version 1.4.4 — AI Productivity Commands
+# ✅ Version 1.4.4 — AI Productivity Commands
 
 > **Release Type:** Minor Feature Update  
 > **Version:** v1.4.4
