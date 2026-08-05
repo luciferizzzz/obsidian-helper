@@ -106,11 +106,11 @@ async function config(subcommand) {
 
         case "set":
 
-            const vault = await input({
+            const vault = (await input({
                 message: "New vault path:"
-            });
+            })).trim();
 
-            if (!fs.existsSync(vault)) {
+            if (!vault || !fs.existsSync(vault)) {
                 console.log("Invalid path.");
                 return;
             }

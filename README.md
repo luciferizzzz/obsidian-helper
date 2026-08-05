@@ -254,6 +254,14 @@ Edit `config.json` with your vault path:
 
 ---
 
+## 🐛 Version 1.4.4 (Bug Fix)
+
+- **Fix vault path dengan spasi** — path vault dengan leading/trailing space bikin command gagal dengan `ENOENT` (path jadi `C:\Users\...\ D:\obsidian\...`)
+- **Trim input** — `obs init` dan `obs config set` sekarang trim vault path dan tolak path kosong
+- **Sanitasi config** — `getVaultPath()` sekarang trim vault path saat baca `config.json`
+
+---
+
 ## 💡 Usage Examples
 
 Create a JavaScript note:

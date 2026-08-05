@@ -5,8 +5,9 @@ function getVaultPath() {
     const configPath = path.join(__dirname, "..", "config.json");
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
-        if (config.vault) {
-            return config.vault;
+        const vault = typeof config.vault === "string" ? config.vault.trim() : "";
+        if (vault) {
+            return vault;
         }
     }
     return "D:\\obsidian\\Workspace";
