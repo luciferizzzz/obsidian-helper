@@ -4,9 +4,11 @@ const fs = require("fs");
 const { parseTemplate, getTemplateData } = require("../utils/markdown");
 const { createFile } = require("../utils/file");
 const { getVaultPath } = require("../utils/vault");
+const { sanitizeFilename, mdFileName } = require("../utils/sanitizeFilename");
 
 function newNote(folder, title, options) {
     const vault = getVaultPath();
+    title = sanitizeFilename(title);
 
     let content = "";
 
@@ -31,7 +33,7 @@ function newNote(folder, title, options) {
     const filePath = path.join(
         vault,
         folder,
-        `${title}.md`
+        mdFileName(title)
     );
 
     try {

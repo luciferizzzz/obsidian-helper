@@ -8,7 +8,7 @@ A fast, lightweight, and open-source CLI tool for managing your Obsidian vault d
 
 <p align="center">
 
-![Version](https://img.shields.io/badge/version-v1.4.4-blue)
+![Version](https://img.shields.io/badge/version-v1.4.5-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
@@ -259,6 +259,14 @@ Edit `config.json` with your vault path:
 - **Fix vault path dengan spasi** — path vault dengan leading/trailing space bikin command gagal dengan `ENOENT` (path jadi `C:\Users\...\ D:\obsidian\...`)
 - **Trim input** — `obs init` dan `obs config set` sekarang trim vault path dan tolak path kosong
 - **Sanitasi config** — `getVaultPath()` sekarang trim vault path saat baca `config.json`
+
+---
+
+## 🐛 Version 1.4.5 (Bug Fix: Filename Sanitization)
+
+- **Fix nama file ilegal di Windows** — karakter `<>:"/\|?*` pada judul note (`obs ai -t`, `obs new`, `obs rename`) sekarang otomatis dibuang sehingga file yang dibuat selalu `.md`, bukan jadi file JavaScript
+- **Helper `utils/sanitizeFilename.js`** — helper bersama untuk sanitasi semua nama file note (Unicode & emoji dipertahankan, spasi berlebih dirapikan, ekstensi `.md` tepat satu)
+- **Diterapkan di semua command** — `obs ai`, `obs new`, `obs rename`, `obs move`, dan pembuatan note berbasis template
 
 ---
 

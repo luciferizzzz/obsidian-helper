@@ -2,20 +2,25 @@ const fs = require("fs");
 const path = require("path");
 
 const { getVaultPath } = require("../utils/vault")
+const { mdFileName } = require("../utils/sanitizeFilename");
 
 function rename(folder, oldName, newName) {
     const vault = getVaultPath();
 
-    const oldPath = path.join(
+    const rawOldPath = path.join(
         vault,
         folder,
         `${oldName}.md`
     );
 
+    const oldPath = fs.existsSync(rawOldPath)
+        ? rawOldPath
+        : path.join(vault, folder, mdFileName(oldName));
+
     const newPath = path.join(
         vault,
         folder,
-        `${newName}.md`
+        mdFileName(newName)
     );
 
     if (!fs.existsSync(oldPath)) {
@@ -27,6 +32,8 @@ function rename(folder, oldName, newName) {
         console.log("Nama note sudah digunakan.");
         return;
     } 
+
+    fs.renameSync(oldPath, newPath);
 
     console.log("Note berhasil diubah.");
     console.log(path.relative(vault, newPath));

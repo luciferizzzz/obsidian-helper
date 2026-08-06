@@ -58,6 +58,7 @@ obsidian-helper/
 │   ├── file.js               # File utilities
 │   ├── markdown.js           # Template parser
 │   ├── noteIndex.js          # Note index builder
+│   ├── sanitizeFilename.js   # Filename sanitizer (removes illegal Windows chars, keeps Unicode/emoji)
 │   ├── scanner.js            # Vault scanner
 │   ├── vault.js               # Vault utilities
 │   └── wikilinks.js           # Wiki link parser
@@ -135,6 +136,7 @@ Includes:
 - File operations
 - Wiki link parsing
 - Note indexing
+- Filename sanitization
 - AI client (Ollama lokal / OpenAI API key)
 
 ---
