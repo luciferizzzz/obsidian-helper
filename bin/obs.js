@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const { default: chalk } = require("chalk");
+
 const { Command } = require("commander");
 
 const { Option } = require("commander");
@@ -65,7 +67,7 @@ const cleanup = require("../commands/cleanup");
 program
   .name("obs")
   .description("Obsidian Helper CLI")
-  .version("1.4.5");
+  .version("1.4.6");
 
 program
   .command("hello")
@@ -243,4 +245,7 @@ program
   .option("--preview <name>", "Preview isi template")
   .action(templateCmd);
 
-program.parse();
+program.parseAsync(process.argv).catch((err) => {
+    console.error(chalk.red(`\n❌ ${err.message}`));
+    process.exit(1);
+});

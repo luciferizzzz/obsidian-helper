@@ -80,7 +80,7 @@ Points to your Obsidian vault folder.
 - Must be an **absolute path**.
 - On Windows, escape backslashes (`D:\\Vault`) or use forward slashes (`D:/Vault`).
 - Whitespace is **trimmed** automatically when read.
-- A missing/empty vault falls back to `D:\Vault`.
+- A missing/empty vault is rejected with a descriptive error telling you to run `obs init`.
 
 **Set it interactively**
 
@@ -322,7 +322,7 @@ export OPENAI_API_KEY="sk-..."
 
 1. **Unescaped backslashes** on Windows: use `D:\\Vault` (not `D:\Vault`).
 2. **Trailing spaces** in the vault path — trimmed automatically, but avoid them.
-3. **Forgetting `obs init`** — commands fail or fall back to the default path.
+3. **Forgetting `obs init`** — commands fail with a clear "Vault is not configured" error.
 4. **Committing real API keys** — use `OPENAI_API_KEY` or `.gitignore`.
 5. **Wrong `ai.provider`** — only `"ollama"` or `"openai"` are valid.
 6. **Wrong model slug** for OpenRouter / LM Studio — a `404` usually means a wrong model name.

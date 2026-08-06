@@ -109,7 +109,7 @@ obs ai <prompt>  ──► aiWrite(prompt, options)
 Each file in `commands/` implements one CLI command and follows the same lifecycle:
 
 1. **Parse & validate** — Commander enforces required arguments (`<folder>`, `<title>`, …).
-2. **Resolve config** — `getVaultPath()` reads `config.json`.
+2. **Resolve config** — `getVaultPath()` reads `config.json` (throws a friendly error if not configured).
 3. **Execute** — perform the action using utils/checks.
 4. **Handle errors** — friendly messages, no stack traces.
 5. **Report** — print the result and the file path.
@@ -120,11 +120,11 @@ Each file in `commands/` implements one CLI command and follows the same lifecyc
 obs new Notes "Learning Rust"
    │  argv: folder=Notes, title="Learning Rust"
    ▼
-getVaultPath() ──► config.json ──► D:\Vault
+getVaultPath() ──► config.json ──► vault path (or ❌ "Vault is not configured")
    ▼
 sanitizeFilename() + mdFileName() ──► "Learning Rust.md"
    ▼
-createFile(D:\Vault\Notes\Learning Rust.md, content)   // mkdir -p + write
+createFile(<vault path>\Notes\Learning Rust.md, content)   // mkdir -p + write
    ▼
 "✅ Note berhasil dibuat!" + path
 ```
@@ -182,7 +182,7 @@ Todo extraction and attachment inventory, used by `commands/todo.js` and `comman
 The vault is accessed through `utils/vault.js` and `utils/file.js`:
 
 ```text
-config.json ──► getVaultPath() ──► "D:\Vault"
+config.json ──► getVaultPath() ──► vault path (throws if not configured)
                     │
                     ▼
 utils/scanner.js scanMarkdownFiles() ──► [ ...full paths to .md files ]

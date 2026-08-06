@@ -1,16 +1,19 @@
-const fs = require("fs");
-const path = require("path");
+const { getConfig } = require("./config");
 
 function getVaultPath() {
-    const configPath = path.join(__dirname, "..", "config.json");
-    if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
-        const vault = typeof config.vault === "string" ? config.vault.trim() : "";
-        if (vault) {
-            return vault;
-        }
+    const config = getConfig();
+    const vault = config && typeof config.vault === "string" ? config.vault.trim() : "";
+
+    if (vault) {
+        return vault;
     }
-    return "D:\\Vault";
+
+    throw new Error(
+        "Vault is not configured.\n\n" +
+        "Run:\n\n" +
+        "    obs init\n\n" +
+        "to configure your Obsidian vault."
+    );
 }
 
 module.exports = {

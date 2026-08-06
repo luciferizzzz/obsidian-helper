@@ -18,6 +18,29 @@ The format is inspired by **Keep a Changelog** and follows **Semantic Versioning
 
 ---
 
+## [1.4.6] - 2026-08-06
+
+### Fixed
+
+- Removed the hardcoded vault path fallback.
+- Commands now require an explicitly configured vault.
+- Commands no longer crash with `ENOENT` when the vault is missing.
+- Missing, invalid, or empty `config.json` shows a clear `Vault is not configured` error.
+- Improved vault configuration validation (whitespace-only paths are rejected).
+- Improved configuration error messages.
+
+### Changed
+
+- `getVaultPath()` now throws a descriptive error instead of silently falling back to a hardcoded local directory.
+- Configuration reads go through the shared `utils/config.js` helper.
+
+### Improved
+
+- Improved cross-platform compatibility (no Windows-specific defaults).
+- User-friendly errors replace raw stack traces for expected configuration problems.
+
+---
+
 ## [1.4.5] - 2026-08-06
 
 ### Fixed
