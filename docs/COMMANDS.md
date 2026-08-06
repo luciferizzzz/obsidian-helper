@@ -1,0 +1,1034 @@
+# 📖 Command Reference — Obsidian Helper
+
+The complete CLI reference for **Obsidian Helper** (`obs`). Every command includes its description, syntax, arguments, options, examples, and notes.
+
+> **Related docs:** [AI.md](AI.md) · [CONFIGURATION.md](CONFIGURATION.md) · [README.md](../README.md)
+
+---
+
+## 📋 Table of Contents
+
+- [Global](#-global)
+- [Configuration](#-configuration)
+- [Note Management](#-note-management)
+- [Vault Management](#-vault-management)
+- [Knowledge Management](#-knowledge-management)
+- [AI Commands](#-ai-commands)
+- [Utilities](#-utilities)
+
+**Legend**
+
+- `<argument>` — required argument
+- `[argument]` — optional argument
+- `-o, --option` — command option
+
+---
+
+## 🌐 Global
+
+```
+obs <command> [arguments] [options]
+```
+
+| Command | Description |
+|---------|-------------|
+| `obs --help` | Show help and all commands |
+| `obs --version` | Show the current version |
+
+```bash
+obs --help
+obs --version   # → 1.4.5
+```
+
+---
+
+# ⚙️ Configuration
+
+## `obs init`
+
+Set the location of your Obsidian vault.
+
+**Description**
+
+Prompts for an absolute vault path, trims it, rejects empty values, and saves `config.json`.
+
+**Syntax**
+
+```
+obs init
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs init
+```
+
+```text
+? Lokasi Obsidian Vault D:\Obsidian\Workspace
+Vault berhasil disimpan.
+```
+
+**Notes**
+
+- Must be run before most commands.
+- The path is stored in `config.json` (project root).
+
+---
+
+## `obs config`
+
+Manage configuration.
+
+**Description**
+
+Shows or modifies configuration via subcommands.
+
+**Syntax**
+
+```
+obs config [subcommand]
+```
+
+**Subcommands**
+
+| Subcommand | Description |
+|------------|-------------|
+| *(none)* | Show a summary (vault + active AI provider) |
+| `show` | Show full config (API key masked) |
+| `set` | Update the vault path interactively |
+| `ai` | Interactive AI provider setup |
+| `reset` | Reset config to defaults |
+
+**Examples**
+
+```bash
+obs config
+obs config show
+obs config set
+obs config ai
+obs config reset
+```
+
+**Notes**
+
+- `obs config show` masks API keys: `********abcd`.
+- `obs config set` rejects paths that do not exist.
+
+---
+
+# 📝 Note Management
+
+## `obs new`
+
+Create a new note.
+
+**Description**
+
+Creates a markdown note, optionally from a template.
+
+**Syntax**
+
+```
+obs new <folder> <title> [options]
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<folder>` | Destination folder inside the vault |
+| `<title>` | Note title (`.md` added automatically) |
+
+**Options**
+
+| Option | Description |
+|--------|-------------|
+| `-t, --template <name>` | Create from a template |
+
+**Examples**
+
+```bash
+obs new Notes "Learning Rust"
+obs new Code "JavaScript Closures" -t js
+```
+
+**Notes**
+
+- Title is sanitized: illegal Windows characters (`<>:"/\|?*`) are removed.
+- Errors if the file already exists.
+- See [TEMPLATE_GUIDE.md](TEMPLATE_GUIDE.md) for templates.
+
+---
+
+## `obs today`
+
+Open or create today's daily note.
+
+**Description**
+
+Looks for `Daily Notes/YYYY-MM-DD.md`; creates it from the `daily` template if missing.
+
+**Syntax**
+
+```
+obs today
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs today
+```
+
+```text
+Tanggal : 2026-08-06
+Path : D:\Vault\Daily Notes\2026-08-06.md
+Exists : false
+Daily note berhasil dibuat!
+```
+
+**Notes**
+
+- Prints status without changing an existing daily note.
+
+---
+
+## `obs find`
+
+Search notes by filename keyword.
+
+**Description**
+
+Case-insensitive substring search over all note filenames.
+
+**Syntax**
+
+```
+obs find <keywords>
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<keywords>` | Text to match against note filenames |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs find rust
+```
+
+```text
+Ditemukan 2 note
+
+📄 Notes/Learning Rust.md
+📄 Rust/Cargo.md
+```
+
+**Notes**
+
+- Matches filenames only (not file contents).
+
+---
+
+## `obs rename`
+
+Rename a note.
+
+**Description**
+
+Renames a note inside a folder.
+
+**Syntax**
+
+```
+obs rename <folder> <oldName> <newName>
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<folder>` | Folder containing the note |
+| `<oldName>` | Current name (without `.md`) |
+| `<newName>` | New name (without `.md`) |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs rename Code "Old Note" "New Note"
+```
+
+```text
+Note berhasil diubah.
+Code/New Note.md
+```
+
+**Notes**
+
+- Errors if the note does not exist or the new name is already used.
+
+---
+
+## `obs move`
+
+Move a note to another folder.
+
+**Description**
+
+Moves a note between folders.
+
+**Syntax**
+
+```
+obs move <sourceFolder> <title> <targetFolder>
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<sourceFolder>` | Current folder |
+| `<title>` | Note name (without `.md`) |
+| `<targetFolder>` | Destination folder |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs move Code "JavaScript" Projects
+```
+
+```text
+Note berhasil dipindahkan.
+Code → Projects
+```
+
+---
+
+## `obs open`
+
+Open a note.
+
+**Description**
+
+Opens a note in the default application. If multiple notes match, lists them instead.
+
+**Syntax**
+
+```
+obs open <keyword>
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<keyword>` | Text to match against note filenames |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs open rust
+```
+
+```text
+✅ Membuka note...
+```
+
+```text
+Ditemukan beberapa note:
+1. Notes/Learning Rust.md
+2. Rust/Cargo.md
+```
+
+**Notes**
+
+- Uses `start` on Windows.
+
+---
+
+# 📂 Vault Management
+
+## `obs list`
+
+List every note in the vault.
+
+**Description**
+
+Alphabetical list of all markdown notes (hidden folders excluded).
+
+**Syntax**
+
+```
+obs list
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs list
+```
+
+```text
+📚 Notes
+
+Daily Notes/2026-08-06.md
+Notes/Learning Rust.md
+
+-----------------------
+Total Notes: 42
+```
+
+---
+
+## `obs tree`
+
+Display the vault folder tree.
+
+**Description**
+
+Recursive tree view of folders and notes (ignores `.obsidian`, `.git`, `node_modules`).
+
+**Syntax**
+
+```
+obs tree
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs tree
+```
+
+```text
+🌳 Vault Tree
+
+Vault
+├── Notes
+│   ├── Learning Rust.md
+│   └── Markdown Guide.md
+└── Projects
+    └── Website.md
+
+────────────────────────
+Folders : 3
+Notes   : 4
+```
+
+---
+
+## `obs recent`
+
+Show recently modified notes.
+
+**Description**
+
+Lists notes by modification time, newest first.
+
+**Syntax**
+
+```
+obs recent [limit]
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `[limit]` | Number of notes (default `10`) |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs recent 5
+```
+
+```text
+🕒 Recent Notes
+
+1. Notes/Learning Rust.md
+   Modified: 2026-08-06 14:32
+
+────────────────────────
+Showing 2 of 42 notes.
+```
+
+---
+
+## `obs random`
+
+Pick a random note.
+
+**Description**
+
+Selects and optionally opens a random note.
+
+**Syntax**
+
+```
+obs random [options]
+```
+
+**Arguments** — none
+
+**Options**
+
+| Option | Description |
+|--------|-------------|
+| `--open` | Open the selected note |
+
+**Example**
+
+```bash
+obs random --open
+```
+
+```text
+🎲 Random Note
+
+Projects/Website.md
+
+Membuka note...
+```
+
+---
+
+## `obs stats`
+
+Display vault statistics.
+
+**Description**
+
+Shows total notes, total folders, and per-folder note counts.
+
+**Syntax**
+
+```
+obs stats
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs stats
+```
+
+```text
+📊 Vault Statistics
+
+📄 Total Notes : 42
+📁 Total Folder: 8
+
+Folder
+📂 Notes             12
+📂 Projects          5
+```
+
+---
+
+## `obs dashboard`
+
+Show the daily activity dashboard.
+
+**Description**
+
+Today's date, notes modified today, a 7-day activity bar chart, key metrics, and recent notes.
+
+**Syntax**
+
+```
+obs dashboard
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs dashboard
+```
+
+```text
+📊 Dashboard
+
+🗓  Kamis, 6 Agustus 2026
+📂 D:\Vault
+
+📝 Notes Modified Today
+
+  • Notes/Learning Rust.md (14:32)
+
+📈 Last 7 Days
+
+  07-31   1  █
+
+⚡ Key Metrics
+
+  Notes       : 42
+  Wiki Links  : 156
+  Broken Links: 1
+  Orphans     : 2
+```
+
+---
+
+## `obs report`
+
+Generate a comprehensive vault report.
+
+**Description**
+
+Prints a report or exports it to Markdown / HTML / JSON.
+
+**Syntax**
+
+```
+obs report [options]
+```
+
+**Arguments** — none
+
+**Options**
+
+| Option | Description |
+|--------|-------------|
+| `--markdown` | Export as `.md` |
+| `--html` | Export as `.html` |
+| `--json` | Export as `.json` |
+| `-o, --output <path>` | Custom output path (single export) |
+
+**Examples**
+
+```bash
+obs report
+obs report --markdown
+obs report --html --json
+obs report --json -o report.json
+```
+
+**Notes**
+
+- Exports default to `_exports/` inside the vault (`vault-report-<timestamp>.<ext>`).
+- Includes overview, folders, links, orphans, tags, attachments, recent activity, broken links.
+
+---
+
+# 🔗 Knowledge Management
+
+## `obs deadlinks`
+
+Detect broken wiki links.
+
+**Description**
+
+Finds wiki links that point to non-existent notes.
+
+**Syntax**
+
+```
+obs deadlinks
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs deadlinks
+```
+
+```text
+❌ Broken Links
+
+📄 Notes/Learning Rust.md
+   → [[Missing Note]]
+
+────────────────────────
+Notes Scanned : 42
+Links Checked : 156
+Broken Links  : 1
+```
+
+---
+
+## `obs backlinks`
+
+Find notes that reference a note.
+
+**Description**
+
+Lists every note that links to the given note via `[[note]]`.
+
+**Syntax**
+
+```
+obs backlinks <note>
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<note>` | Note name (without `.md`) |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs backlinks Rust
+```
+
+```text
+Backlinks
+
+Notes/Learning Rust.md
+
+-----------------------
+Total Backlinks: 1
+```
+
+**Notes**
+
+- Errors with `Note not found.` if the note does not exist.
+
+---
+
+## `obs orphan`
+
+Find orphan notes.
+
+**Description**
+
+Lists notes that no other note links to.
+
+**Syntax**
+
+```
+obs orphan
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs orphan
+```
+
+```text
+🌱 Orphan Notes
+
+Notes/Meeting Notes.md
+
+------------------------
+Total Orphan Notes: 1
+```
+
+---
+
+## `obs graph`
+
+Analyze note relationships.
+
+**Description**
+
+Shows notes, wiki links, broken links, orphans, average links, and most/least linked notes.
+
+**Syntax**
+
+```
+obs graph
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs graph
+```
+
+```text
+📊 Vault Graph
+
+Notes          : 42
+Wiki Links     : 156
+Broken Links   : 1
+Orphan Notes   : 2
+Average Links  : 3.71
+
+Most Linked Notes
+
+1. Home (12)
+```
+
+---
+
+## `obs tags`
+
+Extract and count tags.
+
+**Description**
+
+Counts `#tag` occurrences across the vault (ignores code blocks).
+
+**Syntax**
+
+```
+obs tags
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs tags
+```
+
+```text
+🏷️  Tags
+
+#javascript (8)
+#rust (5)
+
+-----------------------
+Total Tags : 16
+Unique Tags : 3
+```
+
+---
+
+## `obs doctor`
+
+Analyze vault health.
+
+**Description**
+
+Vault health summary focused on broken wiki links.
+
+**Syntax**
+
+```
+obs doctor
+```
+
+**Arguments** — none
+
+**Options** — none
+
+**Example**
+
+```bash
+obs doctor
+```
+
+```text
+ Vault Health Report
+
+Notes : 42
+Links : 156
+Broken Links : 0
+
+✅ Vault Healthy
+```
+
+---
+
+# 🤖 AI Commands
+
+> Full AI documentation: [AI.md](AI.md).
+
+## `obs ai <prompt>`
+
+Generate a note about a prompt.
+
+**Description**
+
+Sends the prompt to the configured AI provider and writes the result as a note.
+
+**Syntax**
+
+```
+obs ai <prompt> [options]
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<prompt>` | Topic / instruction for the AI |
+
+**Options**
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-t, --title <title>` | Custom title | `AI Note` |
+| `-f, --folder <folder>` | Destination folder | `AI` |
+| `--file <path>` | Write to a specific file | — |
+| `--daily` | Append to today's daily note | — |
+| `--ask` | Interactive question mode | — |
+| `--template <name>` | Use a template | — |
+
+**Example**
+
+```bash
+obs ai "Explain JavaScript closures"
+```
+
+```text
+🧠 Lagi diproses sama AI...
+
+✅ Catatan berhasil dibuat!
+📁 D:\Vault\AI\AI Note.md
+```
+
+**Notes**
+
+- The command dispatches to dedicated workflows for `tomorrow`, `update`, and `weekly`.
+
+## `obs ai --daily`
+
+Append content to today's daily note under `## Catatan`.
+
+```bash
+obs ai "What I learned about markdown" --daily
+```
+
+## `obs ai --ask --daily`
+
+Interactive daily journal — 7 questions, 6 filled sections.
+
+```bash
+obs ai --ask --daily
+```
+
+## `obs ai tomorrow`
+
+Interactive tomorrow-planning session → `Planning/Tomorrow/YYYY-MM-DD.md`.
+
+```bash
+obs ai tomorrow
+```
+
+## `obs ai update`
+
+Smart daily note update (section by section, preserves content).
+
+```bash
+obs ai update
+```
+
+## `obs ai weekly`
+
+Interactive weekly-planning session → `Planning/Weekly/Week-<n>.md`.
+
+```bash
+obs ai weekly
+```
+
+---
+
+# 🧰 Utilities
+
+## `obs backup`
+
+Back up the entire vault to a destination folder.
+
+```bash
+obs backup
+```
+
+## `obs archive [days]`
+
+Move notes older than `[days]` into an `Archive` folder.
+
+```bash
+obs archive 30
+```
+
+## `obs cleanup`
+
+Clean the vault (empty files, orphan notes, broken links).
+
+```bash
+obs cleanup
+```
+
+## `obs todo`
+
+Scan all todo items in the vault.
+
+```bash
+obs todo
+```
+
+## `obs attachments`
+
+Inspect attachment files in the vault.
+
+```bash
+obs attachments
+```
+
+## `obs template`
+
+Manage templates.
+
+**Options**
+
+| Option | Description |
+|--------|-------------|
+| `--list` | List available templates |
+| `--preview <name>` | Preview a template's content |
+
+```bash
+obs template --list
+obs template --preview project
+```
+
+See [TEMPLATE_GUIDE.md](TEMPLATE_GUIDE.md) for the full template reference.

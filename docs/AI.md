@@ -1,0 +1,390 @@
+# 🤖 AI — Obsidian Helper
+
+This document explains the AI system of **Obsidian Helper**: providers, configuration, workflows, commands, environment variables, troubleshooting, and best practices.
+
+> **Related docs:** [CONFIGURATION.md](CONFIGURATION.md) · [COMMANDS.md](COMMANDS.md) · [README.md](../README.md)
+
+---
+
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Supported providers](#-supported-providers)
+- [AI configuration](#-ai-configuration)
+- [`obs config ai`](#-obs-config-ai)
+- [AI workflows](#-ai-workflows)
+- [AI commands](#-ai-commands)
+- [Daily journal](#-daily-journal)
+- [Tomorrow planning](#-tomorrow-planning)
+- [Weekly planning](#-weekly-planning)
+- [AI file writing](#-ai-file-writing)
+- [AI note generation](#-ai-note-generation)
+- [Environment variables](#-environment-variables)
+- [Troubleshooting](#-troubleshooting)
+- [Best practices](#-best-practices)
+
+---
+
+## ✨ Overview
+
+The AI assistant can **generate, update, and organize notes** directly inside your vault — all from the terminal. It supports both **local** models (running on your machine) and **cloud** APIs.
+
+**What AI can do**
+
+- Generate notes from a prompt
+- Write directly to any file in the vault
+- Fill daily notes (`## Target`, `## Catatan`, `## Selesai`, `## Mood`, `## Syukur`, `## Refleksi`)
+- Fill template placeholders (`{{ai:...}}`)
+- Create tomorrow plans
+- Update today's daily note
+- Create weekly plans
+- Run interactive journaling sessions
+
+---
+
+## ✅ Supported providers
+
+| Provider | Type | Notes |
+|----------|------|-------|
+| **Ollama** | Local | Free, fully offline. Default provider. |
+| **OpenAI** | Cloud | Official OpenAI API. |
+| **OpenRouter** | Cloud | One API key for many models. |
+| **LM Studio** | Local | Local server, OpenAI-compatible. |
+| **Any OpenAI-compatible API** | Local/Cloud | Any server exposing `/v1/chat/completions`. |
+
+> All cloud providers (OpenAI, OpenRouter, LM Studio, and other compatible APIs) use the same **OpenAI client** with different `baseUrl` values. The active provider is selected via `ai.provider` in `config.json`.
+
+### Ollama (local)
+
+Runs models locally — free, private, no internet required.
+
+```bash
+ollama pull qwen2.5-coder:7b
+ollama serve
+```
+
+Then configure with `obs config ai` (URL `http://127.0.0.1:11434`, model `qwen2.5-coder:7b`).
+
+### OpenAI (cloud)
+
+```bash
+obs config ai   # choose OpenAI, paste key, pick model & base URL
+```
+
+Defaults: model `gpt-4o-mini`, base URL `https://api.openai.com/v1`.
+
+### OpenRouter
+
+Use any model through one key. Configure with:
+
+- **Base URL:** `https://openrouter.ai/api/v1`
+- **Model:** full slug, e.g. `anthropic/claude-3.5-sonnet`
+
+### LM Studio (local)
+
+Start the local server (Developer tab → Start Server), then:
+
+- **Base URL:** `http://localhost:1234/v1`
+- **Model:** the exact model name loaded in LM Studio
+- **API key:** any value (e.g. `lm-studio`)
+
+### Any OpenAI-compatible API
+
+Same as OpenAI, but change `baseUrl`. Examples: Together AI, Groq, Mistral, or any proxy exposing `/v1/chat/completions`.
+
+---
+
+## ⚙️ AI configuration
+
+The `ai` section of `config.json` controls the provider.
+
+```json
+{
+  "ai": {
+    "provider": "ollama",
+    "ollama": { "url": "http://127.0.0.1:11434", "model": "qwen2.5-coder:7b" },
+    "openai": { "apiKey": "sk-...", "model": "gpt-4o-mini", "baseUrl": "https://api.openai.com/v1" }
+  }
+}
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `ai.provider` | `"ollama"` | `"ollama"` or `"openai"` |
+| `ai.ollama.url` | `http://127.0.0.1:11434` | Ollama server URL |
+| `ai.ollama.model` | `qwen2.5-coder:7b` | Ollama model |
+| `ai.openai.apiKey` | — | API key (or use env var) |
+| `ai.openai.model` | `gpt-4o-mini` | Model id / slug |
+| `ai.openai.baseUrl` | `https://api.openai.com/v1` | API base URL |
+
+See [CONFIGURATION.md](CONFIGURATION.md) for the full reference.
+
+---
+
+## 🛠️ `obs config ai`
+
+Interactive wizard for choosing and setting up the AI provider.
+
+```bash
+obs config ai
+```
+
+1. **Choose the provider** — Ollama (local) or OpenAI/API key (cloud).
+2. **Ollama** → URL and model.
+3. **OpenAI** → API key (masked input), model, and base URL.
+
+```text
+✅ Konfigurasi AI berhasil disimpan.
+```
+
+Verify with `obs config show` — the API key is masked (`********abcd`).
+
+---
+
+## 🔀 AI workflows
+
+A complete planning workflow is supported:
+
+| Command | Purpose | Output location |
+|---------|---------|-----------------|
+| `obs ai tomorrow` | Plan the next day | `Planning/Tomorrow/YYYY-MM-DD.md` |
+| `obs ai update` | Update today's daily note | `Daily Notes/YYYY-MM-DD.md` |
+| `obs ai weekly` | Plan the upcoming week | `Planning/Weekly/Week-<n>.md` |
+| `obs ai --ask --daily` | Interactive daily journal | `Daily Notes/YYYY-MM-DD.md` |
+
+```text
+obs ai tomorrow   →  Planning/Tomorrow/2026-08-07.md
+obs ai update     →  Daily Notes/2026-08-06.md   (section-by-section)
+obs ai weekly     →  Planning/Weekly/Week-32.md
+```
+
+All commands work with every supported provider.
+
+---
+
+## 🛠️ AI commands
+
+### `obs ai <prompt>`
+
+Generate a note about a prompt.
+
+```bash
+obs ai "Explain JavaScript closures"
+```
+
+**Options**
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-t, --title <title>` | Custom title | `AI Note` |
+| `-f, --folder <folder>` | Destination folder | `AI` |
+| `--file <path>` | Write to a specific file | — |
+| `--daily` | Append to today's daily note | — |
+| `--ask` | Interactive question mode | — |
+| `--template <name>` | Use a template | — |
+
+---
+
+## 📖 Daily journal
+
+### `obs ai --ask --daily`
+
+Interactive journaling: answer **7 questions**, the AI builds a daily note with 6 sections.
+
+```bash
+obs ai --ask --daily
+```
+
+**Questions asked**
+
+1. 🎯 What are today's targets?
+2. ✅ What got done?
+3. 📚 What did you learn / work on?
+4. ✨ Anything memorable?
+5. 😊 How was today overall?
+6. 🙏 What are you grateful for?
+7. 💭 Any reflections?
+
+**Sections filled**
+
+- `## Target Hari Ini`
+- `## Catatan`
+- `## Selesai`
+- `## Mood`
+- `## Syukur`
+- `## Refleksi`
+
+Existing daily notes are updated **in place**; missing sections are created automatically.
+
+### `obs ai <prompt> --daily`
+
+Append AI content under `## Catatan` in today's daily note.
+
+```bash
+obs ai "Focus areas today" --daily
+```
+
+---
+
+## 🗓️ Tomorrow planning
+
+### `obs ai tomorrow`
+
+Interactive planning session that produces a structured **Tomorrow Plan**.
+
+```bash
+obs ai tomorrow
+```
+
+**Questions asked**
+
+- 🎯 Biggest priority tomorrow?
+- 📅 Meetings or important events?
+- 🔁 Anything unfinished from today?
+- 💪 Personal goals?
+- 🧠 Anything you must not forget?
+
+**Generated note structure**
+
+```markdown
+# Tomorrow Plan
+
+## Priorities
+- ...
+
+## Schedule
+09:00 - Coding
+13:00 - Meeting
+
+## Goals
+- ...
+
+## Reminders
+- ...
+```
+
+**Location:** `Planning/Tomorrow/YYYY-MM-DD.md`
+
+---
+
+## 📅 Weekly planning
+
+### `obs ai weekly`
+
+Interactive weekly planning that produces a structured **Weekly Plan**.
+
+```bash
+obs ai weekly
+```
+
+**Questions asked**
+
+- 🎯 Main goal this week?
+- ⚡ Top priorities?
+- 💪 Personal goals?
+- 📚 What to learn?
+- ⏰ Important deadlines?
+- 🔄 Habits to maintain?
+
+**Generated note structure**
+
+```markdown
+# Weekly Plan
+
+## Goals
+## Monday
+## Tuesday
+## Wednesday
+## Thursday
+## Friday
+## Saturday
+## Sunday
+## Notes
+```
+
+**Location:** `Planning/Weekly/Week-<n>.md`
+
+---
+
+## 📝 AI file writing
+
+### `obs ai <prompt> --file <path>`
+
+Write AI content directly to a specific file. The path can be **relative to the vault** or **absolute**.
+
+```bash
+obs ai "Chapter 3 summary" --file "Reading/Clean Code/Chapter 3.md"
+obs ai "Meeting recap" --file "D:\Meetings\2026-08-06.md"
+```
+
+The target file is created (including parent folders); existing files are **not overwritten**.
+
+---
+
+## 🧠 AI note generation
+
+### `obs ai <prompt>`
+
+Generates a note in the `AI/` folder by default.
+
+```bash
+obs ai "Remote work productivity tips" -t "Remote Work" -f "Notes/Productivity"
+```
+
+### `obs ai <prompt> --template <name>`
+
+Generate a note using a template. `{{ai:...}}` placeholders are filled by the AI.
+
+```bash
+obs ai "Q3 launch plan" --template project -t "Q3 Launch"
+```
+
+See [TEMPLATE_GUIDE.md](TEMPLATE_GUIDE.md) for details.
+
+---
+
+## 🌿 Environment variables
+
+### `OPENAI_API_KEY`
+
+Set the API key without storing it in `config.json`.
+
+```powershell
+# Windows (PowerShell)
+$env:OPENAI_API_KEY = "sk-..."
+```
+
+```bash
+# Linux / macOS
+export OPENAI_API_KEY="sk-..."
+```
+
+> **Priority:** `ai.openai.apiKey` in `config.json` overrides the environment variable.
+
+---
+
+## 🔧 Troubleshooting
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `Ollama belum jalan...` | Ollama not running | `ollama serve`; verify `curl http://127.0.0.1:11434/api/tags` |
+| `Gagal connect ke Ollama` | Wrong URL / network | Check `ai.ollama.url` |
+| `Belum ada API key...` | No key configured | `obs config ai` or set `OPENAI_API_KEY` |
+| `API error: 401` | Invalid/expired key | Re-run `obs config ai` |
+| `API error: 404` | Wrong model name (OpenRouter/LM Studio) | Use exact slug / loaded model name |
+| `API error: 429` | Rate limit / quota | Wait, upgrade plan, or switch model |
+| Response timeout | Response > 5 minutes | Smaller model, shorter prompt, faster provider |
+| `Provider AI tidak dikenal` | Bad `ai.provider` | Must be `"ollama"` or `"openai"` |
+
+---
+
+## 💡 Best practices
+
+- **Start with Ollama** — free and private. Upgrade to cloud only if you need bigger models.
+- **Journal in the evening** — `obs ai --ask --daily` is designed for end-of-day reflection.
+- **Plan tomorrow before finishing today** — `obs ai tomorrow` works best with fresh context.
+- **Keep prompts specific** — short, focused prompts produce better notes.
+- **Use templates for repeatable formats** — consistent structure, less editing.
+- **Never commit real API keys** — prefer `OPENAI_API_KEY`.
+- **Review AI output** — AI content is a starting point, not the final word.
+- **Pull a reasonable local model** — 7B models give good results; very small models produce poor text.

@@ -1,0 +1,230 @@
+# Changelog
+
+All notable changes to **Obsidian Helper** are documented in this file.
+
+The format is inspired by **Keep a Changelog** and follows **Semantic Versioning (SemVer)**.
+
+---
+
+## [Unreleased]
+
+### Planned
+
+- Interactive Terminal UI improvements
+- Relationship commands
+- Better navigation
+- Fuzzy search
+- Shell autocomplete
+
+---
+
+## [1.4.5] - 2026-08-06
+
+### Fixed
+
+- Added shared filename sanitization utility.
+- Fixed invalid filenames when using custom titles (`-t`).
+- Removed illegal Windows filename characters.
+- Preserved Unicode characters and emoji in filenames.
+- Ensured generated notes always use a valid `.md` extension.
+- Applied filename sanitization across all note creation commands.
+
+### Improved
+
+- Refactored filename generation into a reusable helper.
+- Improved Windows compatibility.
+- Improved consistency across commands.
+
+---
+
+## [1.4.4] - 2026-08-06
+
+### Added
+
+- `obs ai tomorrow`
+- `obs ai update`
+- `obs ai weekly`
+
+### Improved
+
+- AI planning workflow.
+- Interactive planning sessions.
+- Daily Note updating.
+- Weekly planning.
+
+### Fixed
+
+- Trim vault paths during configuration.
+- Prevent invalid vault paths caused by leading/trailing spaces.
+- Improved vault path validation.
+
+---
+
+## [1.4.3] - 2026-08-05
+
+### Added
+
+#### New Templates
+
+- Meeting
+- Project
+- Article
+- Journal
+- Idea
+- People
+
+### Improved
+
+- Daily template
+- Book template
+- HTML template
+- CSS template
+- JavaScript template
+
+### AI
+
+- Better template compatibility.
+- AI-aware placeholders.
+
+---
+
+## [1.4.2] - 2026-08-05
+
+### Added
+
+- Mood section.
+- Gratitude section.
+- Reflection section.
+
+### Improved
+
+- Better Daily Note generation.
+- Auto-create missing sections.
+- Improved template filling.
+
+### Fixed
+
+- Daily Note sections were no longer skipped.
+
+---
+
+## [1.4.1] - 2026-08-04
+
+### Added
+
+- Markdown report export.
+- HTML report export.
+- JSON report export.
+- Custom export path.
+
+### Fixed
+
+- Windows CRLF compatibility.
+- Improved section matching.
+- Better line replacement.
+
+---
+
+## [1.4.0] - 2026-08-04
+
+### Added
+
+- OpenAI provider.
+- OpenRouter support.
+- OpenAI-compatible APIs.
+- `obs config ai`.
+- Environment variable support.
+
+### Improved
+
+- Unified AI provider architecture.
+
+---
+
+## [1.3.1] - 2026-08-03
+
+### Fixed
+
+- AI Daily Note parsing.
+- Better fallback insertion.
+- Improved section detection.
+
+---
+
+## [1.3.0] - 2026-08-03
+
+### Added
+
+- Dashboard.
+- Vault Report.
+- Todo Scanner.
+- Attachment Inspector.
+- Backup Vault.
+- Archive Notes.
+- Cleanup Command.
+
+---
+
+## [1.2.2] - 2026-08-02
+
+### Improved
+
+- Better `--ask` mode.
+- Better template insertion.
+- Smarter Daily Note updates.
+
+---
+
+## [1.2.1] - 2026-08-02
+
+### Added
+
+- AI Note generation.
+- Interactive Daily Journal.
+- Direct file writing.
+- Daily Note integration.
+
+---
+
+## [1.2.0] - 2026-08-01
+
+### Added
+
+- Backlinks.
+- Orphan Notes.
+- Graph Analysis.
+- Tag extraction.
+
+---
+
+## [1.1.0] - 2026-07-31
+
+### Added
+
+- List Notes.
+- Tree View.
+- Recent Notes.
+- Random Notes.
+- Configuration management.
+
+---
+
+## [1.0.0] - 2026-07-30
+
+### Initial Release
+
+#### Note Management
+
+- New Notes
+- Daily Notes
+- Find Notes
+- Rename Notes
+- Move Notes
+- Open Notes
+
+#### Vault
+
+- Vault Statistics
+- Template System
+- Dead Link Detection
+- Vault Doctor
