@@ -10,7 +10,7 @@ function getVaultPath() {
             return vault;
         }
     }
-    return "D:\\obsidian\\Workspace";
+    return "D:\\Vault";
 }
 
 module.exports = {

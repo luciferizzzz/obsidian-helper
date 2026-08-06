@@ -39,7 +39,7 @@ A complete example:
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace",
+  "vault": "D:\\Vault",
   "ai": {
     "provider": "openai",
     "ollama": { "url": "http://127.0.0.1:11434", "model": "qwen2.5-coder:7b" },
@@ -71,16 +71,16 @@ Points to your Obsidian vault folder.
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace"
+  "vault": "D:\\Vault"
 }
 ```
 
 **Rules**
 
 - Must be an **absolute path**.
-- On Windows, escape backslashes (`D:\\Obsidian\\Workspace`) or use forward slashes (`D:/Obsidian/Workspace`).
+- On Windows, escape backslashes (`D:\\Vault`) or use forward slashes (`D:/Vault`).
 - Whitespace is **trimmed** automatically when read.
-- A missing/empty vault falls back to `D:\obsidian\Workspace`.
+- A missing/empty vault falls back to `D:\Vault`.
 
 **Set it interactively**
 
@@ -135,7 +135,7 @@ obs init
 ```
 
 ```text
-? Lokasi Obsidian Vault D:\Obsidian\Workspace
+? Lokasi Obsidian Vault D:\Vault
 Vault berhasil disimpan.
 ```
 
@@ -172,7 +172,7 @@ obs config reset
 ```text
 Current Configuration
 ----------------------
-Vault   : D:\Obsidian\Workspace
+Vault   : D:\Vault
 AI      : Ollama — qwen2.5-coder:7b
 ```
 
@@ -180,7 +180,7 @@ AI      : Ollama — qwen2.5-coder:7b
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace",
+  "vault": "D:\\Vault",
   "ai": {
     "provider": "openai",
     "openai": {
@@ -240,7 +240,7 @@ export OPENAI_API_KEY="sk-..."
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace"
+  "vault": "D:\\Vault"
 }
 ```
 
@@ -248,7 +248,7 @@ export OPENAI_API_KEY="sk-..."
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace",
+  "vault": "D:\\Vault",
   "ai": {
     "provider": "ollama",
     "ollama": { "url": "http://127.0.0.1:11434", "model": "qwen2.5-coder:7b" }
@@ -260,7 +260,7 @@ export OPENAI_API_KEY="sk-..."
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace",
+  "vault": "D:\\Vault",
   "ai": {
     "provider": "openai",
     "openai": {
@@ -276,7 +276,7 @@ export OPENAI_API_KEY="sk-..."
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace",
+  "vault": "D:\\Vault",
   "ai": {
     "provider": "openai",
     "openai": { "model": "gpt-4o-mini", "baseUrl": "https://api.openai.com/v1" }
@@ -288,7 +288,7 @@ export OPENAI_API_KEY="sk-..."
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace",
+  "vault": "D:\\Vault",
   "ai": {
     "provider": "openai",
     "openai": {
@@ -304,7 +304,7 @@ export OPENAI_API_KEY="sk-..."
 
 ```json
 {
-  "vault": "D:\\Obsidian\\Workspace",
+  "vault": "D:\\Vault",
   "ai": {
     "provider": "openai",
     "openai": {

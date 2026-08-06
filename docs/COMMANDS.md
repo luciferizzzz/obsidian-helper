@@ -69,7 +69,7 @@ obs init
 ```
 
 ```text
-? Lokasi Obsidian Vault D:\Obsidian\Workspace
+? Lokasi Obsidian Vault D:\Vault
 Vault berhasil disimpan.
 ```
 
