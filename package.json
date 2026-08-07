@@ -8,7 +8,8 @@
     "obsh": "./bin/obs.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test \"test/**/*.test.js\"",
+    "test:relationship": "node --test test/parser.test.js test/validator.test.js test/editor.test.js test/scanner.test.js test/formatter.test.js test/wikilinks.test.js",
     "lint": "echo \"No linting configured\"",
     "typecheck": "echo \"No type checking configured\""
   },
