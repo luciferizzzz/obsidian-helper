@@ -1,6 +1,6 @@
-# 🔗 Relationships — Obsidian Helper
+# 🔗 Relationships — ObsKit
 
-How note relationships work in Obsidian Helper: the relationship module, the `obs relate` / `obs unrelate` / `obs relations` commands, and how the reusable utilities power future knowledge features.
+How note relationships work in ObsKit (OBS = Organized Knowledge System): the relationship module, the `obs relate` / `obs unrelate` / `obs relations` commands, and how the reusable utilities power future knowledge features.
 
 > **Related docs:** [COMMANDS.md](COMMANDS.md) · [ARCHITECTURE.md](ARCHITECTURE.md) · [ROADMAP.md](ROADMAP.md)
 
@@ -18,7 +18,7 @@ How note relationships work in Obsidian Helper: the relationship module, the `ob
 
 ## 💡 What is a relationship?
 
-A **relationship** is a link between two notes. Obsidian Helper distinguishes three kinds:
+A **relationship** is a link between two notes. ObsKit distinguishes three kinds:
 
 | Kind | Meaning | Example |
 |------|---------|---------|
