@@ -54,13 +54,10 @@ function normalizeTarget(target) {
 }
 
 function normalizeLink(link) {
-    const parsed = typeof link === "string"
-        ? parseWikiLinks(link)[0]
-        : link;
-
-    if (!parsed) return "";
-
-    return normalizeTarget(parsed.target);
+    if (link && typeof link === "object") {
+        return normalizeTarget(link.target);
+    }
+    return normalizeTarget(link);
 }
 
 function parseHeadings(content) {
@@ -94,6 +91,10 @@ function getSectionContent(content, heading) {
             }
         }
         if (inSection) section.push(line);
+    }
+
+    while (section.length > 0 && section[section.length - 1] === "") {
+        section.pop();
     }
 
     return section.join("\n");

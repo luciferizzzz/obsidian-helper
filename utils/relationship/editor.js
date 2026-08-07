@@ -64,7 +64,7 @@ function ensureSection(content, heading) {
     const headingLine = `## ${String(heading).replace(/^#{1,6}\s+/, "").trim()}`;
     const block = lines.length === 0
         ? `${headingLine}${newline}`
-        : `${newline}${headingLine}${newline}`;
+        : `${newline}${newline}${headingLine}${newline}`;
 
     return {
         content: lines.join(newline) + block,
@@ -98,8 +98,14 @@ function addRelated(content, related) {
         };
     }
 
-    // Section exists — insert the bullet before the next heading (or end of file)
-    lines.splice(end, 0, bullet);
+    // Section exists — insert the bullet after the last non-empty line
+    let insertion = start + 1;
+    for (let i = start + 1; i < end; i++) {
+        if (lines[i] !== "") {
+            insertion = i + 1;
+        }
+    }
+    lines.splice(insertion, 0, bullet);
     return {
         content: lines.join(newline),
         added: true,
