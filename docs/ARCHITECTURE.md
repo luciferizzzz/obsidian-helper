@@ -144,6 +144,7 @@ createFile(<vault path>\Notes\Learning Rust.md, content)   // mkdir -p + write
 | `utils/markdown.js` | Template parser, AI blocks, template data |
 | `utils/sanitizeFilename.js` | `sanitizeFilename()` / `mdFileName()` — safe filenames |
 | `utils/ai.js` | Unified AI client (Ollama + OpenAI-compatible) |
+| `utils/relationship/` | Relationship module — parser, validator, scanner, editor, formatter (see [RELATIONSHIPS.md](RELATIONSHIPS.md)) |
 
 ---
 
@@ -212,6 +213,22 @@ The project uses small, purpose-built parsers rather than a full markdown engine
 [[Page#Heading]]        → Page#Heading
 [[image.png]]           → skipped     (attachments ignored)
 ```
+
+`extractWikiLinks()` is a thin compatibility layer over the relationship parser — both return identical output.
+
+### Wiki links — relationship parser (`utils/relationship/parser.js`)
+
+The structured parser used by the relationship module:
+
+```text
+[[Page]]                → { target: "Page", alias: null,  heading: null }
+[[Page|Alias]]          → { target: "Page", alias: "Alias", heading: null }
+[[Page#Heading]]        → { target: "Page", alias: null,  heading: "Heading" }
+[[Folder/Page]]         → { target: "Page", ... }          (folder stripped)
+[[image.png]]           → skipped                          (attachments ignored)
+```
+
+See [RELATIONSHIPS.md](RELATIONSHIPS.md) for the full relationship module reference.
 
 ### Template placeholders (`utils/markdown.js`)
 
@@ -306,6 +323,7 @@ obskit/
 │   ├── dashboard.js / report.js
 │   ├── deadlinks.js / backlinks.js / orphan.js / graph.js / tags.js / doctor.js
 │   ├── archive.js / attachments.js / backup.js / cleanup.js / todo.js
+│   ├── relate.js / unrelate.js / relations.js
 │   └── template.js
 ├── checks/                  # reusable analysis
 │   ├── deadlinks.js
@@ -315,7 +333,9 @@ obskit/
 ├── utils/                   # shared helpers
 │   ├── ai.js  config.js  file.js  markdown.js
 │   ├── noteIndex.js  sanitizeFilename.js  scanner.js  vault.js  wikilinks.js
+│   └── relationship/        # relationship module (parser, validator, scanner, editor, formatter, index)
 ├── templates/               # note templates
+├── test/                    # unit tests (node:test)
 ├── docs/                    # documentation
 ├── config-example.json
 ├── config.json

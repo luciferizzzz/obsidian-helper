@@ -19,10 +19,17 @@ The format is inspired by **Keep a Changelog** and follows **Semantic Versioning
 - Clarified project independence.
 - Clarified compatibility with Obsidian.
 
+### Added
+
+- `obs relate` — add an explicit relationship between two notes.
+- `obs unrelate` — remove an explicit relationship between two notes.
+- `obs relations` — show related, backlinks, and outgoing links of a note.
+- Reusable relationship module (`utils/relationship/`) with parser, validator, scanner, editor, and formatter.
+- Unit test suite for the relationship module (`npm test`).
+
 ### Planned
 
 - Interactive Terminal UI improvements
-- Relationship commands
 - Better navigation
 - Fuzzy search
 - Shell autocomplete

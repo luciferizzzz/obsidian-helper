@@ -2,7 +2,7 @@
 
 The complete CLI reference for **ObsKit** (`obs`, OBS = Organized Knowledge System). Every command includes its description, syntax, arguments, options, examples, and notes.
 
-> **Related docs:** [AI.md](AI.md) · [CONFIGURATION.md](CONFIGURATION.md) · [README.md](../README.md)
+> **Related docs:** [AI.md](AI.md) · [CONFIGURATION.md](CONFIGURATION.md) · [RELATIONSHIPS.md](RELATIONSHIPS.md) · [README.md](../README.md)
 
 ---
 
@@ -840,6 +840,135 @@ obs tags
 Total Tags : 16
 Unique Tags : 3
 ```
+
+---
+
+## `obs relate`
+
+Add an explicit relationship between two notes.
+
+**Description**
+
+Adds a `- [[related]]` bullet to the `## Related` section of `<note>`, creating the section when missing. Never duplicates an existing link.
+
+**Syntax**
+
+```
+obs relate <note> <related>
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<note>` | Note receiving the relationship (without `.md`) |
+| `<related>` | Related note (without `.md`) |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs relate Home Rust
+```
+
+```text
+✅ Related added.
+Home → Rust
+```
+
+**Notes**
+
+- Both notes must exist in the vault.
+- Folders and `.md` suffixes are normalized automatically.
+- Line endings (LF / CRLF) are preserved.
+- See [RELATIONSHIPS.md](RELATIONSHIPS.md) for the full relationship guide.
+
+---
+
+## `obs unrelate`
+
+Remove an explicit relationship between two notes.
+
+**Description**
+
+Removes the `- [[related]]` bullet from the `## Related` section of `<note>`. Only lines inside the Related section are touched.
+
+**Syntax**
+
+```
+obs unrelate <note> <related>
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<note>` | Note losing the relationship (without `.md`) |
+| `<related>` | Related note (without `.md`) |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs unrelate Home Rust
+```
+
+```text
+✅ Related removed.
+Home → Rust
+```
+
+---
+
+## `obs relations`
+
+Show all relationships of a note.
+
+**Description**
+
+Lists the explicit **Related** links, **Backlinks**, and **Outgoing** links of a note.
+
+**Syntax**
+
+```
+obs relations <note>
+```
+
+**Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| `<note>` | Note to inspect (without `.md`) |
+
+**Options** — none
+
+**Example**
+
+```bash
+obs relations Home
+```
+
+```text
+🔗 Relations for "Home"
+
+Related
+- [[Rust]]
+
+Backlinks
+- Notes/Index.md
+
+Outgoing Links
+- [[Rust]]
+
+------------------------
+Related: 1 · Backlinks: 1 · Outgoing: 1
+```
+
+**Notes**
+
+- Errors with `Note not found.` if the note does not exist.
 
 ---
 

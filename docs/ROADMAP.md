@@ -178,19 +178,21 @@ Core note management.
 
 ## v1.5 — Interactive Experience
 
-Focus: interactive terminal experience and better navigation.
+Focus: interactive terminal experience, relationship management, and better navigation.
 
+- **Relationship Management** — `obs relate`, `obs unrelate`, `obs relations`
+  - Reusable relationship module (`utils/relationship/`) as the foundation for graph, AI links, and knowledge exploration
 - **Interactive Mode** — launch a full terminal interface (`obs` with a menu)
 - **Better Navigation** — keyboard-driven browsing of notes and folders
 - **Colored Output** — color-coded terminal output
 - **Shell Autocomplete** — complete `obs` commands and note names
 - **Fuzzy Search** — typo-tolerant note search
 
-## v1.6 — Relationships & Intelligence
+## v1.6 — Intelligence
 
 Focus: deeper knowledge management.
 
-- **Relationship Commands** — discover related notes by shared links and tags
+- **Relationship Suggestions** — discover related notes by shared links and tags
 - **Graph Improvements** — richer relationship analysis and suggestions
 - **Watch Mode** — monitor vault changes automatically
 - **Search by Content** — search inside note contents, not just filenames
