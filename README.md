@@ -326,6 +326,8 @@ Thanks to the Obsidian community for inspiring an amazing knowledge management e
 
 Obsidian Helper is an independent community project.
 
-It is **not affiliated with, endorsed by, sponsored by, or officially associated with Obsidian or its developers.**
+It is **not affiliated with, endorsed by, sponsored by, or officially associated with Obsidian or Dynalist Inc.**
 
-Obsidian® is a trademark of its respective owners.
+Obsidian Helper works with user-owned Markdown files stored in an Obsidian vault. It does **not** include, modify, distribute, or use any proprietary Obsidian source code, assets, or internal APIs.
+
+**Obsidian®** is a registered trademark of **Dynalist Inc.** All trademarks, product names, and logos belong to their respective owners.
