@@ -5,7 +5,8 @@
   "main": "index.js",
   "bin": {
     "obsidian-helper": "bin/obs.js",
-    "obsh": "./bin/obs.js"
+    "obsh": "./bin/obs.js",
+    "obs": "./bin/obs.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
