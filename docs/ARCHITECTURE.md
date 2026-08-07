@@ -1,6 +1,6 @@
-# 🏗️ Architecture — Obsidian Helper
+# 🏗️ Architecture — ObsKit
 
-This document explains how Obsidian Helper works internally: the layered design, CLI flow, command handlers, utilities, checks, markdown processing, the AI pipeline, configuration loading, and design principles.
+This document explains how ObsKit (OBS = Organized Knowledge System) works internally: the layered design, CLI flow, command handlers, utilities, checks, markdown processing, the AI pipeline, configuration loading, and design principles.
 
 > **Related docs:** [COMMANDS.md](COMMANDS.md) · [CONFIGURATION.md](CONFIGURATION.md) · [AI.md](AI.md)
 
@@ -26,7 +26,7 @@ This document explains how Obsidian Helper works internally: the layered design,
 
 ## 🏛️ Overall architecture
 
-Obsidian Helper is a **layered CLI** built on plain Node.js (CommonJS) with [Commander](https://github.com/tj/commander.js) for argument parsing and `@inquirer/prompts` for interactive input.
+ObsKit is a **layered CLI** built on plain Node.js (CommonJS) with [Commander](https://github.com/tj/commander.js) for argument parsing and `@inquirer/prompts` for interactive input.
 
 ```
 ┌────────────────────┐
@@ -294,7 +294,7 @@ See [CONFIGURATION.md](CONFIGURATION.md) for details.
 ## 🌳 Folder structure
 
 ```text
-obsidian-helper/
+obskit/
 ├── bin/
 │   └── obs.js               # CLI entry point
 ├── commands/                # one module per command

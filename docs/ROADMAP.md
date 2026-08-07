@@ -1,6 +1,6 @@
-# 🛣️ Roadmap — Obsidian Helper
+# 🛣️ Roadmap — ObsKit
 
-The long-term plan for **Obsidian Helper**: completed versions, planned releases, guiding principles, and the vision for the future.
+The long-term plan for **ObsKit** (OBS = Organized Knowledge System): completed versions, planned releases, guiding principles, and the vision for the future.
 
 > **Related docs:** [ARCHITECTURE.md](ARCHITECTURE.md) · [CHANGELOG.md](../CHANGELOG.md) · [README.md](../README.md)
 
@@ -240,7 +240,7 @@ Focus: complete knowledge-management platform.
 
 # 🌌 Long-term Vision
 
-Obsidian Helper aims to become the **definitive command-line companion for Obsidian** — and eventually a full knowledge-management platform.
+ObsKit aims to become the **definitive command-line toolkit for Markdown knowledge management** — fully compatible with Obsidian vaults — and eventually a full knowledge-management platform.
 
 The journey:
 

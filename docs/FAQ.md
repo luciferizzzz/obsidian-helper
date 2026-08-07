@@ -1,6 +1,6 @@
-# ❓ FAQ — Obsidian Helper
+# ❓ FAQ — ObsKit
 
-Frequently asked questions about installing, configuring, and using **Obsidian Helper**.
+Frequently asked questions about installing, configuring, and using **ObsKit** (OBS = Organized Knowledge System).
 
 > **Related docs:** [COMMANDS.md](COMMANDS.md) · [CONFIGURATION.md](CONFIGURATION.md) · [AI.md](AI.md) · [TEMPLATE_GUIDE.md](TEMPLATE_GUIDE.md)
 
@@ -54,7 +54,7 @@ Same as "`obs` command not found" — re-run `npm link` and verify your `PATH`. 
 | `npm install` fails | Check Node/npm version, delete `node_modules` + `package-lock.json`, retry |
 | `obs` not found | `npm link`, or fix `PATH` |
 | Permission errors | Use `npm link` without `sudo` (or fix npm global permissions) |
-| Clone fails | Check the URL: `https://github.com/luciferizzzz/obsidian-helper.git` |
+| Clone fails | Check the URL: `https://github.com/luciferizzzz/obskit.git` |
 
 ---
 

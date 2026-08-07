@@ -1,6 +1,6 @@
-# 🤖 AI — Obsidian Helper
+# 🤖 AI — ObsKit
 
-This document explains the AI system of **Obsidian Helper**: providers, configuration, workflows, commands, environment variables, troubleshooting, and best practices.
+This document explains the AI system of **ObsKit** (OBS = Organized Knowledge System): providers, configuration, workflows, commands, environment variables, troubleshooting, and best practices.
 
 > **Related docs:** [CONFIGURATION.md](CONFIGURATION.md) · [COMMANDS.md](COMMANDS.md) · [README.md](../README.md)
 

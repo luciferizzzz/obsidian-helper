@@ -1,10 +1,12 @@
-# 📚 Obsidian Helper
+# 📚 ObsKit
 
 <p align="center">
 
-**A fast, lightweight, open-source CLI for managing your Obsidian Vault directly from the terminal.**
+**OBS = Organized Knowledge System**
 
-No more opening Obsidian just to create, rename, move, search, or organize notes.
+A fast, lightweight, open-source CLI toolkit for managing Markdown knowledge bases directly from the terminal.
+
+No more opening a GUI just to create, rename, move, search, or organize notes.
 
 Built for developers, students, writers, researchers, and terminal enthusiasts.
 
@@ -24,20 +26,22 @@ Built for developers, students, writers, researchers, and terminal enthusiasts.
 
 > **Independent Community Project**
 >
-> Obsidian Helper is an independent open-source project.
+> ObsKit is an independent open-source project.
 >
-> It is **not affiliated with, endorsed by, or sponsored by Obsidian** or its developers.
+> **OBS** stands for **Organized Knowledge System** — it does **not** stand for Obsidian.
+>
+> ObsKit is **not affiliated with, endorsed by, or sponsored by Obsidian** or its developers.
 
 ---
 
-# ✨ Why Obsidian Helper?
+# ✨ Why ObsKit?
 
 Managing notes shouldn't require opening a GUI every few minutes.
 
 Instead of:
 
 ```
-Open Obsidian
+Open App
 ↓
 Find Folder
 ↓
@@ -47,7 +51,7 @@ Rename
 ↓
 Move
 ↓
-Close Obsidian
+Close App
 ```
 
 Just type:
@@ -58,7 +62,34 @@ obs new Notes "Learning Rust"
 
 Done.
 
-Obsidian Helper lets you manage your entire vault directly from your terminal.
+ObsKit lets you manage your entire Markdown knowledge base directly from your terminal.
+
+---
+
+# 📖 Introduction
+
+ObsKit is an **independent Markdown knowledge management toolkit**.
+
+It manages Markdown files **directly through the filesystem**.
+
+- ✅ Fully compatible with Obsidian vaults.
+- ✅ Does **not** communicate with the Obsidian application.
+- ✅ Does **not** rely on proprietary Obsidian APIs.
+- ✅ Multiple applications can safely work with the same Markdown vault.
+
+**Conceptually**
+
+```text
+Markdown Files
+        ▲
+        │
+ ┌──────┼─────────┐
+ │      │         │
+ ▼      ▼         ▼
+Obsidian  ObsKit  VS Code
+```
+
+Obsidian stores notes as standard Markdown files — that is why ObsKit works with Obsidian vaults. No proprietary integration is involved.
 
 ---
 
@@ -77,17 +108,19 @@ Vault/
 
 ---
 
-# 🚀 Highlights
+# 🚀 Features
+
+ObsKit is a **modular toolkit** — small commands backed by reusable utilities.
 
 ## 📝 Note Management
 
-- Create notes
+- Create Notes
 - Daily Notes
-- Rename notes
-- Move notes
-- Open notes
-- Recent notes
-- Random notes
+- Rename Notes
+- Move Notes
+- Open Notes
+- Recent Notes
+- Random Notes
 
 ---
 
@@ -96,10 +129,9 @@ Vault/
 - Dashboard
 - Statistics
 - Tree View
-- List Notes
 - Backup
-- Archive
 - Cleanup
+- Archive
 - Export Reports
 
 ---
@@ -108,15 +140,15 @@ Vault/
 
 - Find Notes
 - Backlinks
-- Orphan Notes
+- Wiki Links
+- Dead Links
+- Vault Doctor
 - Graph Analysis
 - Tags
-- Dead Wiki Links
-- Vault Doctor
 
 ---
 
-## 🤖 AI Assistant
+## 🤖 AI
 
 Supports **local** and **cloud** AI.
 
@@ -132,41 +164,76 @@ Supports **local** and **cloud** AI.
 
 ✅ Any OpenAI-compatible API
 
-AI can:
+### Capabilities
 
 - Generate Notes
-- Update Daily Notes
+- Update Notes
 - Fill Templates
+- Daily Journal
 - Tomorrow Planning
 - Weekly Planning
-- Interactive Journaling
 - Direct File Writing
 
 ---
 
-# ⚡ Quick Start
-
-Install
+# 📦 Installation
 
 ```bash
-git clone https://github.com/luciferizzzz/obsidian-helper.git
+git clone https://github.com/luciferizzzz/obskit.git
 
-cd obsidian-helper
+cd obskit
 
 npm install
 
 npm link
 ```
 
-Initialize
+The CLI executable is `obs`.
+
+---
+
+# ⚙️ Requirements
+
+- **Node.js 18+** (uses modern features like `fetch` and `AbortController`).
+- **npm** for installation.
+- A Markdown knowledge vault (for example, an Obsidian vault) on your filesystem.
+
+---
+
+# 🛠️ Configuration
+
+ObsKit reads a single **`config.json`** in the project root.
+
+| Setting | Purpose |
+|---------|---------|
+| `vault` | Absolute path to your Markdown vault |
+| `ai` | AI provider settings (Ollama / OpenAI) |
+
+Initialize the vault path:
 
 ```bash
 obs init
 ```
 
-> **Required.** Obsidian Helper must know your vault before any vault command can run.
+> **Required.** ObsKit must know your vault before any vault command can run.
 > `obs init` saves the path to `config.json`. Without it, commands fail with a clear
 > `Vault is not configured` error (run `obs init` to fix).
+
+Manage configuration:
+
+```bash
+obs config
+obs config show
+obs config set
+obs config ai
+obs config reset
+```
+
+See [docs/CONFIGURATION.md](docs/CONFIGURATION.md) for the full reference.
+
+---
+
+# ⚡ Quick Start
 
 Create your first note
 
@@ -190,7 +257,7 @@ obs ai "Explain Rust ownership"
 
 # 📖 Documentation
 
-Documentation has been split into dedicated files.
+Documentation is split into dedicated files.
 
 | Document | Description |
 |----------|-------------|
@@ -235,7 +302,7 @@ Easy to extend.
 # 📁 Project Structure
 
 ```
-obsidian-helper/
+obskit/
 
 bin/
 commands/
@@ -274,7 +341,7 @@ LICENSE
 
 ## 🌌 v3
 
-Transform Obsidian Helper into a complete knowledge management platform.
+Transform ObsKit into a complete knowledge management platform.
 
 - Terminal UI
 - REST API
@@ -302,7 +369,7 @@ See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for the full contribution guide
 
 # ⭐ Support
 
-If Obsidian Helper improves your workflow, consider giving the project a ⭐.
+If ObsKit improves your workflow, consider giving the project a ⭐.
 
 Every star helps the project reach more users and motivates future development.
 
@@ -316,18 +383,20 @@ See the **LICENSE** file for details.
 
 ---
 
-## ❤️ Acknowledgements
+## Disclaimer
 
-Thanks to the Obsidian community for inspiring an amazing knowledge management ecosystem.
+ObsKit is an independent community project.
 
----
+OBS stands for **Organized Knowledge System**.
 
-### Disclaimer
+ObsKit is **not affiliated with, endorsed by, sponsored by, or officially associated with Obsidian or Dynalist Inc.**
 
-Obsidian Helper is an independent community project.
+ObsKit works directly with user-owned Markdown files stored in Markdown knowledge vaults, including Obsidian vaults.
 
-It is **not affiliated with, endorsed by, sponsored by, or officially associated with Obsidian or Dynalist Inc.**
+It does **not** include, modify, distribute, reverse engineer, or rely on proprietary Obsidian source code, assets, internal APIs, or proprietary components.
 
-Obsidian Helper works with user-owned Markdown files stored in an Obsidian vault. It does **not** include, modify, distribute, or use any proprietary Obsidian source code, assets, or internal APIs.
+Compatibility with Obsidian exists because Obsidian stores notes as standard Markdown files.
 
-**Obsidian®** is a registered trademark of **Dynalist Inc.** All trademarks, product names, and logos belong to their respective owners.
+Obsidian® is a registered trademark of Dynalist Inc.
+
+All trademarks, product names, and logos are the property of their respective owners.

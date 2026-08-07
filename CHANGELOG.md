@@ -1,12 +1,23 @@
 # Changelog
 
-All notable changes to **Obsidian Helper** are documented in this file.
+All notable changes to **ObsKit** (OBS = Organized Knowledge System) are documented in this file.
 
 The format is inspired by **Keep a Changelog** and follows **Semantic Versioning (SemVer)**.
 
 ---
 
 ## [Unreleased]
+
+### Changed
+
+- Rebranded project from Obsidian Helper to ObsKit.
+- Introduced the new brand identity:
+  OBS = Organized Knowledge System.
+- Updated repository branding.
+- Updated documentation.
+- Updated repository URLs.
+- Clarified project independence.
+- Clarified compatibility with Obsidian.
 
 ### Planned
 

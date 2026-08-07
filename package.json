@@ -1,7 +1,7 @@
 {
-  "name": "obsidian-helper",
+  "name": "obskit",
   "version": "1.4.6",
-  "description": "",
+  "description": "ObsKit (OBS = Organized Knowledge System) is a fast, lightweight, open-source CLI toolkit for managing Markdown knowledge bases directly from the terminal.",
   "main": "index.js",
   "bin": {
     "obsidian-helper": "bin/obs.js",
@@ -12,10 +12,29 @@
     "lint": "echo \"No linting configured\"",
     "typecheck": "echo \"No type checking configured\""
   },
-  "keywords": [],
+  "keywords": [
+    "obskit",
+    "obs",
+    "obsidian",
+    "obsidian-vault",
+    "markdown",
+    "knowledge-management",
+    "notes",
+    "cli",
+    "terminal",
+    "productivity"
+  ],
   "author": "LevTikvah",
   "license": "MIT",
   "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luciferizzzz/obskit.git"
+  },
+  "homepage": "https://github.com/luciferizzzz/obskit#readme",
+  "bugs": {
+    "url": "https://github.com/luciferizzzz/obskit/issues"
+  },
   "dependencies": {
     "@inquirer/prompts": "^8.5.2",
     "chalk": "^5.6.2",

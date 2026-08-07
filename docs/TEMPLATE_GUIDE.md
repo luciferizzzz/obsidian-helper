@@ -1,4 +1,4 @@
-# 🧩 Template Guide — Obsidian Helper
+# 🧩 Template Guide — ObsKit
 
 This document explains the template system: built-in templates, the placeholder system, template variables, AI-aware placeholders, custom templates, best practices, and examples.
 

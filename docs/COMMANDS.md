@@ -1,6 +1,6 @@
-# 📖 Command Reference — Obsidian Helper
+# 📖 Command Reference — ObsKit
 
-The complete CLI reference for **Obsidian Helper** (`obs`). Every command includes its description, syntax, arguments, options, examples, and notes.
+The complete CLI reference for **ObsKit** (`obs`, OBS = Organized Knowledge System). Every command includes its description, syntax, arguments, options, examples, and notes.
 
 > **Related docs:** [AI.md](AI.md) · [CONFIGURATION.md](CONFIGURATION.md) · [README.md](../README.md)
 

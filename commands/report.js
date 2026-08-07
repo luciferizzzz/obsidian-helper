@@ -127,7 +127,7 @@ function toHTML(data) {
         "<head>",
         "<meta charset=\"UTF-8\">",
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
-        "<title>Vault Report - Obsidian Helper</title>",
+        "<title>Vault Report - ObsKit</title>",
         "<style>",
         "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; background: #0d1117; color: #c9d1d9; line-height: 1.6; }",
         "h1 { color: #58a6ff; border-bottom: 2px solid #21262d; padding-bottom: 10px; }",

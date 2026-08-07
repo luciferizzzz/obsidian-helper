@@ -66,14 +66,14 @@ const cleanup = require("../commands/cleanup");
 
 program
   .name("obs")
-  .description("Obsidian Helper CLI")
+  .description("ObsKit CLI — Organized Knowledge System")
   .version("1.4.6");
 
 program
   .command("hello")
   .description("Test command")
   .action(() => {
-    console.log("Hello from Obsidian Helper 🚀");
+    console.log("Hello from ObsKit 🚀");
   });
 
 program

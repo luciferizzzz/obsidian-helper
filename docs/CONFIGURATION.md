@@ -1,6 +1,6 @@
-# ⚙️ Configuration — Obsidian Helper
+# ⚙️ Configuration — ObsKit
 
-This document explains all configuration options: `config.json`, the `vault` field, AI settings, config commands, environment variables, examples, common mistakes, and troubleshooting.
+This document explains all configuration options of **ObsKit**: `config.json`, the `vault` field, AI settings, config commands, environment variables, examples, common mistakes, and troubleshooting.
 
 > **Related docs:** [COMMANDS.md](COMMANDS.md) · [AI.md](AI.md) · [README.md](../README.md)
 
@@ -27,7 +27,7 @@ This document explains all configuration options: `config.json`, the `vault` fie
 All configuration lives in **`config.json`** in the **project root** (next to `package.json`).
 
 ```text
-obsidian-helper/
+obskit/
 ├── commands/
 ├── utils/
 ├── config.json          ← configuration file

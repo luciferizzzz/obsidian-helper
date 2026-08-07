@@ -1,8 +1,8 @@
-# 🤝 Contributing to Obsidian Helper
+# 🤝 Contributing to ObsKit
 
 Thank you for considering a contribution! 🎉
 
-Obsidian Helper is an independent open-source project, and contributions from people like you are what keep it alive. Whether you are fixing a typo, reporting a bug, requesting a feature, or writing code — every contribution matters.
+ObsKit is an independent open-source project, and contributions from people like you are what keep it alive. Whether you are fixing a typo, reporting a bug, requesting a feature, or writing code — every contribution matters.
 
 > **Related docs:** [ARCHITECTURE.md](ARCHITECTURE.md) · [ROADMAP.md](ROADMAP.md) · [README.md](../README.md)
 
@@ -40,8 +40,8 @@ If a change conflicts with these principles, it is worth a conversation first.
 2. **Clone** your fork:
 
 ```bash
-git clone https://github.com/<your-username>/obsidian-helper.git
-cd obsidian-helper
+git clone https://github.com/<your-username>/obskit.git
+cd obskit
 ```
 
 3. **Install dependencies:**
@@ -224,4 +224,4 @@ Documentation is part of the feature:
 
 ---
 
-Thank you for helping make Obsidian Helper better for everyone. If you have questions at any point, open an issue and ask — we are happy to help. 💙
+Thank you for helping make ObsKit better for everyone. If you have questions at any point, open an issue and ask — we are happy to help. 💙
