@@ -64,6 +64,12 @@ const templateCmd = require("../commands/template");
 
 const cleanup = require("../commands/cleanup");
 
+const relate = require("../commands/relate");
+
+const unrelate = require("../commands/unrelate");
+
+const relations = require("../commands/relations");
+
 program
   .name("obs")
   .description("ObsKit CLI — Organized Knowledge System")
@@ -244,6 +250,21 @@ program
   .option("--list", "Daftar semua template yang tersedia")
   .option("--preview <name>", "Preview isi template")
   .action(templateCmd);
+
+program
+  .command("relate <note> <related>")
+  .description("Add a related note to the Related section")
+  .action(relate);
+
+program
+  .command("unrelate <note> <related>")
+  .description("Remove a related note from the Related section")
+  .action(unrelate);
+
+program
+  .command("relations <note>")
+  .description("Show relationships for a note (related, backlinks, outgoing)")
+  .action(relations);
 
 program.parseAsync(process.argv).catch((err) => {
     console.error(chalk.red(`\n❌ ${err.message}`));
