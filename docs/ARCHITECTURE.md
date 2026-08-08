@@ -142,6 +142,7 @@ createFile(<vault path>\Notes\Learning Rust.md, content)   // mkdir -p + write
 | `utils/noteIndex.js` | `buildNoteIndex()` — `Set` of note names for link analysis |
 | `utils/wikilinks.js` | `extractWikiLinks()` — wiki-link parser |
 | `utils/markdown.js` | Template parser, AI blocks, template data |
+| `utils/dailyWorkflow.js` | Daily-note date/path helpers, `## Tomorrow` extraction, checklist parsing/dedup, `## Update` upsert |
 | `utils/sanitizeFilename.js` | `sanitizeFilename()` / `mdFileName()` — safe filenames |
 | `utils/ai.js` | Unified AI client (Ollama + OpenAI-compatible) |
 | `utils/relationship/` | Relationship module — parser, validator, scanner, editor, formatter (see [RELATIONSHIPS.md](RELATIONSHIPS.md)) |
@@ -240,6 +241,10 @@ See [RELATIONSHIPS.md](RELATIONSHIPS.md) for the full relationship module refere
 ### Daily-note sections (`commands/ai.js`)
 
 `parseSections()` splits AI output into the six daily sections (`Target Hari Ini`, `Catatan`, `Selesai`, `Mood`, `Syukur`, `Refleksi`) using tolerant heading matching. `fillDailyTemplate()` and `insertUnderCatatan()` merge content into existing notes.
+
+### Daily workflow (`utils/dailyWorkflow.js`)
+
+`obs ai update` reuses this module to import the previous daily note's `## Tomorrow` checklist items into today's note under `## Update`. It owns date resolution, daily-note path discovery, section extraction, checklist parsing, duplicate detection, and the `## Update` upsert. Section extraction reuses `getSectionContent()` from the relationship parser; newline handling reuses `detectNewline()` from the relationship editor.
 
 ---
 

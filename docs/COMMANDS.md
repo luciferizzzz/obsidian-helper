@@ -1088,9 +1088,42 @@ obs ai tomorrow
 
 Smart daily note update (section by section, preserves content).
 
+Automatically imports the previous daily note's `## Tomorrow` checklist items into today's daily note under `## Update`.
+
 ```bash
 obs ai update
 ```
+
+**Tomorrow import**
+
+Before updating, `obs ai update` looks for `Daily Notes/<previous-date>.md` and reads its `## Tomorrow` section:
+
+```markdown
+## Tomorrow
+
+- [ ] Finish relationship tests
+- [ ] Update documentation
+- [ ] Test Windows compatibility
+```
+
+The checklist items are carried over into today's daily note:
+
+```markdown
+## Update
+
+- [ ] Finish relationship tests
+- [ ] Update documentation
+- [ ] Test Windows compatibility
+```
+
+**Behavior**
+
+- Only `- [ ]` / `- [x]` checklist items are imported — paragraphs, other bullets, and sections after `## Tomorrow` are ignored.
+- Checklist state is preserved (`[ ]` stays open, `[x]` stays checked).
+- The import is idempotent — running `obs ai update` again never duplicates tasks.
+- The tasks are also passed to the AI as context for today's generated content.
+- If the previous note is missing, has no `## Tomorrow` section, or the section is empty, `obs ai update` behaves exactly as before (no `## Update` section is created).
+- CRLF line endings are preserved.
 
 ## `obs ai weekly`
 

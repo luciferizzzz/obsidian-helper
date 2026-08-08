@@ -160,6 +160,26 @@ obs ai weekly     →  Planning/Weekly/Week-32.md
 
 All commands work with every supported provider.
 
+### Tomorrow → Update flow
+
+`obs ai update` automatically reads the **previous daily note** (`Daily Notes/YYYY-MM-DD.md`) and imports its `## Tomorrow` checklist items into today's note under a dedicated `## Update` section:
+
+```markdown
+# Yesterday's note                                # Today's note (after obs ai update)
+
+## Tomorrow                                       ## Update
+- [ ] Finish relationship tests                    - [ ] Finish relationship tests
+- [ ] Update documentation                        - [ ] Update documentation
+- [ ] Test Windows compatibility                  - [ ] Test Windows compatibility
+```
+
+- Only `- [ ]` / `- [x]` checklist items are imported. Sections, paragraphs, or bullets after `## Tomorrow` are never copied.
+- Checklist state is preserved as written (`[ ]` / `[x]`).
+- The import is **idempotent** — rerunning `obs ai update` never duplicates a task.
+- The tasks are also sent to the AI as context when generating today's sections.
+- If the previous note is missing, has no `## Tomorrow`, or the section is empty, `obs ai update` works exactly as before.
+- CRLF line endings are preserved.
+
 ---
 
 ## 🛠️ AI commands
