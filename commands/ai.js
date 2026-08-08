@@ -6,6 +6,7 @@ const { createFile } = require("../utils/file");
 const { sanitizeFilename, mdFileName } = require("../utils/sanitizeFilename");
 const { getVaultPath } = require("../utils/vault");
 const { parseTemplate, extractAIBlocks, fillAIBlocks, getTemplateData } = require("../utils/markdown");
+const { loadTomorrowTasks, importTomorrowTasks } = require("../utils/dailyWorkflow");
 
 const SYSTEM_PROMPT = `Tulis catatan markdown buat Obsidian.
 
@@ -496,7 +497,12 @@ async function askUpdate() {
     return answers;
 }
 
-function buildUpdatePrompt(answers) {
+function buildUpdatePrompt(answers, tomorrowTasks = []) {
+    const tomorrowContext =
+        Array.isArray(tomorrowTasks) && tomorrowTasks.length > 0
+            ? `\nRencana dari note kemarin (bagian ## Tomorrow):\n${tomorrowTasks.join("\n")}`
+            : "";
+
     return `${SYSTEM_PROMPT}
 
 Update daily note hari ini. Isi 6 bagian dengan heading:
@@ -513,13 +519,13 @@ Hambatan: ${answers.blocker}
 Mood: ${answers.mood}
 Syukur: ${answers.syukur}
 Pelajaran hari ini: ${answers.pelajaran}
+${tomorrowContext}
 
 Tiap bagian langsung isinya aja, bahasa santai, 2-3 kalimat.`;
 }
 
 async function aiUpdate() {
     const answers = await askUpdate();
-    const prompt = buildUpdatePrompt(answers);
 
     console.log("\n🧠 Lagi diproses sama AI...\n");
 
@@ -529,7 +535,9 @@ async function aiUpdate() {
         const date = formatDate(now);
         const filePath = path.join(vault, "Daily Notes", `${date}.md`);
 
-        const content = await generate(prompt);
+        const tomorrowTasks = loadTomorrowTasks(vault, date);
+
+        const content = await generate(buildUpdatePrompt(answers, tomorrowTasks));
         const sections = parseSections(content);
 
         if (fs.existsSync(filePath)) {
@@ -538,6 +546,7 @@ async function aiUpdate() {
             if (updated === existing) {
                 updated = insertUnderCatatan(existing, content);
             }
+            updated = importTomorrowTasks(updated, tomorrowTasks);
             fs.writeFileSync(filePath, updated);
             console.log("✅ Daily note diupdate sama AI!");
         } else {
@@ -555,8 +564,13 @@ async function aiUpdate() {
             if (filled === template) {
                 filled = insertUnderCatatan(template, content);
             }
+            filled = importTomorrowTasks(filled, tomorrowTasks);
             createFile(filePath, filled);
             console.log("✅ Daily note baru dibuat dan diisi AI!");
+        }
+
+        if (tomorrowTasks.length > 0) {
+            console.log(`📥 ${tomorrowTasks.length} task dari ## Tomorrow (note kemarin) ditambahkan ke ## Update.`);
         }
 
         console.log("📁 " + filePath);
